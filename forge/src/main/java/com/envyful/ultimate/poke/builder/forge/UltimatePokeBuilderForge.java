@@ -1,12 +1,15 @@
 package com.envyful.ultimate.poke.builder.forge;
 
+import com.envyful.api.command.CommandFactory;
 import com.envyful.api.config.yaml.YamlConfigFactory;
+import com.envyful.api.forge.command.ForgeCommandFactory;
 import com.envyful.api.forge.gui.factory.ForgeGuiFactory;
 import com.envyful.api.forge.player.ForgeEnvyPlayer;
 import com.envyful.api.forge.player.ForgePlayerManager;
 import com.envyful.api.gui.factory.GuiFactory;
 import com.envyful.api.player.EnvyPlayer;
 import com.envyful.api.player.PlayerManager;
+import com.envyful.ultimate.poke.builder.forge.command.PokeBuilderCommand;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.client.GuiBackupFailed;
@@ -29,6 +32,7 @@ public class UltimatePokeBuilderForge {
     private static UltimatePokeBuilderForge instance;
 
     private PlayerManager<ForgeEnvyPlayer, EntityPlayerMP> playerManager = new ForgePlayerManager();
+    private ForgeCommandFactory commandFactory = new ForgeCommandFactory();
 
     private GuiConfig guiConfig;
 
@@ -50,7 +54,7 @@ public class UltimatePokeBuilderForge {
 
     @Mod.EventHandler
     public void onServerStarting(FMLServerStartingEvent event) {
-
+        this.commandFactory.registerCommand(event.getServer(), new PokeBuilderCommand());
     }
 
     public static UltimatePokeBuilderForge getInstance() {

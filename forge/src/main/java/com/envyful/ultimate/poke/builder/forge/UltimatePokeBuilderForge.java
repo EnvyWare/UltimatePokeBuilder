@@ -10,6 +10,7 @@ import com.envyful.api.player.PlayerManager;
 import com.envyful.ultimate.poke.builder.forge.command.PokeBuilderCommand;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderConfig;
+import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoFactory;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -41,6 +42,8 @@ public class UltimatePokeBuilderForge {
         instance = this;
 
         this.loadConfig();
+
+        EcoFactory.init(this.config);
     }
 
     public void loadConfig() {

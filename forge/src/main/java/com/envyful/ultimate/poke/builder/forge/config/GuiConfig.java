@@ -46,6 +46,10 @@ public class GuiConfig extends AbstractYamlConfig {
                 0, 4, Maps.newHashMap()
         );
 
+        private ConfigItem eggItem = new ConfigItem(
+                "minecraft:barrier", 1, (byte) 0, "&cCannot edit eggs", Lists.newArrayList(), Maps.newHashMap()
+        );
+
         private List<Integer> partyPositions = Lists.newArrayList(
                 10, 11, 12, 14, 15, 16
         );
@@ -66,6 +70,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
         public SpriteConfig getSpriteSettings() {
             return this.spriteSettings;
+        }
+
+        public ConfigItem getEggItem() {
+            return this.eggItem;
         }
     }
 

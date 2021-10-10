@@ -16,6 +16,11 @@ public class PixelmonEcoHandler implements EcoHandler {
     }
 
     @Override
+    public boolean hasBalance(EnvyPlayer<EntityPlayerMP> player, int balance) {
+        return getBalance(player) >= balance;
+    }
+
+    @Override
     public int getBalance(EnvyPlayer<EntityPlayerMP> player) {
         IPixelmonBankAccount bank = UtilPixelmonPlayer.getBank(player.getParent());
 

@@ -7,6 +7,8 @@ public interface EcoHandler {
 
     String getId();
 
+    boolean hasBalance(EnvyPlayer<EntityPlayerMP> player, int balance);
+
     int getBalance(EnvyPlayer<EntityPlayerMP> player);
 
     void setBalance(EnvyPlayer<EntityPlayerMP> player, int balance);

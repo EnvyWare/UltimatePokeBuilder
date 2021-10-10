@@ -18,6 +18,10 @@ public class EcoFactory {
         }
     }
 
+    public static boolean hasBalance(EnvyPlayer<EntityPlayerMP> player, int balance) {
+        return handler.hasBalance(player, balance);
+    }
+
     public static int getBalance(EnvyPlayer<EntityPlayerMP> player) {
         return handler.getBalance(player);
     }

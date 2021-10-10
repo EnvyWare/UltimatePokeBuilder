@@ -2,6 +2,7 @@ package com.envyful.ultimate.poke.builder.forge.command;
 
 import com.envyful.api.command.annotate.Command;
 import com.envyful.api.command.annotate.Permissible;
+import com.envyful.api.command.annotate.SubCommands;
 import com.envyful.api.command.annotate.executor.CommandProcessor;
 import com.envyful.api.command.annotate.executor.Sender;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
@@ -17,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
         }
 )
 @Permissible("ultimate.poke.builder.command")
+@SubCommands(ReloadCommand.class)
 public class PokeBuilderCommand {
 
     @CommandProcessor

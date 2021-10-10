@@ -46,8 +46,6 @@ dependencies {
     shadow group: 'com.github.Pixelmon-Development.API', name: 'commons', version: '0.8.7'
     shadow group: 'com.github.Pixelmon-Development.API', name: 'forge', version: '0.8.7'
     shadow group: 'com.github.Pixelmon-Development.API', name: 'reforged', version: '0.8.7'
-
-    shadow project(':api')
 }
 
 shadowJar {

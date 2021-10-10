@@ -11,6 +11,7 @@ import com.envyful.api.forge.player.ForgePlayerManager;
 import com.envyful.api.gui.factory.GuiFactory;
 import com.envyful.api.player.PlayerManager;
 import com.envyful.ultimate.poke.builder.forge.command.PokeBuilderCommand;
+import com.envyful.ultimate.poke.builder.forge.command.tokens.TokensCommand;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderConfig;
 import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoFactory;
@@ -74,6 +75,10 @@ public class UltimatePokeBuilderForge {
     public void onServerStarting(FMLServerStartingEvent event) {
         this.playerManager.registerAttribute(this, PokeBuilderAttribute.class);
         this.commandFactory.registerCommand(event.getServer(), new PokeBuilderCommand());
+
+        if (this.config.getEconomyHandler().equalsIgnoreCase("tokens")) {
+            this.commandFactory.registerCommand(event.getServer(), new TokensCommand());
+        }
     }
 
     public static UltimatePokeBuilderForge getInstance() {

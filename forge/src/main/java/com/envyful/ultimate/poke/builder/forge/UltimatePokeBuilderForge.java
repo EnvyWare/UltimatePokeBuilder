@@ -1,6 +1,9 @@
 package com.envyful.ultimate.poke.builder.forge;
 
+import com.envyful.api.concurrency.UtilConcurrency;
 import com.envyful.api.config.yaml.YamlConfigFactory;
+import com.envyful.api.database.Database;
+import com.envyful.api.database.impl.SimpleHikariDatabase;
 import com.envyful.api.forge.command.ForgeCommandFactory;
 import com.envyful.api.forge.gui.factory.ForgeGuiFactory;
 import com.envyful.api.forge.player.ForgeEnvyPlayer;
@@ -11,6 +14,7 @@ import com.envyful.ultimate.poke.builder.forge.command.PokeBuilderCommand;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderConfig;
 import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoFactory;
+import com.envyful.ultimate.poke.builder.forge.player.PokeBuilderAttribute;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -36,6 +40,8 @@ public class UltimatePokeBuilderForge {
     private PokeBuilderConfig config;
     private GuiConfig guiConfig;
 
+    private Database database;
+
     @Mod.EventHandler
     public void onServerStarting(FMLPreInitializationEvent event) {
         GuiFactory.setPlatformFactory(new ForgeGuiFactory());
@@ -44,6 +50,15 @@ public class UltimatePokeBuilderForge {
         this.loadConfig();
 
         EcoFactory.init(this.config);
+
+        if (this.config.getEconomyHandler().equalsIgnoreCase("tokens")) {
+            UtilConcurrency.runAsync(() -> {
+                this.database = new SimpleHikariDatabase(this.config.getSqlDatabaseDetails());
+
+            });
+        } else {
+            this.database = null;
+        }
     }
 
     public void loadConfig() {
@@ -57,6 +72,7 @@ public class UltimatePokeBuilderForge {
 
     @Mod.EventHandler
     public void onServerStarting(FMLServerStartingEvent event) {
+        this.playerManager.registerAttribute(this, PokeBuilderAttribute.class);
         this.commandFactory.registerCommand(event.getServer(), new PokeBuilderCommand());
     }
 
@@ -74,5 +90,9 @@ public class UltimatePokeBuilderForge {
 
     public GuiConfig getGuiConfig() {
         return this.guiConfig;
+    }
+
+    public Database getDatabase() {
+        return this.database;
     }
 }

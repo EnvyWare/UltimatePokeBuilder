@@ -1,18 +1,16 @@
 package com.envyful.ultimate.poke.builder.forge;
 
-import com.envyful.api.command.CommandFactory;
 import com.envyful.api.config.yaml.YamlConfigFactory;
 import com.envyful.api.forge.command.ForgeCommandFactory;
 import com.envyful.api.forge.gui.factory.ForgeGuiFactory;
 import com.envyful.api.forge.player.ForgeEnvyPlayer;
 import com.envyful.api.forge.player.ForgePlayerManager;
 import com.envyful.api.gui.factory.GuiFactory;
-import com.envyful.api.player.EnvyPlayer;
 import com.envyful.api.player.PlayerManager;
 import com.envyful.ultimate.poke.builder.forge.command.PokeBuilderCommand;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
+import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderConfig;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraftforge.fml.client.GuiBackupFailed;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
@@ -34,6 +32,7 @@ public class UltimatePokeBuilderForge {
     private PlayerManager<ForgeEnvyPlayer, EntityPlayerMP> playerManager = new ForgePlayerManager();
     private ForgeCommandFactory commandFactory = new ForgeCommandFactory();
 
+    private PokeBuilderConfig config;
     private GuiConfig guiConfig;
 
     @Mod.EventHandler
@@ -46,6 +45,7 @@ public class UltimatePokeBuilderForge {
 
     public void loadConfig() {
         try {
+            this.config = YamlConfigFactory.getInstance(PokeBuilderConfig.class);
             this.guiConfig = YamlConfigFactory.getInstance(GuiConfig.class);
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,6 +63,10 @@ public class UltimatePokeBuilderForge {
 
     public PlayerManager<ForgeEnvyPlayer, EntityPlayerMP> getPlayerManager() {
         return this.playerManager;
+    }
+
+    public PokeBuilderConfig getConfig() {
+        return this.config;
     }
 
     public GuiConfig getGuiConfig() {

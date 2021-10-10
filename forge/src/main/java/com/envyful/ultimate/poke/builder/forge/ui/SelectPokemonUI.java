@@ -30,11 +30,7 @@ public class SelectPokemonUI {
             pane.add(GuiFactory.displayable(UtilConfigItem.fromConfigItem(fillerItem)));
         }
 
-        ItemStack infoItem = UtilConfigItem.fromConfigItem(config.getInfoItem());
-
-        if (infoItem != null) {
-            pane.set(config.getInfoItem().getXPos(), config.getInfoItem().getYPos(), GuiFactory.displayable(infoItem));
-        }
+        UtilConfigItem.addConfigItem(pane, config.getInfoItem());
 
         Pokemon[] all = UtilPixelmonPlayer.getParty(player.getParent()).getAll();
 
@@ -61,7 +57,7 @@ public class SelectPokemonUI {
 
             pane.set(pos % 9, pos / 9, GuiFactory.displayableBuilder(
                     UtilSprite.getPokemonElement(pokemon, config.getSpriteSettings()))
-                    .clickHandler((envyPlayer, clickType) -> {}) //TODO: open next UI
+                    .clickHandler((envyPlayer, clickType) -> EditPokemonUI.open(player, pokemon))
                     .build());
         }
 

@@ -45,7 +45,7 @@ public class GuiConfig extends AbstractYamlConfig {
 
         private PositionableConfigItem infoItem = new PositionableConfigItem(
                 "minecraft:nether_star", 1, (byte) 0, "&bClick the pokemon to edit", Lists.newArrayList(),
-                0, 4, Maps.newHashMap()
+                4, 0, Maps.newHashMap()
         );
 
         private ConfigItem eggItem = new ConfigItem(

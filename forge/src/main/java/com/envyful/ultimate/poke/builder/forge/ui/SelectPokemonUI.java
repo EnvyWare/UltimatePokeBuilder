@@ -64,6 +64,7 @@ public class SelectPokemonUI {
         GuiFactory.guiBuilder()
                 .setPlayerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
                 .addPane(pane)
+                .setCloseConsumer(envyPlayer -> {})
                 .height(config.getGuiSettings().getHeight())
                 .title(UtilChatColour.translateColourCodes('&', config.getGuiSettings().getTitle()))
                 .build().open(player);

@@ -20,6 +20,15 @@ public class GuiConfig extends AbstractYamlConfig {
 
     private SelectUI selectPartyUI = new SelectUI();
     private EditPokemonUI editPokemonUI = new EditPokemonUI();
+    private SelectionUI editIVs = new SelectionUI(new ConfigInterface(
+            "UltimatePokeBuilder", 3, "BLOCK",
+            ImmutableMap.of("one", new ConfigItem(
+                    "minecraft:stained_glass_pane", 1, (byte) 15, " ", Lists.newArrayList(), Maps.newHashMap()
+            ))
+    ), new PositionableConfigItem(
+            "pixelmon:protein", 1, (byte) 0, "&eIVs",
+            Lists.newArrayList(), 0, 2, Maps.newHashMap()
+    ), ImmutableMap.of());
 
     public GuiConfig() {
         super();
@@ -111,7 +120,7 @@ public class GuiConfig extends AbstractYamlConfig {
         );
 
         private PermissibleConfigItem abilityButton = new PermissibleConfigItem(
-                "pixelmon:power_bank", 1, (byte) 0, "&eAbility",
+                "pixelmon:power_band", 1, (byte) 0, "&eAbility",
                 Lists.newArrayList(), 5, 2, "", Maps.newHashMap(), new ConfigItem(
                 "minecraft:barrier", 1, (byte) 0, "&cNo Permission", Lists.newArrayList(),
                 Maps.newHashMap())

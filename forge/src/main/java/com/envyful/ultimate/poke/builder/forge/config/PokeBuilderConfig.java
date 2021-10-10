@@ -14,6 +14,7 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
                                                                            "database");
 
     private String economyHandler = "Token";
+    private int defaultTokens = 500;
 
     public PokeBuilderConfig() {
         super();
@@ -25,5 +26,9 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     public String getEconomyHandler() {
         return this.economyHandler;
+    }
+
+    public int getDefaultTokens() {
+        return this.defaultTokens;
     }
 }

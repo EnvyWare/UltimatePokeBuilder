@@ -1,5 +1,6 @@
 package com.envyful.ultimate.poke.builder.forge.config;
 
+import com.envyful.api.config.data.ConfigPath;
 import com.envyful.api.config.type.ConfigInterface;
 import com.envyful.api.config.type.ConfigItem;
 import com.envyful.api.config.type.PermissibleConfigItem;
@@ -14,6 +15,7 @@ import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 import java.util.List;
 
 @ConfigSerializable
+@ConfigPath("config/UltimatePokeBuilder/guis.yml")
 public class GuiConfig extends AbstractYamlConfig {
 
     private SelectUI selectPartyUI = new SelectUI();

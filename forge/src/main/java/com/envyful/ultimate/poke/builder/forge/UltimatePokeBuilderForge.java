@@ -14,6 +14,7 @@ import com.envyful.ultimate.poke.builder.forge.command.PokeBuilderCommand;
 import com.envyful.ultimate.poke.builder.forge.command.tokens.TokensCommand;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderConfig;
+import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderLocale;
 import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoFactory;
 import com.envyful.ultimate.poke.builder.forge.player.PokeBuilderAttribute;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -39,6 +40,7 @@ public class UltimatePokeBuilderForge {
     private ForgeCommandFactory commandFactory = new ForgeCommandFactory();
 
     private PokeBuilderConfig config;
+    private PokeBuilderLocale locale;
     private GuiConfig guiConfig;
 
     private Database database;
@@ -65,6 +67,7 @@ public class UltimatePokeBuilderForge {
     public void loadConfig() {
         try {
             this.config = YamlConfigFactory.getInstance(PokeBuilderConfig.class);
+            this.locale = YamlConfigFactory.getInstance(PokeBuilderLocale.class);
             this.guiConfig = YamlConfigFactory.getInstance(GuiConfig.class);
         } catch (IOException e) {
             e.printStackTrace();
@@ -95,6 +98,10 @@ public class UltimatePokeBuilderForge {
 
     public GuiConfig getGuiConfig() {
         return this.guiConfig;
+    }
+
+    public PokeBuilderLocale getLocale() {
+        return this.locale;
     }
 
     public Database getDatabase() {

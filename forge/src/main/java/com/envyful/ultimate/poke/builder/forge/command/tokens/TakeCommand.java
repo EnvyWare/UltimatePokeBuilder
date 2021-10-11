@@ -58,7 +58,7 @@ public class TakeCommand {
                         .getLocale().getMessages().getTakenTokens()
                         .replace("%sender%", player.getName())
                         .replace("%player%", target.getName())
-                        .replace("%tokens%", attribute.getTokens() + "")
+                        .replace("%tokens%", amount + "")
         )
         ));
 
@@ -68,7 +68,7 @@ public class TakeCommand {
                         .getLocale().getMessages().getTokensTaken()
                         .replace("%sender%", player.getName())
                         .replace("%player%", target.getName())
-                        .replace("%tokens%", attribute.getTokens() + "")
+                        .replace("%tokens%", amount + "")
         )
         ));
     }

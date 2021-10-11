@@ -5,6 +5,7 @@ import com.envyful.api.command.annotate.Permissible;
 import com.envyful.api.command.annotate.SubCommands;
 import com.envyful.api.command.annotate.executor.CommandProcessor;
 import com.envyful.api.command.annotate.executor.Sender;
+import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.player.EnvyPlayer;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.player.PokeBuilderAttribute;
@@ -25,6 +26,14 @@ public class TokensCommand {
     public void onCommand(@Sender EntityPlayerMP player, String[] args) {
         EnvyPlayer<?> sender = UltimatePokeBuilderForge.getInstance().getPlayerManager().getPlayer(player);
         PokeBuilderAttribute attribute = sender.getAttribute(UltimatePokeBuilderForge.class);
-        //TODO: send message
+
+        sender.message(UtilChatColour.translateColourCodes(
+                '&',
+                UltimatePokeBuilderForge.getInstance()
+                        .getLocale().getMessages().getBalance()
+                        .replace("%player%", player.getName())
+                        .replace("%tokens%", attribute.getTokens() + "")
+                       )
+        );
     }
 }

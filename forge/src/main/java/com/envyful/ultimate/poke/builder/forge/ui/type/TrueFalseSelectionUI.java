@@ -15,7 +15,9 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
+import scala.actors.threadpool.Arrays;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 
 public class TrueFalseSelectionUI {
@@ -57,7 +59,12 @@ public class TrueFalseSelectionUI {
                 config.confirm.open();
             }
         });
+
         UtilConfigItem.addConfigItem(pane, config.config.backButton, config.returnHandler);
+
+        for (PositionableConfigItem displayItem : config.displayItems) {
+            UtilConfigItem.addConfigItem(pane, displayItem);
+        }
 
         GuiFactory.guiBuilder()
                 .setPlayerManager(config.playerManager)
@@ -78,6 +85,7 @@ public class TrueFalseSelectionUI {
         private BiConsumer<EnvyPlayer<?>, Displayable.ClickType> falseAcceptHandler = null;
         private ConfirmationUI.Builder confirm = null;
         private boolean startsTrue = true;
+        private List<PositionableConfigItem> displayItems = Lists.newArrayList();
 
         protected Builder() {}
 
@@ -118,6 +126,21 @@ public class TrueFalseSelectionUI {
 
         public Builder confirm(ConfirmationUI.Builder confirm) {
             this.confirm = confirm;
+            return this;
+        }
+
+        public Builder displayItems(List<PositionableConfigItem> displayItems) {
+            this.displayItems.addAll(displayItems);
+            return this;
+        }
+
+        public Builder displayItem(PositionableConfigItem displayItem) {
+            this.displayItems.add(displayItem);
+            return this;
+        }
+
+        public Builder displayItems(PositionableConfigItem... displayItems) {
+            this.displayItems.addAll(Arrays.asList(displayItems));
             return this;
         }
 

@@ -5,6 +5,7 @@ import com.envyful.api.config.type.ConfigItem;
 import com.envyful.api.config.type.PositionableConfigItem;
 import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.forge.config.UtilConfigItem;
+import com.envyful.api.forge.gui.type.ConfirmationUI;
 import com.envyful.api.gui.factory.GuiFactory;
 import com.envyful.api.gui.item.Displayable;
 import com.envyful.api.gui.pane.Pane;
@@ -43,7 +44,19 @@ public class TrueFalseSelectionUI {
             });
         }
 
-        UtilConfigItem.addConfigItem(pane, config.config.acceptItem, (envyPlayer, clickType) -> {});
+        UtilConfigItem.addConfigItem(pane, config.config.acceptItem, (envyPlayer, clickType) -> {
+            if (config.startsTrue) {
+                config.confirm.playerManager(config.playerManager);
+                config.confirm.descriptionItem(UtilConfigItem.fromConfigItem(config.config.trueItem));
+                config.confirm.returnHandler((envyPlayer1, clickType1) -> open(config));
+                config.confirm.open();
+            } else {
+                config.confirm.playerManager(config.playerManager);
+                config.confirm.descriptionItem(UtilConfigItem.fromConfigItem(config.config.falseItem));
+                config.confirm.returnHandler((envyPlayer1, clickType1) -> open(config));
+                config.confirm.open();
+            }
+        });
         UtilConfigItem.addConfigItem(pane, config.config.backButton, config.returnHandler);
 
         GuiFactory.guiBuilder()
@@ -63,6 +76,7 @@ public class TrueFalseSelectionUI {
         private BiConsumer<EnvyPlayer<?>, Displayable.ClickType> returnHandler = null;
         private BiConsumer<EnvyPlayer<?>, Displayable.ClickType> trueAcceptHandler = null;
         private BiConsumer<EnvyPlayer<?>, Displayable.ClickType> falseAcceptHandler = null;
+        private ConfirmationUI.Builder confirm = null;
         private boolean startsTrue = true;
 
         protected Builder() {}
@@ -102,9 +116,15 @@ public class TrueFalseSelectionUI {
             return this;
         }
 
+        public Builder confirm(ConfirmationUI.Builder confirm) {
+            this.confirm = confirm;
+            return this;
+        }
+
         public void open() {
             if (this.player == null || this.playerManager == null || this.config == null ||
-                    this.returnHandler == null || this.trueAcceptHandler == null || this.falseAcceptHandler == null) {
+                    this.returnHandler == null || this.trueAcceptHandler == null || this.falseAcceptHandler == null ||
+                    this.confirm == null) {
                 return;
             }
 

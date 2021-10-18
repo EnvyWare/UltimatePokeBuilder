@@ -10,6 +10,7 @@ import com.envyful.api.player.EnvyPlayer;
 import com.envyful.api.reforged.pixelmon.sprite.UtilSprite;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
+import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoFactory;
 import com.envyful.ultimate.poke.builder.forge.ui.type.TrueFalseSelectionUI;
 import com.envyful.ultimate.poke.builder.forge.ui.type.data.PositionableItem;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
@@ -39,7 +40,6 @@ public class EditPokemonUI {
 
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getShinyButton(),
                                                 (envyPlayer, clickType) -> {
-
                                                     GuiConfig.ShinyUI shinyUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getShinyUI();
 
                                                     TrueFalseSelectionUI.builder()
@@ -49,14 +49,15 @@ public class EditPokemonUI {
                                                             .confirm(ConfirmationUI.builder())
                                                             .startsTrue(!pokemon.isShiny())
                                                             .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
-                                                            .trueAcceptHandler((envyPlayer1, clickType1) -> {})
-                                                            .falseAcceptHandler((envyPlayer1, clickType1) -> {})
+                                                            .trueAcceptHandler((envyPlayer1, clickType1) -> handleShinyConfirmation(player, pokemon, true))
+                                                            .falseAcceptHandler((envyPlayer1, clickType1) -> handleShinyConfirmation(player, pokemon, false))
                                                             .displayItem(new PositionableItem(
                                                                     UtilSprite.getPokemonElement(pokemon, shinyUI.getSpriteConfig()),
                                                                     shinyUI.getPokemonPos()
                                                             ))
                                                             .open();
                                                 });
+
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getAbilityButton(),
                                                 (envyPlayer, clickType) -> {}); //TODO:
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getEvButton(),
@@ -79,6 +80,25 @@ public class EditPokemonUI {
                 .height(config.getGuiSettings().getHeight())
                 .title(UtilChatColour.translateColourCodes('&', config.getGuiSettings().getTitle()))
                 .build().open(player);
+    }
+
+    private static void handleShinyConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, boolean shiny) {
+        if (pokemon.isShiny() == shiny) {
+            open(player, pokemon);
+            return;
+        }
+
+        int shinyCost = UltimatePokeBuilderForge.getInstance().getConfig().getShinyCost();
+
+        if (!EcoFactory.hasBalance(player, shinyCost)) {
+            open(player, pokemon); //TODO: send message
+            return;
+        }
+
+        EcoFactory.takeBalance(player, shinyCost);
+        pokemon.setShiny(shiny);
+        //TODO: send message
+        open(player, pokemon);
     }
 
 }

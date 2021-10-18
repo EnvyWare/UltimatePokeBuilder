@@ -32,4 +32,8 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
     public int getDefaultTokens() {
         return this.defaultTokens;
     }
+
+    public int getShinyCost() {
+        return this.shinyCost;
+    }
 }

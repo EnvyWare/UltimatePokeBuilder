@@ -15,6 +15,7 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     private String economyHandler = "Token";
     private int defaultTokens = 500;
+    private int shinyCost = 200;
 
     public PokeBuilderConfig() {
         super();

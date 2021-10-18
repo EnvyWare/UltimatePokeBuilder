@@ -7,6 +7,7 @@ import com.envyful.api.config.type.PermissibleConfigItem;
 import com.envyful.api.config.type.PositionableConfigItem;
 import com.envyful.api.config.yaml.AbstractYamlConfig;
 import com.envyful.api.reforged.pixelmon.config.SpriteConfig;
+import com.envyful.ultimate.poke.builder.forge.ui.type.TrueFalseSelectionUI;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -20,15 +21,7 @@ public class GuiConfig extends AbstractYamlConfig {
 
     private SelectUI selectPartyUI = new SelectUI();
     private EditPokemonUI editPokemonUI = new EditPokemonUI();
-    private SelectionUI editIVs = new SelectionUI(new ConfigInterface(
-            "UltimatePokeBuilder", 3, "BLOCK",
-            ImmutableMap.of("one", new ConfigItem(
-                    "minecraft:stained_glass_pane", 1, (byte) 15, " ", Lists.newArrayList(), Maps.newHashMap()
-            ))
-    ), new PositionableConfigItem(
-            "pixelmon:protein", 1, (byte) 0, "&eIVs",
-            Lists.newArrayList(), 0, 2, Maps.newHashMap()
-    ), ImmutableMap.of());
+    private ShinyUI shinyUI = new ShinyUI();
 
     public GuiConfig() {
         super();
@@ -40,6 +33,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
     public EditPokemonUI getEditPokemonUI() {
         return this.editPokemonUI;
+    }
+
+    public ShinyUI getShinyUI() {
+        return this.shinyUI;
     }
 
     @ConfigSerializable
@@ -209,6 +206,37 @@ public class GuiConfig extends AbstractYamlConfig {
 
         public PermissibleConfigItem getShinyButton() {
             return this.shinyButton;
+        }
+    }
+
+    @ConfigSerializable
+    public static class ShinyUI {
+
+        private TrueFalseSelectionUI.TrueFalseConfig trueFalseSettings = new TrueFalseSelectionUI.TrueFalseConfig(
+                new PositionableConfigItem("pixelmon:shiny_stone", 1, (byte) 0 , "&6&lSHINY",
+                                           Lists.newArrayList(),
+                                           2, 1, Maps.newHashMap()),
+                new PositionableConfigItem("pixelmon:dusk_stone", 1, (byte) 0 , "&f&lNON-SHINY",
+                                           Lists.newArrayList(),
+                                           2, 1, Maps.newHashMap())
+        );
+
+        private int pokemonPos = 9;
+
+        private SpriteConfig spriteConfig = new SpriteConfig();
+
+        public ShinyUI() {}
+
+        public int getPokemonPos() {
+            return this.pokemonPos;
+        }
+
+        public TrueFalseSelectionUI.TrueFalseConfig getTrueFalseSettings() {
+            return this.trueFalseSettings;
+        }
+
+        public SpriteConfig getSpriteConfig() {
+            return this.spriteConfig;
         }
     }
 }

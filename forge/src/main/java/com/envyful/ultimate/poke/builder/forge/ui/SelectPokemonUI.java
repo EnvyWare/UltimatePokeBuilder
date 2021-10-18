@@ -12,7 +12,6 @@ import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
 
 public class SelectPokemonUI {
 
@@ -40,12 +39,16 @@ public class SelectPokemonUI {
             }
 
             if (all.length <= i) {
-
                 continue;
             }
 
             int pos = config.getPartyPositions().get(i);
             Pokemon pokemon = all[i];
+
+            if (pokemon == null) {
+                continue;
+            }
+
             int posX = pos % 9;
             int posY = pos / 9;
 
@@ -53,7 +56,6 @@ public class SelectPokemonUI {
                 pane.set(posX, posY, GuiFactory.displayable(UtilConfigItem.fromConfigItem(config.getEggItem())));
                 continue;
             }
-
 
             pane.set(pos % 9, pos / 9, GuiFactory.displayableBuilder(
                     UtilSprite.getPokemonElement(pokemon, config.getSpriteSettings()))

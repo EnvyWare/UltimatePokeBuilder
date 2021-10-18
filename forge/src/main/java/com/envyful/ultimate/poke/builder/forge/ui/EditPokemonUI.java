@@ -3,16 +3,17 @@ package com.envyful.ultimate.poke.builder.forge.ui;
 import com.envyful.api.config.type.ConfigItem;
 import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.forge.config.UtilConfigItem;
+import com.envyful.api.forge.gui.type.ConfirmationUI;
 import com.envyful.api.gui.factory.GuiFactory;
 import com.envyful.api.gui.pane.Pane;
 import com.envyful.api.player.EnvyPlayer;
 import com.envyful.api.reforged.pixelmon.sprite.UtilSprite;
-import com.envyful.api.reforged.pixelmon.storage.UtilPixelmonPlayer;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
+import com.envyful.ultimate.poke.builder.forge.ui.type.TrueFalseSelectionUI;
+import com.envyful.ultimate.poke.builder.forge.ui.type.data.PositionableItem;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
 
 public class EditPokemonUI {
 
@@ -37,7 +38,25 @@ public class EditPokemonUI {
                  GuiFactory.displayable(UtilSprite.getPokemonElement(pokemon, config.getSpriteSettings())));
 
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getShinyButton(),
-                                                (envyPlayer, clickType) -> {}); //TODO:
+                                                (envyPlayer, clickType) -> {
+
+                                                    GuiConfig.ShinyUI shinyUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getShinyUI();
+
+                                                    TrueFalseSelectionUI.builder()
+                                                            .player(envyPlayer)
+                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                                                            .config(shinyUI.getTrueFalseSettings())
+                                                            .confirm(ConfirmationUI.builder())
+                                                            .startsTrue(!pokemon.isShiny())
+                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                                                            .trueAcceptHandler((envyPlayer1, clickType1) -> {})
+                                                            .falseAcceptHandler((envyPlayer1, clickType1) -> {})
+                                                            .displayItem(new PositionableItem(
+                                                                    UtilSprite.getPokemonElement(pokemon, shinyUI.getSpriteConfig()),
+                                                                    shinyUI.getPokemonPos()
+                                                            ))
+                                                            .open();
+                                                });
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getAbilityButton(),
                                                 (envyPlayer, clickType) -> {}); //TODO:
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getEvButton(),

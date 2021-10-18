@@ -6,6 +6,7 @@ import com.envyful.api.config.type.ConfigItem;
 import com.envyful.api.config.type.PermissibleConfigItem;
 import com.envyful.api.config.type.PositionableConfigItem;
 import com.envyful.api.config.yaml.AbstractYamlConfig;
+import com.envyful.api.forge.gui.type.ConfirmationUI;
 import com.envyful.api.reforged.pixelmon.config.SpriteConfig;
 import com.envyful.ultimate.poke.builder.forge.ui.type.TrueFalseSelectionUI;
 import com.google.common.collect.ImmutableMap;
@@ -212,6 +213,8 @@ public class GuiConfig extends AbstractYamlConfig {
     @ConfigSerializable
     public static class ShinyUI {
 
+        private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
+
         private TrueFalseSelectionUI.TrueFalseConfig trueFalseSettings = new TrueFalseSelectionUI.TrueFalseConfig(
                 new PositionableConfigItem("pixelmon:shiny_stone", 1, (byte) 0 , "&6&lSHINY",
                                            Lists.newArrayList(),
@@ -237,6 +240,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
         public SpriteConfig getSpriteConfig() {
             return this.spriteConfig;
+        }
+
+        public ConfirmationUI.ConfirmConfig getConfirmConfig() {
+            return this.confirmConfig;
         }
     }
 }

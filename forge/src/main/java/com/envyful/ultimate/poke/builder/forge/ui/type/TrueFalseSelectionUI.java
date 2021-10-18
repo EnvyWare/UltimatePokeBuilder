@@ -48,17 +48,18 @@ public class TrueFalseSelectionUI {
         }
 
         UtilConfigItem.addConfigItem(pane, config.config.acceptItem, (envyPlayer, clickType) -> {
+            config.confirm.player(envyPlayer);
+            config.confirm.playerManager(config.playerManager);
+            config.confirm.returnHandler((envyPlayer1, clickType1) -> open(config));
+
             if (config.startsTrue) {
-                config.confirm.playerManager(config.playerManager);
-                config.confirm.descriptionItem(UtilConfigItem.fromConfigItem(config.config.trueItem));
-                config.confirm.returnHandler((envyPlayer1, clickType1) -> open(config));
                 config.confirm.confirmHandler(config.trueAcceptHandler);
+                config.confirm.descriptionItem(UtilConfigItem.fromConfigItem(config.config.trueItem));
+
                 config.confirm.open();
             } else {
-                config.confirm.playerManager(config.playerManager);
-                config.confirm.descriptionItem(UtilConfigItem.fromConfigItem(config.config.falseItem));
-                config.confirm.returnHandler((envyPlayer1, clickType1) -> open(config));
                 config.confirm.confirmHandler(config.falseAcceptHandler);
+                config.confirm.descriptionItem(UtilConfigItem.fromConfigItem(config.config.falseItem));
                 config.confirm.open();
             }
         });

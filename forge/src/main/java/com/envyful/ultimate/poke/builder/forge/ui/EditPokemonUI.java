@@ -46,7 +46,7 @@ public class EditPokemonUI {
                                                             .player(envyPlayer)
                                                             .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
                                                             .config(shinyUI.getTrueFalseSettings())
-                                                            .confirm(ConfirmationUI.builder())
+                                                            .confirm(ConfirmationUI.builder().config(shinyUI.getConfirmConfig()))
                                                             .startsTrue(!pokemon.isShiny())
                                                             .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
                                                             .trueAcceptHandler((envyPlayer1, clickType1) -> handleShinyConfirmation(player, pokemon, true))

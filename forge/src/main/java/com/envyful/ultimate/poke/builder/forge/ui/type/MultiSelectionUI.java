@@ -11,6 +11,7 @@ import com.envyful.api.gui.item.Displayable;
 import com.envyful.api.gui.pane.Pane;
 import com.envyful.api.player.EnvyPlayer;
 import com.envyful.api.player.PlayerManager;
+import com.envyful.ultimate.poke.builder.forge.ui.type.data.PositionableItem;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -83,8 +84,12 @@ public class MultiSelectionUI {
             open(config);
         });
 
-        for (PositionableConfigItem displayItem : config.displayItems) {
+        for (PositionableConfigItem displayItem : config.displayConfigItems) {
             UtilConfigItem.addConfigItem(pane, displayItem);
+        }
+
+        for (PositionableItem displayItem : config.displayItems) {
+            pane.set(displayItem.getPosX(), displayItem.getPosY(), GuiFactory.displayable(displayItem.getItemStack()));
         }
 
         GuiFactory.guiBuilder()
@@ -108,7 +113,8 @@ public class MultiSelectionUI {
         private BiConsumer<EnvyPlayer<?>, Displayable.ClickType> returnHandler = null;
         private TriConsumer<EnvyPlayer<?>, Displayable.ClickType, String> acceptHandler = null;
         private ConfirmationUI.Builder confirm = null;
-        private List<PositionableConfigItem> displayItems = Lists.newArrayList();
+        private List<PositionableConfigItem> displayConfigItems = Lists.newArrayList();
+        private List<PositionableItem> displayItems = Lists.newArrayList();
         private int page = 0;
 
         protected Builder() {}
@@ -138,17 +144,32 @@ public class MultiSelectionUI {
             return this;
         }
 
-        public Builder displayItems(List<PositionableConfigItem> displayItems) {
+        public Builder displayConfigItems(List<PositionableConfigItem> displayConfigItems) {
+            this.displayConfigItems.addAll(displayConfigItems);
+            return this;
+        }
+
+        public Builder displayConfigItem(PositionableConfigItem displayConfigItem) {
+            this.displayConfigItems.add(displayConfigItem);
+            return this;
+        }
+
+        public Builder displayConfigItems(PositionableConfigItem... displayConfigItems) {
+            this.displayConfigItems.addAll(Arrays.asList(displayConfigItems));
+            return this;
+        }
+
+        public Builder displayItems(List<PositionableItem> displayItems) {
             this.displayItems.addAll(displayItems);
             return this;
         }
 
-        public Builder displayItem(PositionableConfigItem displayItem) {
+        public Builder displayItem(PositionableItem displayItem) {
             this.displayItems.add(displayItem);
             return this;
         }
 
-        public Builder displayItems(PositionableConfigItem... displayItems) {
+        public Builder displayItems(PositionableItem... displayItems) {
             this.displayItems.addAll(Arrays.asList(displayItems));
             return this;
         }

@@ -51,11 +51,13 @@ public class TrueFalseSelectionUI {
                 config.confirm.playerManager(config.playerManager);
                 config.confirm.descriptionItem(UtilConfigItem.fromConfigItem(config.config.trueItem));
                 config.confirm.returnHandler((envyPlayer1, clickType1) -> open(config));
+                config.confirm.confirmHandler(config.trueAcceptHandler);
                 config.confirm.open();
             } else {
                 config.confirm.playerManager(config.playerManager);
                 config.confirm.descriptionItem(UtilConfigItem.fromConfigItem(config.config.falseItem));
                 config.confirm.returnHandler((envyPlayer1, clickType1) -> open(config));
+                config.confirm.confirmHandler(config.falseAcceptHandler);
                 config.confirm.open();
             }
         });
@@ -73,6 +75,10 @@ public class TrueFalseSelectionUI {
                 .height(config.config.guiSettings.getHeight())
                 .title(UtilChatColour.translateColourCodes('&', config.config.guiSettings.getTitle()))
                 .build().open(config.player);
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder {

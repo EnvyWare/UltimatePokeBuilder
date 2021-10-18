@@ -96,6 +96,10 @@ public class MultiSelectionUI {
                 .build().open(config.player);
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
 
         private EnvyPlayer<?> player = null;

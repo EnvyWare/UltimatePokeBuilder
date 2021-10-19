@@ -16,8 +16,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
-import scala.actors.threadpool.Arrays;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiConsumer;
 

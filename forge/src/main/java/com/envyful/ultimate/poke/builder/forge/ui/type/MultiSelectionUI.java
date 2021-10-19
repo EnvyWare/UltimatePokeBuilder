@@ -18,9 +18,9 @@ import com.google.common.collect.Maps;
 import net.minecraft.item.ItemStack;
 import org.apache.logging.log4j.util.TriConsumer;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
-import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;

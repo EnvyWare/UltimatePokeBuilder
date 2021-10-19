@@ -1,4 +1,4 @@
-package com.envyful.ultimate.poke.builder.forge.player;
+package com.envyful.ultimate.poke.builder.forge.eco.player;
 
 import com.envyful.api.forge.player.ForgeEnvyPlayer;
 import com.envyful.api.forge.player.attribute.AbstractForgeAttribute;

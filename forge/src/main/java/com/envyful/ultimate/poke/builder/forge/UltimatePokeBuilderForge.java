@@ -15,14 +15,18 @@ import com.envyful.ultimate.poke.builder.forge.command.tokens.TokensCommand;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderConfig;
 import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderLocale;
+import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderQueries;
 import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoFactory;
-import com.envyful.ultimate.poke.builder.forge.player.PokeBuilderAttribute;
+import com.envyful.ultimate.poke.builder.forge.eco.player.PokeBuilderAttribute;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 @Mod(
         modid = "ultimatepokebuilder",
@@ -58,6 +62,12 @@ public class UltimatePokeBuilderForge {
             UtilConcurrency.runAsync(() -> {
                 this.database = new SimpleHikariDatabase(this.config.getSqlDatabaseDetails());
 
+                try (Connection connection = this.database.getConnection();
+                     PreparedStatement preparedStatement = connection.prepareStatement(PokeBuilderQueries.CREATE_TABLE)) {
+                    preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             });
         } else {
             this.database = null;

@@ -8,7 +8,7 @@ import com.envyful.api.command.annotate.executor.Sender;
 import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.player.EnvyPlayer;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
-import com.envyful.ultimate.poke.builder.forge.player.PokeBuilderAttribute;
+import com.envyful.ultimate.poke.builder.forge.eco.player.PokeBuilderAttribute;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 @Command(

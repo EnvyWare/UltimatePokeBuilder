@@ -59,7 +59,9 @@ public class SelectPokemonUI {
 
             pane.set(pos % 9, pos / 9, GuiFactory.displayableBuilder(
                     UtilSprite.getPokemonElement(pokemon, config.getSpriteSettings()))
-                    .clickHandler((envyPlayer, clickType) -> EditPokemonUI.open(player, pokemon))
+                    .clickHandler((envyPlayer, clickType) -> {
+                        EditPokemonUI.open(player, pokemon);
+                    })
                     .build());
         }
 

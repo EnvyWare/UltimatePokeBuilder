@@ -41,10 +41,15 @@ public class MultiSelectionUI {
 
         int optionPositionsSize = config.config.optionPositions.size();
         List<Map.Entry<String, ConfigItem>> items = new ArrayList<>(config.config.options.entrySet());
+        items.sort(Map.Entry.comparingByKey());
 
         for (int i = (config.page * optionPositionsSize); i < ((config.page + 1) * optionPositionsSize); ++i) {
             int posX = config.config.optionPositions.get(i % optionPositionsSize) % 9;
             int posY = config.config.optionPositions.get(i % optionPositionsSize) / 9;
+
+            if (i >= items.size()) {
+                break;
+            }
 
             Map.Entry<String, ConfigItem> item = items.get(i);
             ItemStack itemStack = UtilConfigItem.fromConfigItem(item.getValue());
@@ -70,7 +75,7 @@ public class MultiSelectionUI {
         UtilConfigItem.addConfigItem(pane, config.config.backButton, config.returnHandler);
 
         if (items.size() > optionPositionsSize) {
-            UtilConfigItem.addConfigItem(pane, config.config.nextPageButton, (envyPlayer, clickType) -> {
+            UtilConfigItem.addConfigItem(pane, config.config.previousPageButton, (envyPlayer, clickType) -> {
                 if (config.page == 0) {
                     config.page = (config.config.options.size() / config.config.optionPositions.size());
                 } else {

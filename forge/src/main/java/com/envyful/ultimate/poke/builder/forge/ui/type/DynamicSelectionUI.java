@@ -193,12 +193,7 @@ public class DynamicSelectionUI {
     @ConfigSerializable
     public static class DynamicSelectionConfig {
 
-        private ConfigInterface guiSettings = new ConfigInterface(
-                "Select", 6, "BLOCK",
-                ImmutableMap.of("one", new ConfigItem(
-                        "minecraft:stained_glass_pane", 1, (byte) 15, " ", Lists.newArrayList(), Maps.newHashMap()
-                ))
-        );
+        private ConfigInterface guiSettings;
 
         private List<Integer> optionPositions;
 
@@ -211,10 +206,17 @@ public class DynamicSelectionUI {
 
         private ConfigItem displayItem;
 
-        public DynamicSelectionConfig(String nameColour, List<Integer> optionPositions, ConfigItem displayItem) {
+        public DynamicSelectionConfig(String title, int height, String nameColour, List<Integer> optionPositions,
+                                      ConfigItem displayItem) {
             this.nameColour = nameColour;
             this.optionPositions = optionPositions;
             this.displayItem = displayItem;
+            this.guiSettings = new ConfigInterface(
+                    title, height, "BLOCK",
+                    ImmutableMap.of("one", new ConfigItem(
+                            "minecraft:stained_glass_pane", 1, (byte) 15, " ", Lists.newArrayList(), Maps.newHashMap()
+                    ))
+            );
         }
 
         public DynamicSelectionConfig() {}

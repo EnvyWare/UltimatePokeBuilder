@@ -260,6 +260,7 @@ public class GuiConfig extends AbstractYamlConfig {
         private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
 
         private DynamicSelectionUI.DynamicSelectionConfig abilitySelection = new DynamicSelectionUI.DynamicSelectionConfig(
+                "UltimatePokeBuilder", 3,
                 "&b", Lists.newArrayList(13, 14, 15),
                 new ConfigItem("pixelmon:ability_capsule", 1, (byte) 0, "",
                                Lists.newArrayList(

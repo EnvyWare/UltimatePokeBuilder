@@ -32,6 +32,39 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
         }
     };
 
+    private Map<String, Integer> ballCosts = new HashMap<String, Integer>() {
+        {
+            this.put("pokeball", 100);
+            this.put("greatball", 100);
+            this.put("ultraball", 100);
+            this.put("masterball", 100);
+            this.put("levelball", 100);
+            this.put("moonball", 100);
+            this.put("friendball", 100);
+            this.put("loveball", 100);
+            this.put("safariball", 100);
+            this.put("heavyball", 100);
+            this.put("fastball", 100);
+            this.put("repeatball", 100);
+            this.put("timerball", 100);
+            this.put("nestball", 100);
+            this.put("netball", 100);
+            this.put("diveball", 100);
+            this.put("luxuryball", 100);
+            this.put("healball", 100);
+            this.put("duskball", 100);
+            this.put("premierball", 100);
+            this.put("sportball", 100);
+            this.put("quickball", 100);
+            this.put("lureball", 100);
+            this.put("parkball", 100);
+            this.put("cherishball", 100);
+            this.put("gsball", 100);
+            this.put("beastball", 100);
+            this.put("dreamball", 100);
+        }
+    };
+
     public PokeBuilderConfig() {
         super();
     }
@@ -62,5 +95,9 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     public Map<String, Integer> getEvIncrementCosts() {
         return this.evIncrementCosts;
+    }
+
+    public Map<String, Integer> getBallCosts() {
+        return this.ballCosts;
     }
 }

@@ -31,6 +31,7 @@ public class GuiConfig extends AbstractYamlConfig {
     private AbilitiesUI abilitiesUI = new AbilitiesUI();
     private EvUI evUI = new EvUI();
     private IvUI ivUI = new IvUI();
+    private PokeBallUI ballUI = new PokeBallUI();
 
     public GuiConfig() {
         super();
@@ -58,6 +59,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
     public IvUI getIvUI() {
         return this.ivUI;
+    }
+
+    public PokeBallUI getBallUI() {
+        return this.ballUI;
     }
 
     @ConfigSerializable
@@ -406,7 +411,6 @@ public class GuiConfig extends AbstractYamlConfig {
         }
     }
 
-
     @ConfigSerializable
     public static class IvUI {
 
@@ -505,5 +509,72 @@ public class GuiConfig extends AbstractYamlConfig {
         public int getEditDisplayPos() {
             return this.editDisplayPos;
         }
+    }
+
+    @ConfigSerializable
+    public static class PokeBallUI {
+
+        private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
+
+        private MultiSelectionUI.MultiSelectionConfig ballSelection = new MultiSelectionUI.MultiSelectionConfig(
+                "UltimatePokeBuilder", 6,
+                new HashMap<String, ConfigItem>() {
+                    {
+                        this.put("pokeball", new ConfigItem("pixelmon:poke_ball", 1, (byte) 0, "&aPokeball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("greatball", new ConfigItem("pixelmon:great_ball", 1, (byte) 0, "&aGreat Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("ultraball", new ConfigItem("pixelmon:ultra_ball", 1, (byte) 0, "&aUltra Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("masterball", new ConfigItem("pixelmon:master_ball", 1, (byte) 0, "&aMaster Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("levelball", new ConfigItem("pixelmon:level_ball", 1, (byte) 0, "&aLevel Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("moonball", new ConfigItem("pixelmon:moon_ball", 1, (byte) 0, "&aMoon Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("friendball", new ConfigItem("pixelmon:friend_ball", 1, (byte) 0, "&aFriend Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("loveball", new ConfigItem("pixelmon:love_ball", 1, (byte) 0, "&aLove Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("safariball", new ConfigItem("pixelmon:safari_ball", 1, (byte) 0, "&aSafari Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("heavyball", new ConfigItem("pixelmon:heavy_ball", 1, (byte) 0, "&aHeavy Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("fastball", new ConfigItem("pixelmon:fast_ball", 1, (byte) 0, "&aFast Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("repeatball", new ConfigItem("pixelmon:repeat_ball", 1, (byte) 0, "&aRepeat Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("timerball", new ConfigItem("pixelmon:timer_ball", 1, (byte) 0, "&aTimer Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("nestball", new ConfigItem("pixelmon:nest_ball", 1, (byte) 0, "&aNest Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("netball", new ConfigItem("pixelmon:net_ball", 1, (byte) 0, "&aNet Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("diveball", new ConfigItem("pixelmon:dive_ball", 1, (byte) 0, "&aDive Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("luxuryball", new ConfigItem("pixelmon:luxury_ball", 1, (byte) 0, "&aLuxury Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("healball", new ConfigItem("pixelmon:heal_ball", 1, (byte) 0, "&aHeal Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("duskball", new ConfigItem("pixelmon:dusk_ball", 1, (byte) 0, "&aDusk Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("premierball", new ConfigItem("pixelmon:premier_ball", 1, (byte) 0, "&aPremier Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("sportball", new ConfigItem("pixelmon:sport_ball", 1, (byte) 0, "&aSport Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("quickball", new ConfigItem("pixelmon:quick_ball", 1, (byte) 0, "&aQuick Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("lureball", new ConfigItem("pixelmon:lure_ball", 1, (byte) 0, "&aLure Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("parkball", new ConfigItem("pixelmon:park_ball", 1, (byte) 0, "&aPark Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("cherishball", new ConfigItem("pixelmon:cherish_ball", 1, (byte) 0, "&aCherish Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("gsball", new ConfigItem("pixelmon:gs_ball", 1, (byte) 0, "&aGS Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("beastball", new ConfigItem("pixelmon:beast_ball", 1, (byte) 0, "&aBeast Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("dreamball", new ConfigItem("pixelmon:dream_ball", 1, (byte) 0, "&aDream Ball", Lists.newArrayList(), Maps.newHashMap()));
+                    }
+                }, Lists.newArrayList(12, 13, 14, 15, 16,
+                21, 22, 23, 24, 25,
+                30, 31, 32, 33, 34)
+        );
+
+        private int pokemonPos = 9;
+
+        private SpriteConfig spriteConfig = new SpriteConfig();
+
+        public PokeBallUI() {}
+
+        public int getPokemonPos() {
+            return this.pokemonPos;
+        }
+
+        public MultiSelectionUI.MultiSelectionConfig getBallSelection() {
+            return this.ballSelection;
+        }
+
+        public SpriteConfig getSpriteConfig() {
+            return this.spriteConfig;
+        }
+
+        public ConfirmationUI.ConfirmConfig getConfirmConfig() {
+            return this.confirmConfig;
+        }
+
     }
 }

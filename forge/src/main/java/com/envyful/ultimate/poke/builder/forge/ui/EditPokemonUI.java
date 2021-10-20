@@ -21,6 +21,7 @@ import com.google.common.collect.Lists;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.entities.pixelmon.abilities.AbilityBase;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
+import com.pixelmonmod.pixelmon.enums.items.EnumPokeballs;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 import java.util.List;
@@ -139,7 +140,23 @@ public class EditPokemonUI {
                                                             .open();
                                                 });
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getPokeballButton(),
-                                                (envyPlayer, clickType) -> {}); //TODO:
+                                                (envyPlayer, clickType) -> {
+                                                    GuiConfig.PokeBallUI ballUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getBallUI();
+
+                                                    MultiSelectionUI.builder()
+                                                            .player(player)
+                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                                                            .config(ballUI.getBallSelection())
+                                                            .page(0)
+                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                                                            .confirm(ConfirmationUI.builder().config(ballUI.getConfirmConfig()))
+                                                            .acceptHandler((envyPlayer1, clickType1, s) -> handleBallConfirmation(player, pokemon, s))
+                                                            .displayItem(new PositionableItem(
+                                                                    UtilSprite.getPokemonElement(pokemon, ballUI.getSpriteConfig()),
+                                                                    ballUI.getPokemonPos()
+                                                            ))
+                                                            .open();
+                                                });
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getNatureButton(),
                                                 (envyPlayer, clickType) -> {}); //TODO:
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getGrowthButton(),
@@ -294,6 +311,37 @@ public class EditPokemonUI {
         for (StatsType statValue : StatsType.getStatValues()) {
             if (statValue.name().equalsIgnoreCase(s)) {
                 return statValue;
+            }
+        }
+
+        return null;
+    }
+
+    private static void handleBallConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, String s) {
+        EnumPokeballs pokeball = findPokeBall(s);
+
+        if (pokeball == null) {
+            return;
+        }
+
+        PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
+        int cost = config.getBallCosts().get(s);
+
+        if (!EcoFactory.hasBalance(player, cost)) {
+            open(player, pokemon); //TODO: send message
+            return;
+        }
+
+        EcoFactory.takeBalance(player, cost);
+        pokemon.setCaughtBall(pokeball);
+        //TODO: send message
+        open(player, pokemon);
+    }
+
+    private static EnumPokeballs findPokeBall(String s) {
+        for (EnumPokeballs ball : EnumPokeballs.values()) {
+            if (ball.name().equalsIgnoreCase(s)) {
+                return ball;
             }
         }
 

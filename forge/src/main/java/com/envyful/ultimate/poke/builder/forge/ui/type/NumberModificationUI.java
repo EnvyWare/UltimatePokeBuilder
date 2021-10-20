@@ -46,6 +46,14 @@ public class NumberModificationUI {
         }
 
         UtilConfigItem.addConfigItem(pane, config.config.backButton, config.returnHandler);
+        UtilConfigItem.addConfigItem(pane, config.config.confirmItem, (envyPlayer, clickType) -> {
+            config.confirm.descriptionItem(config.displayItems.get(config.displayItems.size() - 1).getItemStack());
+            config.confirm.returnHandler((envyPlayer1, clickType1) -> open(config));
+            config.confirm.confirmHandler((clicker, clickerType) -> config.acceptHandler.accept(clicker, clickerType, config.key));
+            config.confirm.playerManager(config.playerManager);
+            config.confirm.player(envyPlayer);
+            config.confirm.open();
+        });
 
         if (config.config.currentValue.isEnabled()) {
             pane.set(config.config.currentValue.getXPos(), config.config.currentValue.getYPos(),
@@ -91,6 +99,7 @@ public class NumberModificationUI {
         private List<PositionableConfigItem> displayConfigItems = Lists.newArrayList();
         private List<PositionableItem> displayItems = Lists.newArrayList();
         private int currentValue;
+        private String key;
 
         protected Builder() {}
 
@@ -159,6 +168,11 @@ public class NumberModificationUI {
             return this;
         }
 
+        public Builder key(String key) {
+            this.key = key;
+            return this;
+        }
+
         public void open() {
             if (this.player == null || this.playerManager == null || this.config == null ||
                     this.returnHandler == null || this.confirm == null || this.acceptHandler == null) {
@@ -181,6 +195,11 @@ public class NumberModificationUI {
                 Lists.newArrayList(), 0, 0, Maps.newHashMap()
         );
 
+        private PositionableConfigItem confirmItem = new PositionableConfigItem(
+                "pixelmon:poke_ball", 1, (byte) 0, "&a&lCONFIRM",
+                Lists.newArrayList(), 2, 2, Maps.newHashMap()
+        );
+
         private PositionableConfigItem currentValue;
 
         public NumberModificationConfig(String title, int height, PositionableConfigItem currentValue,
@@ -199,6 +218,10 @@ public class NumberModificationUI {
 
         public List<EditValueButton> getButtons() {
             return Lists.newArrayList(this.editValueButtons.values());
+        }
+
+        public PositionableConfigItem getConfirmItem() {
+            return this.confirmItem;
         }
 
         public ConfigInterface getGuiSettings() {

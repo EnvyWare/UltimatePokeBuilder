@@ -40,7 +40,16 @@ public class NumberModificationUI {
 
         for (EditValueButton button : config.config.getButtons()) {
             UtilConfigItem.addConfigItem(pane, button.getConfigItem(), (envyPlayer, clickType) -> {
-                config.currentValue(config.currentValue + button.getAmountModifier());
+                 int newValue = config.currentValue + button.getAmountModifier();
+
+                 if (newValue >= config.config.maxValue) {
+                     config.currentValue(config.config.maxValue);
+                 } else if (newValue <= config.config.minValue) {
+                     config.currentValue(config.config.minValue);
+                 } else {
+                     config.currentValue(newValue);
+                 }
+
                 open(config);
             });
         }
@@ -49,7 +58,7 @@ public class NumberModificationUI {
         UtilConfigItem.addConfigItem(pane, config.config.confirmItem, (envyPlayer, clickType) -> {
             config.confirm.descriptionItem(config.displayItems.get(config.displayItems.size() - 1).getItemStack());
             config.confirm.returnHandler((envyPlayer1, clickType1) -> open(config));
-            config.confirm.confirmHandler((clicker, clickerType) -> config.acceptHandler.accept(clicker, clickerType, config.key));
+            config.confirm.confirmHandler((clicker, clickerType) -> config.acceptHandler.accept(clicker, clickerType, config.currentValue));
             config.confirm.playerManager(config.playerManager);
             config.confirm.player(envyPlayer);
             config.confirm.open();
@@ -94,7 +103,7 @@ public class NumberModificationUI {
         private PlayerManager<?, ?> playerManager = null;
         private NumberModificationConfig config = null;
         private BiConsumer<EnvyPlayer<?>, Displayable.ClickType> returnHandler = null;
-        private TriConsumer<EnvyPlayer<?>, Displayable.ClickType, String> acceptHandler = null;
+        private TriConsumer<EnvyPlayer<?>, Displayable.ClickType, Integer> acceptHandler = null;
         private ConfirmationUI.Builder confirm = null;
         private List<PositionableConfigItem> displayConfigItems = Lists.newArrayList();
         private List<PositionableItem> displayItems = Lists.newArrayList();
@@ -123,7 +132,7 @@ public class NumberModificationUI {
             return this;
         }
 
-        public Builder acceptHandler(TriConsumer<EnvyPlayer<?>, Displayable.ClickType, String> acceptHandler) {
+        public Builder acceptHandler(TriConsumer<EnvyPlayer<?>, Displayable.ClickType, Integer> acceptHandler) {
             this.acceptHandler = acceptHandler;
             return this;
         }
@@ -201,11 +210,15 @@ public class NumberModificationUI {
         );
 
         private PositionableConfigItem currentValue;
+        private int maxValue;
+        private int minValue;
 
-        public NumberModificationConfig(String title, int height, PositionableConfigItem currentValue,
-                                        Map<String, EditValueButton> editValueButtons) {
+        public NumberModificationConfig(String title, int height, int maxValue, int minValue,
+                                        PositionableConfigItem currentValue, Map<String, EditValueButton> editValueButtons) {
             this.editValueButtons = editValueButtons;
             this.currentValue = currentValue;
+            this.maxValue = maxValue;
+            this.minValue = minValue;
             this.guiSettings = new ConfigInterface(
                     title, height, "BLOCK",
                     ImmutableMap.of("one", new ConfigItem(
@@ -232,6 +245,13 @@ public class NumberModificationUI {
             return this.backButton;
         }
 
+        public int getMinValue() {
+            return this.minValue;
+        }
+
+        public int getMaxValue() {
+            return this.maxValue;
+        }
     }
 
     @ConfigSerializable

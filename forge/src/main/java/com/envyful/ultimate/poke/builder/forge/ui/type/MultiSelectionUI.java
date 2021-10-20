@@ -192,12 +192,7 @@ public class MultiSelectionUI {
     @ConfigSerializable
     public static class MultiSelectionConfig {
 
-        private ConfigInterface guiSettings = new ConfigInterface(
-                "Select", 6, "BLOCK",
-                ImmutableMap.of("one", new ConfigItem(
-                        "minecraft:stained_glass_pane", 1, (byte) 15, " ", Lists.newArrayList(), Maps.newHashMap()
-                ))
-        );
+        private ConfigInterface guiSettings;
 
         private Map<String, ConfigItem> options;
         private List<Integer> optionPositions;
@@ -217,9 +212,16 @@ public class MultiSelectionUI {
                 Lists.newArrayList(), 0, 5, Maps.newHashMap()
         );
 
-        public MultiSelectionConfig(Map<String, ConfigItem> options, List<Integer> optionPositions) {
+        public MultiSelectionConfig(String title, int height, Map<String, ConfigItem> options,
+                                    List<Integer> optionPositions) {
             this.options = options;
             this.optionPositions = optionPositions;
+            this.guiSettings = new ConfigInterface(
+                    title, height, "BLOCK",
+                    ImmutableMap.of("one", new ConfigItem(
+                            "minecraft:stained_glass_pane", 1, (byte) 15, " ", Lists.newArrayList(), Maps.newHashMap()
+                    ))
+            );
         }
 
         public MultiSelectionConfig() {}

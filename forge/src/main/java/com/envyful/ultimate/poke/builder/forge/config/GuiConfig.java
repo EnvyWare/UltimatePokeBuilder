@@ -9,6 +9,7 @@ import com.envyful.api.config.yaml.AbstractYamlConfig;
 import com.envyful.api.forge.gui.type.ConfirmationUI;
 import com.envyful.api.forge.gui.type.TrueFalseSelectionUI;
 import com.envyful.api.reforged.pixelmon.config.SpriteConfig;
+import com.envyful.ultimate.poke.builder.forge.ui.type.DynamicSelectionUI;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -23,6 +24,7 @@ public class GuiConfig extends AbstractYamlConfig {
     private SelectUI selectPartyUI = new SelectUI();
     private EditPokemonUI editPokemonUI = new EditPokemonUI();
     private ShinyUI shinyUI = new ShinyUI();
+    private AbilitiesUI abilitiesUI = new AbilitiesUI();
 
     public GuiConfig() {
         super();
@@ -38,6 +40,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
     public ShinyUI getShinyUI() {
         return this.shinyUI;
+    }
+
+    public AbilitiesUI getAbilitiesUI() {
+        return this.abilitiesUI;
     }
 
     @ConfigSerializable
@@ -236,6 +242,44 @@ public class GuiConfig extends AbstractYamlConfig {
 
         public TrueFalseSelectionUI.TrueFalseConfig getTrueFalseSettings() {
             return this.trueFalseSettings;
+        }
+
+        public SpriteConfig getSpriteConfig() {
+            return this.spriteConfig;
+        }
+
+        public ConfirmationUI.ConfirmConfig getConfirmConfig() {
+            return this.confirmConfig;
+        }
+    }
+
+
+    @ConfigSerializable
+    public static class AbilitiesUI {
+
+        private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
+
+        private DynamicSelectionUI.DynamicSelectionConfig abilitySelection = new DynamicSelectionUI.DynamicSelectionConfig(
+                "&b", Lists.newArrayList(13, 14, 15),
+                new ConfigItem("pixelmon:ability_capsule", 1, (byte) 0, "",
+                               Lists.newArrayList(
+                                       "&b&lAbility Cost: &a200 Tokens",
+                                       "&b&lHidden Ability Cost: &a400 Tokens"
+                               ), Maps.newHashMap())
+        );
+
+        private int pokemonPos = 9;
+
+        private SpriteConfig spriteConfig = new SpriteConfig();
+
+        public AbilitiesUI() {}
+
+        public int getPokemonPos() {
+            return this.pokemonPos;
+        }
+
+        public DynamicSelectionUI.DynamicSelectionConfig getAbilitySelection() {
+            return this.abilitySelection;
         }
 
         public SpriteConfig getSpriteConfig() {

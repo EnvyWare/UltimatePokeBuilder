@@ -12,9 +12,15 @@ import com.envyful.api.player.EnvyPlayer;
 import com.envyful.api.reforged.pixelmon.sprite.UtilSprite;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
+import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderConfig;
 import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoFactory;
+import com.envyful.ultimate.poke.builder.forge.ui.type.DynamicSelectionUI;
+import com.google.common.collect.Lists;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
+import com.pixelmonmod.pixelmon.entities.pixelmon.abilities.AbilityBase;
 import net.minecraft.entity.player.EntityPlayerMP;
+
+import java.util.List;
 
 public class EditPokemonUI {
 
@@ -59,7 +65,39 @@ public class EditPokemonUI {
                                                 });
 
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getAbilityButton(),
-                                                (envyPlayer, clickType) -> {}); //TODO:
+                                                (envyPlayer, clickType) -> {
+                                                    GuiConfig.AbilitiesUI abilitiesUI =
+                                                            UltimatePokeBuilderForge.getInstance().getGuiConfig().getAbilitiesUI();
+
+                                                    List<String> abilitiesStripped = Lists.newArrayList(pokemon.getSpecies().getBaseStats().getAbilitiesArray());
+
+                                                    if (abilitiesStripped.size() == 3 && abilitiesStripped.get(2) != null) {
+                                                        abilitiesStripped.set(2, abilitiesStripped.get(2) + " (HA)");
+                                                    }
+
+                                                    abilitiesStripped.removeIf(s -> s == null || s.equalsIgnoreCase("null"));
+
+                                                    DynamicSelectionUI.builder()
+                                                            .player(player)
+                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                                                            .config(abilitiesUI.getAbilitySelection())
+                                                            .confirm(ConfirmationUI.builder().config(abilitiesUI.getConfirmConfig()))
+                                                            .displayNames(abilitiesStripped)
+                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                                                            .acceptHandler((envyPlayer1, clickType1, ability) -> {
+                                                                int index = abilitiesStripped.indexOf(ability);
+
+                                                                handleAbilityConfirmation(player, pokemon,
+                                                                                          pokemon.getBaseStats().getAllAbilities().get(index),
+                                                                                          ability.endsWith(" (HA")
+                                                                );
+                                                            })
+                                                            .displayItem(new PositionableItem(
+                                                                    UtilSprite.getPokemonElement(pokemon, abilitiesUI.getSpriteConfig()),
+                                                                    abilitiesUI.getPokemonPos()
+                                                            ))
+                                                            .open();
+                                                });
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getEvButton(),
                                                 (envyPlayer, clickType) -> {}); //TODO:
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getIvButton(),
@@ -97,6 +135,27 @@ public class EditPokemonUI {
 
         EcoFactory.takeBalance(player, shinyCost);
         pokemon.setShiny(shiny);
+        //TODO: send message
+        open(player, pokemon);
+    }
+
+    private static void handleAbilityConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon,
+                                                  AbilityBase ability, boolean hiddenAbility) {
+        if (pokemon.getAbility() == ability) {
+            open(player, pokemon);
+            return;
+        }
+
+        PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
+        int cost  = hiddenAbility ? config.getHiddenAbilityCost() : config.getAbilityCost();
+
+        if (!EcoFactory.hasBalance(player, cost)) {
+            open(player, pokemon); //TODO: send message
+            return;
+        }
+
+        EcoFactory.takeBalance(player, cost);
+        pokemon.setAbility(ability);
         //TODO: send message
         open(player, pokemon);
     }

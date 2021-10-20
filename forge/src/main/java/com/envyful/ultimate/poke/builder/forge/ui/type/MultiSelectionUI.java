@@ -52,12 +52,16 @@ public class MultiSelectionUI {
             pane.set(posX, posY,
                      GuiFactory.displayableBuilder(itemStack)
                              .clickHandler((envyPlayer, clickType) -> {
-                                 config.confirm.descriptionItem(itemStack);
-                                 config.confirm.returnHandler((envyPlayer1, clickType1) -> open(config));
-                                 config.confirm.confirmHandler((clicker, clickerType) -> config.acceptHandler.accept(clicker, clickerType, item.getKey()));
-                                 config.confirm.playerManager(config.playerManager);
-                                 config.confirm.player(envyPlayer);
-                                 config.confirm.open();
+                                 if (config.confirm != null) {
+                                     config.confirm.descriptionItem(itemStack);
+                                     config.confirm.returnHandler((envyPlayer1, clickType1) -> open(config));
+                                     config.confirm.confirmHandler((clicker, clickerType) -> config.acceptHandler.accept(clicker, clickerType, item.getKey()));
+                                     config.confirm.playerManager(config.playerManager);
+                                     config.confirm.player(envyPlayer);
+                                     config.confirm.open();
+                                 } else {
+                                     config.selectHandler.accept(envyPlayer, clickType, item.getKey());
+                                 }
                              })
                              .build()
             );
@@ -115,6 +119,7 @@ public class MultiSelectionUI {
         private MultiSelectionConfig config = null;
         private BiConsumer<EnvyPlayer<?>, Displayable.ClickType> returnHandler = null;
         private TriConsumer<EnvyPlayer<?>, Displayable.ClickType, String> acceptHandler = null;
+        private TriConsumer<EnvyPlayer<?>, Displayable.ClickType, String> selectHandler = null;
         private ConfirmationUI.Builder confirm = null;
         private List<PositionableConfigItem> displayConfigItems = Lists.newArrayList();
         private List<PositionableItem> displayItems = Lists.newArrayList();
@@ -144,6 +149,11 @@ public class MultiSelectionUI {
 
         public Builder acceptHandler(TriConsumer<EnvyPlayer<?>, Displayable.ClickType, String> acceptHandler) {
             this.acceptHandler = acceptHandler;
+            return this;
+        }
+
+        public Builder selectHandler(TriConsumer<EnvyPlayer<?>, Displayable.ClickType, String> selectHandler) {
+            this.selectHandler = selectHandler;
             return this;
         }
 
@@ -189,7 +199,7 @@ public class MultiSelectionUI {
 
         public void open() {
             if (this.player == null || this.playerManager == null || this.config == null ||
-                    this.returnHandler == null || this.confirm == null || this.acceptHandler == null) {
+                    this.returnHandler == null || this.confirm == null) {
                 return;
             }
 

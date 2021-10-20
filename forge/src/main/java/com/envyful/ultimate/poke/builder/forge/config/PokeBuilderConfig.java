@@ -21,6 +21,7 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
     private int shinyCost = 200;
     private int abilityCost = 500;
     private int hiddenAbilityCost = 1000;
+    private int costPerLevel = 200;
     private Map<String, Integer> evIncrementCosts = new HashMap<String, Integer>() {
         {
             this.put("hp", 100);
@@ -83,6 +84,10 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     public int getShinyCost() {
         return this.shinyCost;
+    }
+
+    public int getCostPerLevel() {
+        return this.costPerLevel;
     }
 
     public int getAbilityCost() {

@@ -32,6 +32,7 @@ public class GuiConfig extends AbstractYamlConfig {
     private EvUI evUI = new EvUI();
     private IvUI ivUI = new IvUI();
     private PokeBallUI ballUI = new PokeBallUI();
+    private LevelUI levelUI = new LevelUI();
 
     public GuiConfig() {
         super();
@@ -63,6 +64,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
     public PokeBallUI getBallUI() {
         return this.ballUI;
+    }
+
+    public LevelUI getLevelUI() {
+        return this.levelUI;
     }
 
     @ConfigSerializable
@@ -576,5 +581,87 @@ public class GuiConfig extends AbstractYamlConfig {
             return this.confirmConfig;
         }
 
+    }
+
+    @ConfigSerializable
+    public static class LevelUI {
+
+        private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
+
+        private NumberModificationUI.NumberModificationConfig levelEditAmount = new NumberModificationUI.NumberModificationConfig(
+                "UPB", 4, 100, 1,  new PositionableConfigItem(
+                "minecraft:chest", 1, (byte) 0, "&bCurrent Level: &a%value%",
+                Lists.newArrayList(), 2, 1, Maps.newHashMap()),
+                new HashMap<String, NumberModificationUI.EditValueButton>() {
+                    {
+                        this.put("one", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+1",
+                                Lists.newArrayList(), 4, 1, Maps.newHashMap()
+                        ), 1));
+
+                        this.put("two", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+5",
+                                Lists.newArrayList(), 5, 1, Maps.newHashMap()
+                        ), 5));
+
+                        this.put("three", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+10",
+                                Lists.newArrayList(), 6, 1, Maps.newHashMap()
+                        ), 10));
+
+                        this.put("four", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+25",
+                                Lists.newArrayList(), 7, 1, Maps.newHashMap()
+                        ), 25));
+
+                        this.put("five", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-1",
+                                Lists.newArrayList(), 4, 2, Maps.newHashMap()
+                        ), -1));
+
+                        this.put("six", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-5",
+                                Lists.newArrayList(), 5, 2, Maps.newHashMap()
+                        ), -5));
+
+                        this.put("seven", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-10",
+                                Lists.newArrayList(), 6, 2, Maps.newHashMap()
+                        ), -10));
+
+                        this.put("eight", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-25",
+                                Lists.newArrayList(), 7, 2, Maps.newHashMap()
+                        ), -25));
+                    }
+                }
+        );
+
+        private int pokemonPos = 9;
+        private int editDisplayPos = 18;
+
+        private SpriteConfig spriteConfig = new SpriteConfig();
+
+        public LevelUI() {}
+
+        public int getPokemonPos() {
+            return this.pokemonPos;
+        }
+
+        public SpriteConfig getSpriteConfig() {
+            return this.spriteConfig;
+        }
+
+        public ConfirmationUI.ConfirmConfig getConfirmConfig() {
+            return this.confirmConfig;
+        }
+
+        public NumberModificationUI.NumberModificationConfig getLevelEditAmount() {
+            return this.levelEditAmount;
+        }
+
+        public int getEditDisplayPos() {
+            return this.editDisplayPos;
+        }
     }
 }

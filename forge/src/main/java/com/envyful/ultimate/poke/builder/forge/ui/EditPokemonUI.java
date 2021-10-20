@@ -162,7 +162,23 @@ public class EditPokemonUI {
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getGrowthButton(),
                                                 (envyPlayer, clickType) -> {}); //TODO:
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getLevelButton(),
-                                                (envyPlayer, clickType) -> {}); //TODO:
+                                                (envyPlayer, clickType) -> {
+                                                    GuiConfig.LevelUI levelUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getLevelUI();
+
+                                                    NumberModificationUI.builder()
+                                                            .player(player)
+                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                                                            .config(levelUI.getLevelEditAmount())
+                                                            .currentValue(pokemon.getLevel())
+                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                                                            .confirm(ConfirmationUI.builder().config(levelUI.getConfirmConfig()))
+                                                            .acceptHandler((envyPlayer1, clickType1, level) -> handleLevelConfirmation(player, pokemon, level))
+                                                            .displayItem(new PositionableItem(
+                                                                    UtilSprite.getPokemonElement(pokemon, levelUI.getSpriteConfig()),
+                                                                    levelUI.getPokemonPos()
+                                                            ))
+                                                            .open();
+                                                }); //TODO:
 
         GuiFactory.guiBuilder()
                 .setPlayerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
@@ -234,7 +250,7 @@ public class EditPokemonUI {
                     }
 
                     PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-                    int cost = config.getEvIncrementCosts().get(s) * (pokemon.getEVs().get(statsType) - value);
+                    int cost = config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().get(statsType) - value);
 
                     if (!EcoFactory.hasBalance(player, cost)) {
                         open(player, pokemon); //TODO: send message
@@ -281,7 +297,7 @@ public class EditPokemonUI {
                     }
 
                     PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-                    int cost = config.getEvIncrementCosts().get(s) * (pokemon.getEVs().get(statsType) - value);
+                    int cost = config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().get(statsType) - value);
 
                     if (!EcoFactory.hasBalance(player, cost)) {
                         open(player, pokemon); //TODO: send message
@@ -348,4 +364,23 @@ public class EditPokemonUI {
         return null;
     }
 
+    private static void handleLevelConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, int level) {
+        if (pokemon.getLevel() == level) {
+            open(player, pokemon);
+            return;
+        }
+
+        PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
+        int cost = config.getCostPerLevel() * Math.abs(pokemon.getLevel() - level);
+
+        if (!EcoFactory.hasBalance(player, cost)) {
+            open(player, pokemon); //TODO: send message
+            return;
+        }
+
+        EcoFactory.takeBalance(player, cost);
+        pokemon.setLevel(level);
+        //TODO: send message
+        open(player, pokemon);
+    }
 }

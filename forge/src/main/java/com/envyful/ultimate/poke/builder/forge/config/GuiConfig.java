@@ -22,6 +22,7 @@ import java.util.List;
 
 @ConfigSerializable
 @ConfigPath("config/UltimatePokeBuilder/guis.yml")
+@SuppressWarnings({"FieldMayBeFinal", "FieldCanBeLocal"})
 public class GuiConfig extends AbstractYamlConfig {
 
     private SelectUI selectPartyUI = new SelectUI();
@@ -29,6 +30,7 @@ public class GuiConfig extends AbstractYamlConfig {
     private ShinyUI shinyUI = new ShinyUI();
     private AbilitiesUI abilitiesUI = new AbilitiesUI();
     private EvUI evUI = new EvUI();
+    private IvUI ivUI = new IvUI();
 
     public GuiConfig() {
         super();
@@ -52,6 +54,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
     public EvUI getEvUI() {
         return this.evUI;
+    }
+
+    public IvUI getIvUI() {
+        return this.ivUI;
     }
 
     @ConfigSerializable
@@ -393,6 +399,107 @@ public class GuiConfig extends AbstractYamlConfig {
 
         public NumberModificationUI.NumberModificationConfig getEvEditAmount() {
             return this.evEditAmount;
+        }
+
+        public int getEditDisplayPos() {
+            return this.editDisplayPos;
+        }
+    }
+
+
+    @ConfigSerializable
+    public static class IvUI {
+
+        private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
+
+        private MultiSelectionUI.MultiSelectionConfig ivSelection = new MultiSelectionUI.MultiSelectionConfig(
+                "UltimatePokeBuilder", 4,
+                new HashMap<String, ConfigItem>() {
+                    {
+                        this.put("hp", new ConfigItem("pixelmon:power_weight", 1, (byte) 0, "&a&lHP", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("attack", new ConfigItem("pixelmon:power_bracer", 1, (byte) 0, "&c&lAttack", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("defence", new ConfigItem("pixelmon:power_belt", 1, (byte) 0, "&6&lDefence", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("specialattack", new ConfigItem("pixelmon:power_lens", 1, (byte) 0, "&d&lSp. Attack", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("specialdefence", new ConfigItem("pixelmon:power_band", 1, (byte) 0, "&e&lSp. Defence", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("speed", new ConfigItem("pixelmon:power_anklet", 1, (byte) 0, "&b&lSpeed", Lists.newArrayList(), Maps.newHashMap()));
+                    }
+                }, Lists.newArrayList(12, 13, 14, 21, 22, 23)
+        );
+
+        private NumberModificationUI.NumberModificationConfig ivEditAmount = new NumberModificationUI.NumberModificationConfig(
+                "UPB", 4, 31, 0,  new PositionableConfigItem(
+                "minecraft:chest", 1, (byte) 0, "&bCurrent Value: &a%value%",
+                Lists.newArrayList(), 2, 1, Maps.newHashMap()),
+                new HashMap<String, NumberModificationUI.EditValueButton>() {
+                    {
+                        this.put("one", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+1",
+                                Lists.newArrayList(), 4, 1, Maps.newHashMap()
+                        ), 1));
+
+                        this.put("two", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+5",
+                                Lists.newArrayList(), 5, 1, Maps.newHashMap()
+                        ), 5));
+
+                        this.put("three", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+10",
+                                Lists.newArrayList(), 6, 1, Maps.newHashMap()
+                        ), 10));
+
+                        this.put("four", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+15",
+                                Lists.newArrayList(), 7, 1, Maps.newHashMap()
+                        ), 15));
+
+                        this.put("five", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-1",
+                                Lists.newArrayList(), 4, 2, Maps.newHashMap()
+                        ), -1));
+
+                        this.put("six", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-5",
+                                Lists.newArrayList(), 5, 2, Maps.newHashMap()
+                        ), -5));
+
+                        this.put("seven", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-10",
+                                Lists.newArrayList(), 6, 2, Maps.newHashMap()
+                        ), -10));
+
+                        this.put("eight", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-15",
+                                Lists.newArrayList(), 7, 2, Maps.newHashMap()
+                        ), -15));
+                    }
+                }
+        );
+
+        private int pokemonPos = 9;
+        private int editDisplayPos = 18;
+
+        private SpriteConfig spriteConfig = new SpriteConfig();
+
+        public IvUI() {}
+
+        public int getPokemonPos() {
+            return this.pokemonPos;
+        }
+
+        public MultiSelectionUI.MultiSelectionConfig getIvSelection() {
+            return this.ivSelection;
+        }
+
+        public SpriteConfig getSpriteConfig() {
+            return this.spriteConfig;
+        }
+
+        public ConfirmationUI.ConfirmConfig getConfirmConfig() {
+            return this.confirmConfig;
+        }
+
+        public NumberModificationUI.NumberModificationConfig getIvEditAmount() {
+            return this.ivEditAmount;
         }
 
         public int getEditDisplayPos() {

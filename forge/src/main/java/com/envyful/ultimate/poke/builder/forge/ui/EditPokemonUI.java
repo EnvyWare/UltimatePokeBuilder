@@ -112,7 +112,8 @@ public class EditPokemonUI {
                                                             .config(evUI.getEvSelection())
                                                             .page(0)
                                                             .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
-                                                            .selectHandler((envyPlayer1, clickType1, s) -> openIVSelect(s, player, pokemon))
+                                                            .selectHandler((envyPlayer1, clickType1, s) -> openEVSelect(s,
+                                                                                                             player, pokemon))
                                                             .displayItem(new PositionableItem(
                                                                     UtilSprite.getPokemonElement(pokemon, evUI.getSpriteConfig()),
                                                                     evUI.getPokemonPos()
@@ -120,7 +121,23 @@ public class EditPokemonUI {
                                                             .open();
                                                 });
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getIvButton(),
-                                                (envyPlayer, clickType) -> {}); //TODO:
+                                                (envyPlayer, clickType) -> {
+                                                    GuiConfig.IvUI ivUI =
+                                                            UltimatePokeBuilderForge.getInstance().getGuiConfig().getIvUI();
+
+                                                    MultiSelectionUI.builder()
+                                                            .player(player)
+                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                                                            .config(ivUI.getIvSelection())
+                                                            .page(0)
+                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                                                            .selectHandler((envyPlayer1, clickType1, s) -> openIVSelect(s, player, pokemon))
+                                                            .displayItem(new PositionableItem(
+                                                                    UtilSprite.getPokemonElement(pokemon, ivUI.getSpriteConfig()),
+                                                                    ivUI.getPokemonPos()
+                                                            ))
+                                                            .open();
+                                                });
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getPokeballButton(),
                                                 (envyPlayer, clickType) -> {}); //TODO:
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getNatureButton(),
@@ -179,7 +196,7 @@ public class EditPokemonUI {
         open(player, pokemon);
     }
 
-    private static void openIVSelect(String s, EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon) {
+    private static void openEVSelect(String s, EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon) {
         GuiConfig.EvUI evUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getEvUI();
 
         StatsType statsType = findStatsType(s);
@@ -192,7 +209,7 @@ public class EditPokemonUI {
                 .player(player)
                 .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
                 .config(evUI.getEvEditAmount())
-                .returnHandler((e, c) -> openIVSelect(s, player, pokemon))
+                .returnHandler((e, c) -> open(player, pokemon))
                 .acceptHandler((envyPlayer, clickType, value) -> {
                     if (pokemon.getEVs().get(statsType) == value) {
                         open(player, pokemon);
@@ -222,6 +239,53 @@ public class EditPokemonUI {
                 .displayItem(new PositionableItem(
                         UtilConfigItem.fromConfigItem(evUI.getEvSelection().getOptions().get(s)),
                         evUI.getEditDisplayPos()
+                ))
+                .open();
+    }
+
+    private static void openIVSelect(String s, EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon) {
+        GuiConfig.IvUI ivUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getIvUI();
+
+        StatsType statsType = findStatsType(s);
+
+        if (statsType == null) {
+            return;
+        }
+
+        NumberModificationUI.builder()
+                .player(player)
+                .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                .config(ivUI.getIvEditAmount())
+                .returnHandler((e, c) -> open(player, pokemon))
+                .acceptHandler((envyPlayer, clickType, value) -> {
+                    if (pokemon.getIVs().get(statsType) == value) {
+                        open(player, pokemon);
+                        return;
+                    }
+
+                    PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
+                    int cost = config.getEvIncrementCosts().get(s) * (pokemon.getEVs().get(statsType) - value);
+
+                    if (!EcoFactory.hasBalance(player, cost)) {
+                        open(player, pokemon); //TODO: send message
+                        return;
+                    }
+
+                    EcoFactory.takeBalance(player, cost);
+                    pokemon.getIVs().set(statsType, value);
+                    //TODO: send message
+                    open(player, pokemon);
+                })
+                .key(s)
+                .confirm(ConfirmationUI.builder().config(ivUI.getConfirmConfig()))
+                .currentValue(pokemon.getIVs().get(statsType))
+                .displayItem(new PositionableItem(
+                        UtilSprite.getPokemonElement(pokemon, ivUI.getSpriteConfig()),
+                        ivUI.getPokemonPos()
+                ))
+                .displayItem(new PositionableItem(
+                        UtilConfigItem.fromConfigItem(ivUI.getIvSelection().getOptions().get(s)),
+                        ivUI.getEditDisplayPos()
                 ))
                 .open();
     }

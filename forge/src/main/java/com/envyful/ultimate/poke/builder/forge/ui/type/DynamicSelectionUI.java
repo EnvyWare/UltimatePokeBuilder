@@ -42,6 +42,11 @@ public class DynamicSelectionUI {
             int pos = config.config.optionPositions.get(i);
             int posX = pos % 9;
             int posY = pos / 9;
+
+            if (config.displayNames.size() <= i) {
+                break;
+            }
+
             String displayName = config.displayNames.get(i);
             ItemStack itemStack = new ItemBuilder(UtilConfigItem.fromConfigItem(config.config.getDisplayItem()))
                             .name(UtilChatColour.translateColourCodes(
@@ -117,6 +122,11 @@ public class DynamicSelectionUI {
 
         public Builder returnHandler(BiConsumer<EnvyPlayer<?>, Displayable.ClickType> returnHandler) {
             this.returnHandler = returnHandler;
+            return this;
+        }
+
+        public Builder acceptHandler(TriConsumer<EnvyPlayer<?>, Displayable.ClickType, String> acceptHandler) {
+            this.acceptHandler = acceptHandler;
             return this;
         }
 

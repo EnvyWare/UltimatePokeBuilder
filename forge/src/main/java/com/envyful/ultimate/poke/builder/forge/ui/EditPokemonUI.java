@@ -21,6 +21,7 @@ import com.google.common.collect.Lists;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.entities.pixelmon.abilities.AbilityBase;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
+import com.pixelmonmod.pixelmon.enums.EnumGrowth;
 import com.pixelmonmod.pixelmon.enums.items.EnumPokeballs;
 import net.minecraft.entity.player.EntityPlayerMP;
 
@@ -157,10 +158,28 @@ public class EditPokemonUI {
                                                             ))
                                                             .open();
                                                 });
+
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getNatureButton(),
                                                 (envyPlayer, clickType) -> {}); //TODO:
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getGrowthButton(),
-                                                (envyPlayer, clickType) -> {}); //TODO:
+                                                (envyPlayer, clickType) -> {
+                                                    GuiConfig.GrowthUI growthUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getGrowthUI();
+
+                                                    MultiSelectionUI.builder()
+                                                            .player(player)
+                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                                                            .config(growthUI.getGrowthSelection())
+                                                            .page(0)
+                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                                                            .confirm(ConfirmationUI.builder().config(growthUI.getConfirmConfig()))
+                                                            .acceptHandler((envyPlayer1, clickType1, s) -> handleGrowthConfirmation(player, pokemon, s))
+                                                            .displayItem(new PositionableItem(
+                                                                    UtilSprite.getPokemonElement(pokemon, growthUI.getSpriteConfig()),
+                                                                    growthUI.getPokemonPos()
+                                                            ))
+                                                            .open();
+                                                });
+
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getLevelButton(),
                                                 (envyPlayer, clickType) -> {
                                                     GuiConfig.LevelUI levelUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getLevelUI();
@@ -178,7 +197,7 @@ public class EditPokemonUI {
                                                                     levelUI.getPokemonPos()
                                                             ))
                                                             .open();
-                                                }); //TODO:
+                                                });
 
         GuiFactory.guiBuilder()
                 .setPlayerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
@@ -340,6 +359,11 @@ public class EditPokemonUI {
             return;
         }
 
+        if (pokeball == pokemon.getCaughtBall()) {
+            open(player, pokemon);
+            return;
+        }
+
         PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
         int cost = config.getBallCosts().get(s);
 
@@ -382,5 +406,41 @@ public class EditPokemonUI {
         pokemon.setLevel(level);
         //TODO: send message
         open(player, pokemon);
+    }
+
+    private static void handleGrowthConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, String s) {
+        EnumGrowth growth = findGrowth(s);
+
+        if (growth == null) {
+            return;
+        }
+
+        if (pokemon.getGrowth() == growth) {
+            open(player, pokemon);
+            return;
+        }
+
+        PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
+        int cost = config.getGrowthCosts().get(s);
+
+        if (!EcoFactory.hasBalance(player, cost)) {
+            open(player, pokemon); //TODO: send message
+            return;
+        }
+
+        EcoFactory.takeBalance(player, cost);
+        pokemon.setGrowth(growth);
+        //TODO: send message
+        open(player, pokemon);
+    }
+
+    private static EnumGrowth findGrowth(String s) {
+        for (EnumGrowth growth : EnumGrowth.values()) {
+            if (growth.name().equalsIgnoreCase(s)) {
+                return growth;
+            }
+        }
+
+        return null;
     }
 }

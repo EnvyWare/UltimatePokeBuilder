@@ -66,6 +66,20 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
         }
     };
 
+    private Map<String, Integer> growthCosts = new HashMap<String, Integer>() {
+        {
+            this.put("microscopic", 100);
+            this.put("pygmy", 100);
+            this.put("runt", 100);
+            this.put("small", 100);
+            this.put("ordinary", 100);
+            this.put("huge", 100);
+            this.put("giant", 100);
+            this.put("enormous", 100);
+            this.put("ginormous", 100);
+        }
+    };
+
     public PokeBuilderConfig() {
         super();
     }
@@ -104,5 +118,9 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     public Map<String, Integer> getBallCosts() {
         return this.ballCosts;
+    }
+
+    public Map<String, Integer> getGrowthCosts() {
+        return this.growthCosts;
     }
 }

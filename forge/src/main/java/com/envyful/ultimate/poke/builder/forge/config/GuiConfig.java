@@ -33,6 +33,7 @@ public class GuiConfig extends AbstractYamlConfig {
     private IvUI ivUI = new IvUI();
     private PokeBallUI ballUI = new PokeBallUI();
     private LevelUI levelUI = new LevelUI();
+    private GrowthUI growthUI = new GrowthUI();
 
     public GuiConfig() {
         super();
@@ -68,6 +69,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
     public LevelUI getLevelUI() {
         return this.levelUI;
+    }
+
+    public GrowthUI getGrowthUI() {
+        return this.growthUI;
     }
 
     @ConfigSerializable
@@ -663,5 +668,54 @@ public class GuiConfig extends AbstractYamlConfig {
         public int getEditDisplayPos() {
             return this.editDisplayPos;
         }
+    }
+
+
+    @ConfigSerializable
+    public static class GrowthUI {
+
+        private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
+
+        private MultiSelectionUI.MultiSelectionConfig growthSelection = new MultiSelectionUI.MultiSelectionConfig(
+                "UltimatePokeBuilder", 6,
+                new HashMap<String, ConfigItem>() {
+                    {
+                        this.put("microscopic", new ConfigItem("pixelmon:normal_gem", 1, (byte) 0, "&dMicroscopic", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("pygmy", new ConfigItem("pixelmon:psychic_gem", 1, (byte) 0, "&dPygmy", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("runt", new ConfigItem("pixelmon:fairy_gem", 1, (byte) 0, "&dRunt", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("small", new ConfigItem("pixelmon:poison_gem", 1, (byte) 0, "&dSmall", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("ordinary", new ConfigItem("pixelmon:ghost_gem", 1, (byte) 0, "&dOrdinary", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("huge", new ConfigItem("pixelmon:ice_gem", 1, (byte) 0, "&dHuge", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("giant", new ConfigItem("pixelmon:ice_gem", 1, (byte) 0, "&dGiant", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("enormous", new ConfigItem("pixelmon:fighting_gem", 1, (byte) 0, "&dEnormous", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("ginormous", new ConfigItem("pixelmon:dark_gem", 1, (byte) 0, "&dGinormous", Lists.newArrayList(), Maps.newHashMap()));
+                    }
+                }, Lists.newArrayList(12, 13, 14, 15, 16,
+                                      21, 22, 23, 24, 25,
+                                      30, 31, 32, 33, 34)
+        );
+
+        private int pokemonPos = 9;
+
+        private SpriteConfig spriteConfig = new SpriteConfig();
+
+        public GrowthUI() {}
+
+        public int getPokemonPos() {
+            return this.pokemonPos;
+        }
+
+        public MultiSelectionUI.MultiSelectionConfig getGrowthSelection() {
+            return this.growthSelection;
+        }
+
+        public SpriteConfig getSpriteConfig() {
+            return this.spriteConfig;
+        }
+
+        public ConfirmationUI.ConfirmConfig getConfirmConfig() {
+            return this.confirmConfig;
+        }
+
     }
 }

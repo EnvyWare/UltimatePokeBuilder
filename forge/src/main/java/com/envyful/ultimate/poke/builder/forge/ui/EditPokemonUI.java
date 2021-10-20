@@ -15,9 +15,12 @@ import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderConfig;
 import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoFactory;
 import com.envyful.ultimate.poke.builder.forge.ui.type.DynamicSelectionUI;
+import com.envyful.ultimate.poke.builder.forge.ui.type.MultiSelectionUI;
+import com.envyful.ultimate.poke.builder.forge.ui.type.NumberModificationUI;
 import com.google.common.collect.Lists;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.entities.pixelmon.abilities.AbilityBase;
+import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 import java.util.List;
@@ -99,7 +102,23 @@ public class EditPokemonUI {
                                                             .open();
                                                 });
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getEvButton(),
-                                                (envyPlayer, clickType) -> {}); //TODO:
+                                                (envyPlayer, clickType) -> {
+                                                    GuiConfig.EvUI evUI =
+                                                            UltimatePokeBuilderForge.getInstance().getGuiConfig().getEvUI();
+
+                                                    MultiSelectionUI.builder()
+                                                            .player(player)
+                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                                                            .config(evUI.getEvSelection())
+                                                            .page(0)
+                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                                                            .selectHandler((envyPlayer1, clickType1, s) -> openIVSelect(s, player, pokemon))
+                                                            .displayItem(new PositionableItem(
+                                                                    UtilSprite.getPokemonElement(pokemon, evUI.getSpriteConfig()),
+                                                                    evUI.getPokemonPos()
+                                                            ))
+                                                            .open();
+                                                });
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getIvButton(),
                                                 (envyPlayer, clickType) -> {}); //TODO:
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getPokeballButton(),
@@ -158,6 +177,63 @@ public class EditPokemonUI {
         pokemon.setAbility(ability);
         //TODO: send message
         open(player, pokemon);
+    }
+
+    private static void openIVSelect(String s, EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon) {
+        GuiConfig.EvUI evUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getEvUI();
+
+        StatsType statsType = findStatsType(s);
+
+        if (statsType == null) {
+            return;
+        }
+
+        NumberModificationUI.builder()
+                .player(player)
+                .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                .config(evUI.getEvEditAmount())
+                .returnHandler((e, c) -> openIVSelect(s, player, pokemon))
+                .acceptHandler((envyPlayer, clickType, value) -> {
+                    if (pokemon.getEVs().get(statsType) == value) {
+                        open(player, pokemon);
+                        return;
+                    }
+
+                    PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
+                    int cost = config.getEvIncrementCosts().get(s) * (pokemon.getEVs().get(statsType) - value);
+
+                    if (!EcoFactory.hasBalance(player, cost)) {
+                        open(player, pokemon); //TODO: send message
+                        return;
+                    }
+
+                    EcoFactory.takeBalance(player, cost);
+                    pokemon.getEVs().set(statsType, value);
+                    //TODO: send message
+                    open(player, pokemon);
+                })
+                .key(s)
+                .confirm(ConfirmationUI.builder().config(evUI.getConfirmConfig()))
+                .currentValue(pokemon.getEVs().get(statsType))
+                .displayItem(new PositionableItem(
+                        UtilSprite.getPokemonElement(pokemon, evUI.getSpriteConfig()),
+                        evUI.getPokemonPos()
+                ))
+                .displayItem(new PositionableItem(
+                        UtilConfigItem.fromConfigItem(evUI.getEvSelection().getOptions().get(s)),
+                        evUI.getEditDisplayPos()
+                ))
+                .open();
+    }
+
+    private static StatsType findStatsType(String s) {
+        for (StatsType statValue : StatsType.getStatValues()) {
+            if (statValue.name().equalsIgnoreCase(s)) {
+                return statValue;
+            }
+        }
+
+        return null;
     }
 
 }

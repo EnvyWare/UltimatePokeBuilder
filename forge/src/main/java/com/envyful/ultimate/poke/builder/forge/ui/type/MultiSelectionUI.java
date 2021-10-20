@@ -198,8 +198,7 @@ public class MultiSelectionUI {
         }
 
         public void open() {
-            if (this.player == null || this.playerManager == null || this.config == null ||
-                    this.returnHandler == null || this.confirm == null) {
+            if (this.player == null || this.playerManager == null || this.config == null || this.returnHandler == null) {
                 return;
             }
 

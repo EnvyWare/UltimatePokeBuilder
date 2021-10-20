@@ -42,9 +42,9 @@ public class MultiSelectionUI {
         int optionPositionsSize = config.config.optionPositions.size();
         List<Map.Entry<String, ConfigItem>> items = new ArrayList<>(config.config.options.entrySet());
 
-        for (int i = (config.page * optionPositionsSize); i < ((config.page + 1) & optionPositionsSize); ++i) {
-            int posX = (i % optionPositionsSize) % 9;
-            int posY = (i % optionPositionsSize) / 9;
+        for (int i = (config.page * optionPositionsSize); i < ((config.page + 1) * optionPositionsSize); ++i) {
+            int posX = config.config.optionPositions.get(i % optionPositionsSize) % 9;
+            int posY = config.config.optionPositions.get(i % optionPositionsSize) / 9;
 
             Map.Entry<String, ConfigItem> item = items.get(i);
             ItemStack itemStack = UtilConfigItem.fromConfigItem(item.getValue());
@@ -64,25 +64,28 @@ public class MultiSelectionUI {
         }
 
         UtilConfigItem.addConfigItem(pane, config.config.backButton, config.returnHandler);
-        UtilConfigItem.addConfigItem(pane, config.config.nextPageButton, (envyPlayer, clickType) -> {
-            if (config.page == 0) {
-                config.page = (config.config.options.size() / config.config.optionPositions.size());
-            } else {
-                config.page -= 1;
-            }
 
-            open(config);
-        });
+        if (items.size() > optionPositionsSize) {
+            UtilConfigItem.addConfigItem(pane, config.config.nextPageButton, (envyPlayer, clickType) -> {
+                if (config.page == 0) {
+                    config.page = (config.config.options.size() / config.config.optionPositions.size());
+                } else {
+                    config.page -= 1;
+                }
 
-        UtilConfigItem.addConfigItem(pane, config.config.nextPageButton, (envyPlayer, clickType) -> {
-            if (config.page == (config.config.options.size() / config.config.optionPositions.size())) {
-                config.page = 0;
-            } else {
-                config.page += 1;
-            }
+                open(config);
+            });
 
-            open(config);
-        });
+            UtilConfigItem.addConfigItem(pane, config.config.nextPageButton, (envyPlayer, clickType) -> {
+                if (config.page == (config.config.options.size() / config.config.optionPositions.size())) {
+                    config.page = 0;
+                } else {
+                    config.page += 1;
+                }
+
+                open(config);
+            });
+        }
 
         for (PositionableConfigItem displayItem : config.displayConfigItems) {
             UtilConfigItem.addConfigItem(pane, displayItem);
@@ -136,6 +139,11 @@ public class MultiSelectionUI {
 
         public Builder returnHandler(BiConsumer<EnvyPlayer<?>, Displayable.ClickType> returnHandler) {
             this.returnHandler = returnHandler;
+            return this;
+        }
+
+        public Builder acceptHandler(TriConsumer<EnvyPlayer<?>, Displayable.ClickType, String> acceptHandler) {
+            this.acceptHandler = acceptHandler;
             return this;
         }
 

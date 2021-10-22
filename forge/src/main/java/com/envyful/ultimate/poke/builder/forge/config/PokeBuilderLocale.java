@@ -31,6 +31,7 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
 
         private String amountMustBeGreaterThanZero = "&c&l(!) &cAmount of tokens cannot be less than zero.";
         private String cannotTakeThisMany = "&c&l(!) &c%player% doesn't have enough tokens for you to take this amount";
+        private String insufficientFunds = "&c&l(!) &cYou do not have enough money to purchase this!";
 
         public Messages() {}
 
@@ -68,6 +69,10 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
 
         public String getCannotTakeThisMany() {
             return this.cannotTakeThisMany;
+        }
+
+        public String getInsufficientFunds() {
+            return this.insufficientFunds;
         }
     }
 }

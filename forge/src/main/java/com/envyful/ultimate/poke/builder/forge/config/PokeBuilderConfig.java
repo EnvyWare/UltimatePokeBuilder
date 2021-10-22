@@ -3,6 +3,8 @@ package com.envyful.ultimate.poke.builder.forge.config;
 import com.envyful.api.config.data.ConfigPath;
 import com.envyful.api.config.type.SQLDatabaseDetails;
 import com.envyful.api.config.yaml.AbstractYamlConfig;
+import com.envyful.api.reforged.pixelmon.config.PokeSpecPricing;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
@@ -118,6 +120,10 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     private transient List<PokemonSpec> blacklistSpecsCache = null;
 
+    private Map<String, PokeSpecPricing> minPriceModifiers = ImmutableMap.of(
+            "example", new PokeSpecPricing("shiny:1", new PokeSpecPricing.MathHandler("*", 2.0))
+    );
+
     public PokeBuilderConfig() {
         super();
     }
@@ -178,5 +184,9 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
         }
 
         return this.blacklistSpecsCache;
+    }
+
+    public List<PokeSpecPricing> getPricingModifiers() {
+        return Lists.newArrayList(this.minPriceModifiers.values());
     }
 }

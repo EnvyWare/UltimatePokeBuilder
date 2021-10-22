@@ -8,6 +8,7 @@ import com.envyful.api.forge.gui.type.*;
 import com.envyful.api.gui.factory.GuiFactory;
 import com.envyful.api.gui.pane.Pane;
 import com.envyful.api.player.EnvyPlayer;
+import com.envyful.api.reforged.pixelmon.config.UtilPokemonPrice;
 import com.envyful.api.reforged.pixelmon.sprite.UtilSprite;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
@@ -244,7 +245,9 @@ public class EditPokemonUI {
             return;
         }
 
-        int shinyCost = UltimatePokeBuilderForge.getInstance().getConfig().getShinyCost();
+        int shinyCost = (int) UtilPokemonPrice.getMinPrice(pokemon,
+                                                           UltimatePokeBuilderForge.getInstance().getConfig().getShinyCost(),
+                UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, shinyCost)) {
             open(player, pokemon);
@@ -290,7 +293,8 @@ public class EditPokemonUI {
         }
 
         PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-        int cost  = hiddenAbility ? config.getHiddenAbilityCost() : config.getAbilityCost();
+        int cost = (int) UtilPokemonPrice.getMinPrice(pokemon, hiddenAbility ? config.getHiddenAbilityCost() :
+                config.getAbilityCost(), config.getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, cost)) {
             open(player, pokemon);
@@ -340,7 +344,9 @@ public class EditPokemonUI {
                     }
 
                     PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-                    int cost = config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().get(statsType) - value);
+                    int cost = (int) UtilPokemonPrice.getMinPrice(pokemon,
+                                                                  config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().get(statsType) - value),
+                            config.getPricingModifiers());
 
                     if (!EcoFactory.hasBalance(player, cost)) {
                         open(player, pokemon);
@@ -404,7 +410,9 @@ public class EditPokemonUI {
                     }
 
                     PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-                    int cost = config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().get(statsType) - value);
+                    int cost = (int) UtilPokemonPrice.getMinPrice(pokemon,
+                                                                  config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().get(statsType) - value),
+                                                                  config.getPricingModifiers());
 
                     if (!EcoFactory.hasBalance(player, cost)) {
                         open(player, pokemon);
@@ -471,7 +479,7 @@ public class EditPokemonUI {
         }
 
         PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-        int cost = config.getBallCosts().get(s);
+        int cost = (int) UtilPokemonPrice.getMinPrice(pokemon, config.getBallCosts().get(s), config.getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, cost)) {
             open(player, pokemon);
@@ -516,7 +524,7 @@ public class EditPokemonUI {
         }
 
         PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-        int cost = config.getCostPerLevel() * Math.abs(pokemon.getLevel() - level);
+        int cost = (int) UtilPokemonPrice.getMinPrice(pokemon, config.getCostPerLevel() * Math.abs(pokemon.getLevel() - level), config.getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, cost)) {
             open(player, pokemon);
@@ -557,7 +565,7 @@ public class EditPokemonUI {
         }
 
         PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-        int cost = config.getGrowthCosts().get(s);
+        int cost = (int) UtilPokemonPrice.getMinPrice(pokemon, config.getGrowthCosts().get(s), config.getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, cost)) {
             open(player, pokemon);
@@ -608,7 +616,7 @@ public class EditPokemonUI {
         }
 
         PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-        int cost = config.getNatureCosts().get(s);
+        int cost = (int) UtilPokemonPrice.getMinPrice(pokemon, config.getNatureCosts().get(s), config.getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, cost)) {
             open(player, pokemon);

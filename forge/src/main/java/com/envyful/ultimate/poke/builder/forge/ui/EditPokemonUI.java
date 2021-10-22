@@ -224,6 +224,23 @@ public class EditPokemonUI {
     private static void handleShinyConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, boolean shiny) {
         if (pokemon.isShiny() == shiny) {
             open(player, pokemon);
+
+            if (shiny) {
+                player.message(UtilChatColour.translateColourCodes(
+                        '&',
+                        UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowShiny()
+                                .replace("%cost%", 0 + "")
+                                .replace("%pokemon%", pokemon.getLocalizedName())
+                ));
+            } else {
+                player.message(UtilChatColour.translateColourCodes(
+                        '&',
+                        UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowShiny()
+                                .replace("%cost%", 0 + "")
+                                .replace("%pokemon%", pokemon.getLocalizedName())
+                ));
+            }
+
             return;
         }
 
@@ -262,6 +279,13 @@ public class EditPokemonUI {
                                                   AbilityBase ability, boolean hiddenAbility) {
         if (pokemon.getAbility() == ability) {
             open(player, pokemon);
+            player.message(UtilChatColour.translateColourCodes(
+                    '&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getAbilityChanged()
+                            .replace("%cost%", 0 + "")
+                            .replace("%pokemon%", pokemon.getLocalizedName())
+                            .replace("%ability%", ability.getLocalizedName())
+            ));
             return;
         }
 
@@ -304,6 +328,14 @@ public class EditPokemonUI {
                 .acceptHandler((envyPlayer, clickType, value) -> {
                     if (pokemon.getEVs().get(statsType) == value) {
                         open(player, pokemon);
+                        player.message(UtilChatColour.translateColourCodes(
+                                '&',
+                                UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getEvChanged()
+                                        .replace("%cost%", 0 + "")
+                                        .replace("%pokemon%", pokemon.getLocalizedName())
+                                        .replace("%ev%", statsType.getLocalizedName())
+                                        .replace("%value%", value + "")
+                        ));
                         return;
                     }
 
@@ -360,6 +392,14 @@ public class EditPokemonUI {
                 .acceptHandler((envyPlayer, clickType, value) -> {
                     if (pokemon.getIVs().get(statsType) == value) {
                         open(player, pokemon);
+                        player.message(UtilChatColour.translateColourCodes(
+                                '&',
+                                UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getIvChanged()
+                                        .replace("%cost%", 0 + "")
+                                        .replace("%pokemon%", pokemon.getLocalizedName())
+                                        .replace("%iv%", statsType.getLocalizedName())
+                                        .replace("%value%", value + "")
+                        ));
                         return;
                     }
 
@@ -420,6 +460,13 @@ public class EditPokemonUI {
 
         if (pokeball == pokemon.getCaughtBall()) {
             open(player, pokemon);
+            player.message(UtilChatColour.translateColourCodes(
+                    '&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokeballChanged()
+                            .replace("%cost%", 0 + "")
+                            .replace("%pokemon%", pokemon.getLocalizedName())
+                            .replace("%pokeball%", pokeball.getLocalizedName() + "")
+            ));
             return;
         }
 
@@ -458,6 +505,13 @@ public class EditPokemonUI {
     private static void handleLevelConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, int level) {
         if (pokemon.getLevel() == level) {
             open(player, pokemon);
+            player.message(UtilChatColour.translateColourCodes(
+                    '&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getLevelChanged()
+                            .replace("%cost%", 0 + "")
+                            .replace("%pokemon%", pokemon.getLocalizedName())
+                            .replace("%level%", level + "")
+            ));
             return;
         }
 
@@ -492,6 +546,13 @@ public class EditPokemonUI {
 
         if (pokemon.getGrowth() == growth) {
             open(player, pokemon);
+            player.message(UtilChatColour.translateColourCodes(
+                    '&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getGrowthChanged()
+                            .replace("%cost%", 0 + "")
+                            .replace("%pokemon%", pokemon.getLocalizedName())
+                            .replace("%growth%", growth.getLocalizedName())
+            ));
             return;
         }
 
@@ -536,6 +597,13 @@ public class EditPokemonUI {
 
         if (pokemon.getNature() == nature) {
             open(player, pokemon);
+            player.message(UtilChatColour.translateColourCodes(
+                    '&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getNatureChanged()
+                            .replace("%cost%", 0 + "")
+                            .replace("%pokemon%", pokemon.getLocalizedName())
+                            .replace("%nature%", nature.getLocalizedName())
+            ));
             return;
         }
 

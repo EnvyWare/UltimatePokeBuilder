@@ -3,9 +3,12 @@ package com.envyful.ultimate.poke.builder.forge.config;
 import com.envyful.api.config.data.ConfigPath;
 import com.envyful.api.config.type.SQLDatabaseDetails;
 import com.envyful.api.config.yaml.AbstractYamlConfig;
+import com.google.common.collect.Lists;
+import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @ConfigPath("config/UltimatePokeBuilder/config.yml")
@@ -109,6 +112,12 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
         }
     };
 
+    private List<String> blacklistSpecs = Lists.newArrayList(
+            "ditto"
+    );
+
+    private transient List<PokemonSpec> blacklistSpecsCache = null;
+
     public PokeBuilderConfig() {
         super();
     }
@@ -155,5 +164,19 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     public Map<String, Integer> getNatureCosts() {
         return this.natureCosts;
+    }
+
+    public List<PokemonSpec> getBlockedSpecs() {
+        if (this.blacklistSpecsCache == null) {
+            List<PokemonSpec> specs = Lists.newArrayList();
+
+            for (String blacklistSpec : this.blacklistSpecs) {
+                specs.add(new PokemonSpec(blacklistSpec));
+            }
+
+            this.blacklistSpecsCache = specs;
+        }
+
+        return this.blacklistSpecsCache;
     }
 }

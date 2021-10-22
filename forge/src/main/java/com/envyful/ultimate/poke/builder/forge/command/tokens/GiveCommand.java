@@ -29,7 +29,7 @@ public class GiveCommand {
     @CommandProcessor
     public void onCommand(@Sender EntityPlayerMP player,
                           @Completable(PlayerTabCompleter.class) @Argument EntityPlayerMP target,
-                          int amount) {
+                          @Argument int amount) {
         if (amount <= 0) {
             player.sendMessage(new TextComponentString(UtilChatColour.translateColourCodes(
                     '&',

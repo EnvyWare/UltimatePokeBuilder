@@ -33,6 +33,16 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
         private String cannotTakeThisMany = "&c&l(!) &c%player% doesn't have enough tokens for you to take this amount";
         private String insufficientFunds = "&c&l(!) &cYou do not have enough money to purchase this!";
 
+        private String pokemonNowShiny = "&e&l(!) &e%pokemon% is now &6&lSHINY";
+        private String pokemonNowNonShiny = "&e&l(!) &e%pokemon% is now &f&lNON SHINY&e for %cost%";
+        private String abilityChanged = "&e&l(!) &e%pokemon%'s new ability is %ability% for %cost%";
+        private String evChanged = "&e&l(!) &e%pokemon%'s %ev% is now %value% for %cost%";
+        private String ivChanged = "&e&l(!) &e%pokemon%'s %iv% is now %value% for %cost%";
+        private String pokeballChanged = "&e&l(!) &e%pokemon%'s new ball is %pokeball% for %cost%";
+        private String levelChanged = "&e&l(!) &e%pokemon%'s new level is %level% for %cost%";
+        private String growthChanged = "&e&l(!) &e%pokemon%'s new growth is %growth% for %cost%";
+        private String natureChanged = "&e&l(!) &e%pokemon%'s new nature is %nature% for %cost%";
+
         public Messages() {}
 
         public String getReloadedConfigs() {
@@ -73,6 +83,42 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
 
         public String getInsufficientFunds() {
             return this.insufficientFunds;
+        }
+
+        public String getPokemonNowShiny() {
+            return this.pokemonNowShiny;
+        }
+
+        public String getPokemonNowNonShiny() {
+            return this.pokemonNowNonShiny;
+        }
+
+        public String getAbilityChanged() {
+            return this.abilityChanged;
+        }
+
+        public String getEvChanged() {
+            return this.evChanged;
+        }
+
+        public String getIvChanged() {
+            return this.ivChanged;
+        }
+
+        public String getPokeballChanged() {
+            return this.pokeballChanged;
+        }
+
+        public String getLevelChanged() {
+            return this.levelChanged;
+        }
+
+        public String getGrowthChanged() {
+            return this.growthChanged;
+        }
+
+        public String getNatureChanged() {
+            return this.natureChanged;
         }
     }
 }

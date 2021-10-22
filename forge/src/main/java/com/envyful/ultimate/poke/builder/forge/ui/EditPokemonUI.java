@@ -238,7 +238,23 @@ public class EditPokemonUI {
 
         EcoFactory.takeBalance(player, shinyCost);
         pokemon.setShiny(shiny);
-        //TODO: send message
+
+        if (shiny) {
+            player.message(UtilChatColour.translateColourCodes(
+                    '&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowShiny()
+                            .replace("%cost%", shinyCost + "")
+                            .replace("%pokemon%", pokemon.getLocalizedName())
+            ));
+        } else {
+            player.message(UtilChatColour.translateColourCodes(
+                    '&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowShiny()
+                            .replace("%cost%", shinyCost + "")
+                            .replace("%pokemon%", pokemon.getLocalizedName())
+            ));
+        }
+
         open(player, pokemon);
     }
 
@@ -261,7 +277,13 @@ public class EditPokemonUI {
 
         EcoFactory.takeBalance(player, cost);
         pokemon.setAbility(ability);
-        //TODO: send message
+        player.message(UtilChatColour.translateColourCodes(
+                '&',
+                UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getAbilityChanged()
+                        .replace("%cost%", cost + "")
+                        .replace("%pokemon%", pokemon.getLocalizedName())
+                        .replace("%ability%", ability.getLocalizedName())
+        ));
         open(player, pokemon);
     }
 
@@ -297,7 +319,14 @@ public class EditPokemonUI {
 
                     EcoFactory.takeBalance(player, cost);
                     pokemon.getEVs().set(statsType, value);
-                    //TODO: send message
+                    player.message(UtilChatColour.translateColourCodes(
+                            '&',
+                            UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getEvChanged()
+                                    .replace("%cost%", cost + "")
+                                    .replace("%pokemon%", pokemon.getLocalizedName())
+                                    .replace("%ev%", statsType.getLocalizedName())
+                                    .replace("%value%", value + "")
+                    ));
                     open(player, pokemon);
                 })
                 .key(s)
@@ -339,14 +368,23 @@ public class EditPokemonUI {
 
                     if (!EcoFactory.hasBalance(player, cost)) {
                         open(player, pokemon);
-                        player.message(UtilChatColour.translateColourCodes('&',
-                                                                           UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
+                        player.message(UtilChatColour.translateColourCodes(
+                                '&',
+                                UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()
+                        ));
                         return;
                     }
 
                     EcoFactory.takeBalance(player, cost);
                     pokemon.getIVs().set(statsType, value);
-                    //TODO: send message
+                    player.message(UtilChatColour.translateColourCodes(
+                            '&',
+                            UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getIvChanged()
+                                    .replace("%cost%", cost + "")
+                                    .replace("%pokemon%", pokemon.getLocalizedName())
+                                    .replace("%iv%", statsType.getLocalizedName())
+                                    .replace("%value%", value + "")
+                    ));
                     open(player, pokemon);
                 })
                 .key(s)
@@ -397,7 +435,13 @@ public class EditPokemonUI {
 
         EcoFactory.takeBalance(player, cost);
         pokemon.setCaughtBall(pokeball);
-        //TODO: send message
+        player.message(UtilChatColour.translateColourCodes(
+                '&',
+                UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokeballChanged()
+                        .replace("%cost%", cost + "")
+                        .replace("%pokemon%", pokemon.getLocalizedName())
+                        .replace("%pokeball%", pokeball.getLocalizedName() + "")
+        ));
         open(player, pokemon);
     }
 
@@ -429,7 +473,13 @@ public class EditPokemonUI {
 
         EcoFactory.takeBalance(player, cost);
         pokemon.setLevel(level);
-        //TODO: send message
+        player.message(UtilChatColour.translateColourCodes(
+                '&',
+                UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getLevelChanged()
+                        .replace("%cost%", cost + "")
+                        .replace("%pokemon%", pokemon.getLocalizedName())
+                        .replace("%level%", level + "")
+        ));
         open(player, pokemon);
     }
 
@@ -457,7 +507,13 @@ public class EditPokemonUI {
 
         EcoFactory.takeBalance(player, cost);
         pokemon.setGrowth(growth);
-        //TODO: send message
+        player.message(UtilChatColour.translateColourCodes(
+                '&',
+                UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getGrowthChanged()
+                        .replace("%cost%", cost + "")
+                        .replace("%pokemon%", pokemon.getLocalizedName())
+                        .replace("%growth%", growth.getLocalizedName())
+        ));
         open(player, pokemon);
     }
 
@@ -488,14 +544,22 @@ public class EditPokemonUI {
 
         if (!EcoFactory.hasBalance(player, cost)) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes('&',
-                                                               UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
+            player.message(UtilChatColour.translateColourCodes(
+                    '&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()
+            ));
             return;
         }
 
         EcoFactory.takeBalance(player, cost);
         pokemon.setNature(nature);
-        //TODO: send message
+        player.message(UtilChatColour.translateColourCodes(
+                '&',
+                UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getNatureChanged()
+                        .replace("%cost%", cost + "")
+                        .replace("%pokemon%", pokemon.getLocalizedName())
+                        .replace("%nature%", nature.getLocalizedName())
+        ));
         open(player, pokemon);
     }
 

@@ -115,7 +115,7 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
     };
 
     private List<String> blacklistSpecs = Lists.newArrayList(
-            "ditto"
+            "ditto", "islegendary:true"
     );
 
     private transient List<PokemonSpec> blacklistSpecsCache = null;

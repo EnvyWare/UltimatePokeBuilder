@@ -22,6 +22,7 @@ import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.entities.pixelmon.abilities.AbilityBase;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
 import com.pixelmonmod.pixelmon.enums.EnumGrowth;
+import com.pixelmonmod.pixelmon.enums.EnumNature;
 import com.pixelmonmod.pixelmon.enums.items.EnumPokeballs;
 import net.minecraft.entity.player.EntityPlayerMP;
 
@@ -160,7 +161,23 @@ public class EditPokemonUI {
                                                 });
 
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getNatureButton(),
-                                                (envyPlayer, clickType) -> {}); //TODO:
+                                                (envyPlayer, clickType) -> {
+                                                    GuiConfig.NatureUI natureUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getNatureUI();
+
+                                                    MultiSelectionUI.builder()
+                                                            .player(player)
+                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                                                            .config(natureUI.getNatureSelection())
+                                                            .page(0)
+                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                                                            .confirm(ConfirmationUI.builder().config(natureUI.getConfirmConfig()))
+                                                            .acceptHandler((envyPlayer1, clickType1, s) -> handleNatureConfirmation(player, pokemon, s))
+                                                            .displayItem(new PositionableItem(
+                                                                    UtilSprite.getPokemonElement(pokemon, natureUI.getSpriteConfig()),
+                                                                    natureUI.getPokemonPos()
+                                                            ))
+                                                            .open();
+                                                });
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getGrowthButton(),
                                                 (envyPlayer, clickType) -> {
                                                     GuiConfig.GrowthUI growthUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getGrowthUI();
@@ -438,6 +455,42 @@ public class EditPokemonUI {
         for (EnumGrowth growth : EnumGrowth.values()) {
             if (growth.name().equalsIgnoreCase(s)) {
                 return growth;
+            }
+        }
+
+        return null;
+    }
+
+    private static void handleNatureConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, String s) {
+        EnumNature nature = findNature(s);
+
+        if (nature == null) {
+            return;
+        }
+
+        if (pokemon.getNature() == nature) {
+            open(player, pokemon);
+            return;
+        }
+
+        PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
+        int cost = config.getNatureCosts().get(s);
+
+        if (!EcoFactory.hasBalance(player, cost)) {
+            open(player, pokemon); //TODO: send message
+            return;
+        }
+
+        EcoFactory.takeBalance(player, cost);
+        pokemon.setNature(nature);
+        //TODO: send message
+        open(player, pokemon);
+    }
+
+    private static EnumNature findNature(String s) {
+        for (EnumNature nature : EnumNature.values()) {
+            if (nature.name().equalsIgnoreCase(s)) {
+                return nature;
             }
         }
 

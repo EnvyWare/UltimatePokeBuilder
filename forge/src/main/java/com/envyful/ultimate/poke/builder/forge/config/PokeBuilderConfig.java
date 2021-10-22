@@ -80,6 +80,35 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
         }
     };
 
+    private Map<String, Integer> natureCosts = new HashMap<String, Integer>() {
+        {
+            this.put("hardy", 100);
+            this.put("serious", 100);
+            this.put("docile", 100);
+            this.put("bashful", 100);
+            this.put("quirky", 100);
+            this.put("lonely", 100);
+            this.put("brave", 100);
+            this.put("adamant", 100);
+            this.put("naughty", 100);
+            this.put("bold", 100);
+            this.put("relaxed", 100);
+            this.put("impish", 100);
+            this.put("lax", 100);
+            this.put("timid", 100);
+            this.put("hasty", 100);
+            this.put("jolly", 100);
+            this.put("naive", 100);
+            this.put("modest", 100);
+            this.put("mild", 100);
+            this.put("quiet", 100);
+            this.put("rash", 100);
+            this.put("calm", 100);
+            this.put("gentle", 100);
+            this.put("sassy", 100);
+        }
+    };
+
     public PokeBuilderConfig() {
         super();
     }
@@ -122,5 +151,9 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     public Map<String, Integer> getGrowthCosts() {
         return this.growthCosts;
+    }
+
+    public Map<String, Integer> getNatureCosts() {
+        return this.natureCosts;
     }
 }

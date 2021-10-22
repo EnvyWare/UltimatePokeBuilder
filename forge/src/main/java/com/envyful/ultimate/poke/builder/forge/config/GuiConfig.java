@@ -34,6 +34,7 @@ public class GuiConfig extends AbstractYamlConfig {
     private PokeBallUI ballUI = new PokeBallUI();
     private LevelUI levelUI = new LevelUI();
     private GrowthUI growthUI = new GrowthUI();
+    private NatureUI natureUI = new NatureUI();
 
     public GuiConfig() {
         super();
@@ -73,6 +74,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
     public GrowthUI getGrowthUI() {
         return this.growthUI;
+    }
+
+    public NatureUI getNatureUI() {
+        return this.natureUI;
     }
 
     @ConfigSerializable
@@ -670,7 +675,6 @@ public class GuiConfig extends AbstractYamlConfig {
         }
     }
 
-
     @ConfigSerializable
     public static class GrowthUI {
 
@@ -707,6 +711,69 @@ public class GuiConfig extends AbstractYamlConfig {
 
         public MultiSelectionUI.MultiSelectionConfig getGrowthSelection() {
             return this.growthSelection;
+        }
+
+        public SpriteConfig getSpriteConfig() {
+            return this.spriteConfig;
+        }
+
+        public ConfirmationUI.ConfirmConfig getConfirmConfig() {
+            return this.confirmConfig;
+        }
+
+    }
+
+    @ConfigSerializable
+    public static class NatureUI {
+
+        private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
+
+        private MultiSelectionUI.MultiSelectionConfig natureSelection = new MultiSelectionUI.MultiSelectionConfig(
+                "UltimatePokeBuilder", 6,
+                new HashMap<String, ConfigItem>() {
+                    {
+                        this.put("hardy", new ConfigItem("pixelmon:assault_vest", 1, (byte) 0, "&b&lHardy", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("serious", new ConfigItem("pixelmon:focus_band", 1, (byte) 0, "&b&lSerious", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("docile", new ConfigItem("pixelmon:iron_ball", 1, (byte) 0, "&b&lDocile", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("bashful", new ConfigItem("pixelmon:smoke_ball", 1, (byte) 0, "&b&lBashful", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("quirky", new ConfigItem("pixelmon:zoom_lens", 1, (byte) 0, "&b&lQuirky", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("lonely", new ConfigItem("pixelmon:reaper_cloth", 1, (byte) 0, "&b&lLonely", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("brave", new ConfigItem("pixelmon:focus_sash", 1, (byte) 0, "&b&lBrave", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("adamant", new ConfigItem("pixelmon:metal_coat", 1, (byte) 0, "&b&lAdamant", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("naughty", new ConfigItem("pixelmon:lucky_punch", 1, (byte) 0, "&b&lNaughty", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("bold", new ConfigItem("pixelmon:life_orb", 1, (byte) 0, "&b&lBold", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("relaxed", new ConfigItem("pixelmon:soothe_bell", 1, (byte) 0, "&b&lRelaxed", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("impish", new ConfigItem("pixelmon:thick_club", 1, (byte) 0, "&b&lImpish", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("lax", new ConfigItem("pixelmon:shell_bell", 1, (byte) 0, "&b&lLax", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("timid", new ConfigItem("pixelmon:eject_button", 1, (byte) 0, "&b&lTimid", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("hasty", new ConfigItem("pixelmon:white_herb", 1, (byte) 0, "&b&lHasty", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("jolly", new ConfigItem("pixelmon:air_balloon", 1, (byte) 0, "&b&lJolly", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("naive", new ConfigItem("pixelmon:weakness_policy", 1, (byte) 0, "&b&lNaive", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("modest", new ConfigItem("pixelmon:hard_stone", 1, (byte) 0, "&b&lModest", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("mild", new ConfigItem("pixelmon:oval_stone", 1, (byte) 0, "&b&lMild", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("quiet", new ConfigItem("pixelmon:destiny_knot", 1, (byte) 0, "&b&lQuiet", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("rash", new ConfigItem("pixelmon:red_card", 1, (byte) 0, "&b&lRash", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("calm", new ConfigItem("pixelmon:mental_herb", 1, (byte) 0, "&b&lCalm", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("gentle", new ConfigItem("pixelmon:soft_sand", 1, (byte) 0, "&b&lGentle", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("sassy", new ConfigItem("pixelmon:quick_claw", 1, (byte) 0, "&b&lSassy", Lists.newArrayList(), Maps.newHashMap()));
+                    }
+                }, Lists.newArrayList(12, 13, 14, 15, 16,
+                                      21, 22, 23, 24, 25,
+                                      30, 31, 32, 33, 34)
+        );
+
+        private int pokemonPos = 9;
+
+        private SpriteConfig spriteConfig = new SpriteConfig();
+
+        public NatureUI() {}
+
+        public int getPokemonPos() {
+            return this.pokemonPos;
+        }
+
+        public MultiSelectionUI.MultiSelectionConfig getNatureSelection() {
+            return this.natureSelection;
         }
 
         public SpriteConfig getSpriteConfig() {

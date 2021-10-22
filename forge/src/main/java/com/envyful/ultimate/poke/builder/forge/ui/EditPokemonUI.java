@@ -24,6 +24,7 @@ import com.pixelmonmod.pixelmon.enums.items.EnumPokeballs;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EditPokemonUI {
 
@@ -280,7 +281,7 @@ public class EditPokemonUI {
 
     private static void handleAbilityConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon,
                                                   AbilityBase ability, boolean hiddenAbility) {
-        if (pokemon.getAbility() == ability) {
+        if (Objects.equals(pokemon.getAbility(), ability)) {
             open(player, pokemon);
             player.message(UtilChatColour.translateColourCodes(
                     '&',

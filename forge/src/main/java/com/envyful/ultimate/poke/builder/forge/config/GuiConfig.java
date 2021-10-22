@@ -101,6 +101,13 @@ public class GuiConfig extends AbstractYamlConfig {
 
         private SpriteConfig spriteSettings = new SpriteConfig();
 
+        private ConfigItem blacklistedItem = new ConfigItem(
+                "minecraft:barrier", 1, (byte) 0, "&c&lBlocked", Lists.newArrayList(), Maps.newHashMap()
+        );
+
+        public SelectUI() {
+        }
+
         public ConfigInterface getGuiSettings() {
             return this.guiSettings;
         }
@@ -119,6 +126,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
         public ConfigItem getEggItem() {
             return this.eggItem;
+        }
+
+        public ConfigItem getBlacklistedItem() {
+            return this.blacklistedItem;
         }
     }
 

@@ -11,6 +11,7 @@ import com.envyful.api.reforged.pixelmon.storage.UtilPixelmonPlayer;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
+import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 public class SelectPokemonUI {
@@ -57,6 +58,11 @@ public class SelectPokemonUI {
                 continue;
             }
 
+            if (isBlacklisted(pokemon)) {
+                pane.set(posX, posY, GuiFactory.displayable(UtilConfigItem.fromConfigItem(config.getBlacklistedItem())));
+                continue;
+            }
+
             pane.set(pos % 9, pos / 9, GuiFactory.displayableBuilder(
                     UtilSprite.getPokemonElement(pokemon, config.getSpriteSettings()))
                     .clickHandler((envyPlayer, clickType) -> {
@@ -72,6 +78,16 @@ public class SelectPokemonUI {
                 .height(config.getGuiSettings().getHeight())
                 .title(UtilChatColour.translateColourCodes('&', config.getGuiSettings().getTitle()))
                 .build().open(player);
+    }
+
+    private static boolean isBlacklisted(Pokemon pokemon) {
+        for (PokemonSpec blockedSpec : UltimatePokeBuilderForge.getInstance().getConfig().getBlockedSpecs()) {
+            if (blockedSpec != null && blockedSpec.matches(pokemon)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

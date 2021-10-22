@@ -35,6 +35,6 @@ public class EcoFactory {
     }
 
     public static void takeBalance(EnvyPlayer<EntityPlayerMP> player, int balance) {
-        handler.addBalance(player, balance);
+        handler.takeBalance(player, balance);
     }
 }

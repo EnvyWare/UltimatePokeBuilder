@@ -17,7 +17,7 @@ import net.minecraft.util.text.TextComponentString;
 
 @Command(
         value = "give",
-        description = "Tokens give command",
+        description = "§7/tokens give <player> <amount>",
         aliases = {
                 "g"
         }

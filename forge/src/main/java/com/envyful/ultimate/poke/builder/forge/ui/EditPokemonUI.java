@@ -4,8 +4,7 @@ import com.envyful.api.config.type.ConfigItem;
 import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.forge.config.UtilConfigItem;
 import com.envyful.api.forge.gui.item.PositionableItem;
-import com.envyful.api.forge.gui.type.ConfirmationUI;
-import com.envyful.api.forge.gui.type.TrueFalseSelectionUI;
+import com.envyful.api.forge.gui.type.*;
 import com.envyful.api.gui.factory.GuiFactory;
 import com.envyful.api.gui.pane.Pane;
 import com.envyful.api.player.EnvyPlayer;
@@ -14,9 +13,6 @@ import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderConfig;
 import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoFactory;
-import com.envyful.ultimate.poke.builder.forge.ui.type.DynamicSelectionUI;
-import com.envyful.ultimate.poke.builder.forge.ui.type.MultiSelectionUI;
-import com.envyful.ultimate.poke.builder.forge.ui.type.NumberModificationUI;
 import com.google.common.collect.Lists;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.entities.pixelmon.abilities.AbilityBase;
@@ -234,7 +230,9 @@ public class EditPokemonUI {
         int shinyCost = UltimatePokeBuilderForge.getInstance().getConfig().getShinyCost();
 
         if (!EcoFactory.hasBalance(player, shinyCost)) {
-            open(player, pokemon); //TODO: send message
+            open(player, pokemon);
+            player.message(UtilChatColour.translateColourCodes('&',
+                                                               UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
             return;
         }
 
@@ -255,7 +253,9 @@ public class EditPokemonUI {
         int cost  = hiddenAbility ? config.getHiddenAbilityCost() : config.getAbilityCost();
 
         if (!EcoFactory.hasBalance(player, cost)) {
-            open(player, pokemon); //TODO: send message
+            open(player, pokemon);
+            player.message(UtilChatColour.translateColourCodes('&',
+                                                               UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
             return;
         }
 
@@ -289,7 +289,9 @@ public class EditPokemonUI {
                     int cost = config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().get(statsType) - value);
 
                     if (!EcoFactory.hasBalance(player, cost)) {
-                        open(player, pokemon); //TODO: send message
+                        open(player, pokemon);
+                        player.message(UtilChatColour.translateColourCodes('&',
+                                                                           UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
                         return;
                     }
 
@@ -336,7 +338,9 @@ public class EditPokemonUI {
                     int cost = config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().get(statsType) - value);
 
                     if (!EcoFactory.hasBalance(player, cost)) {
-                        open(player, pokemon); //TODO: send message
+                        open(player, pokemon);
+                        player.message(UtilChatColour.translateColourCodes('&',
+                                                                           UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
                         return;
                     }
 
@@ -385,7 +389,9 @@ public class EditPokemonUI {
         int cost = config.getBallCosts().get(s);
 
         if (!EcoFactory.hasBalance(player, cost)) {
-            open(player, pokemon); //TODO: send message
+            open(player, pokemon);
+            player.message(UtilChatColour.translateColourCodes('&',
+                                                               UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
             return;
         }
 
@@ -415,7 +421,9 @@ public class EditPokemonUI {
         int cost = config.getCostPerLevel() * Math.abs(pokemon.getLevel() - level);
 
         if (!EcoFactory.hasBalance(player, cost)) {
-            open(player, pokemon); //TODO: send message
+            open(player, pokemon);
+            player.message(UtilChatColour.translateColourCodes('&',
+                                                               UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
             return;
         }
 
@@ -441,7 +449,9 @@ public class EditPokemonUI {
         int cost = config.getGrowthCosts().get(s);
 
         if (!EcoFactory.hasBalance(player, cost)) {
-            open(player, pokemon); //TODO: send message
+            open(player, pokemon);
+            player.message(UtilChatColour.translateColourCodes('&',
+                                                               UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
             return;
         }
 
@@ -477,7 +487,9 @@ public class EditPokemonUI {
         int cost = config.getNatureCosts().get(s);
 
         if (!EcoFactory.hasBalance(player, cost)) {
-            open(player, pokemon); //TODO: send message
+            open(player, pokemon);
+            player.message(UtilChatColour.translateColourCodes('&',
+                                                               UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
             return;
         }
 

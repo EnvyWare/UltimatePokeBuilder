@@ -6,12 +6,8 @@ import com.envyful.api.config.type.ConfigItem;
 import com.envyful.api.config.type.PermissibleConfigItem;
 import com.envyful.api.config.type.PositionableConfigItem;
 import com.envyful.api.config.yaml.AbstractYamlConfig;
-import com.envyful.api.forge.gui.type.ConfirmationUI;
-import com.envyful.api.forge.gui.type.TrueFalseSelectionUI;
+import com.envyful.api.forge.gui.type.*;
 import com.envyful.api.reforged.pixelmon.config.SpriteConfig;
-import com.envyful.ultimate.poke.builder.forge.ui.type.DynamicSelectionUI;
-import com.envyful.ultimate.poke.builder.forge.ui.type.MultiSelectionUI;
-import com.envyful.ultimate.poke.builder.forge.ui.type.NumberModificationUI;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -648,7 +644,6 @@ public class GuiConfig extends AbstractYamlConfig {
         );
 
         private int pokemonPos = 9;
-        private int editDisplayPos = 18;
 
         private SpriteConfig spriteConfig = new SpriteConfig();
 
@@ -670,9 +665,6 @@ public class GuiConfig extends AbstractYamlConfig {
             return this.levelEditAmount;
         }
 
-        public int getEditDisplayPos() {
-            return this.editDisplayPos;
-        }
     }
 
     @ConfigSerializable

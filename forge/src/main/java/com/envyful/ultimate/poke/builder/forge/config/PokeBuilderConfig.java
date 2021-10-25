@@ -38,6 +38,17 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
         }
     };
 
+    private Map<String, Integer> ivIncrementCosts = new HashMap<String, Integer>() {
+        {
+            this.put("hp", 100);
+            this.put("attack", 100);
+            this.put("defence", 100);
+            this.put("specialattack", 100);
+            this.put("specialdefence", 100);
+            this.put("speed", 100);
+        }
+    };
+
     private Map<String, Integer> ballCosts = new HashMap<String, Integer>() {
         {
             this.put("pokeball", 100);
@@ -158,6 +169,10 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     public Map<String, Integer> getEvIncrementCosts() {
         return this.evIncrementCosts;
+    }
+
+    public Map<String, Integer> getIvIncrementCosts() {
+        return this.ivIncrementCosts;
     }
 
     public Map<String, Integer> getBallCosts() {

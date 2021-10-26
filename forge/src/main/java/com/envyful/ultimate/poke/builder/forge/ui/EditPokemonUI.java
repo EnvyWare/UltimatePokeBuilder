@@ -8,12 +8,14 @@ import com.envyful.api.forge.gui.type.*;
 import com.envyful.api.gui.factory.GuiFactory;
 import com.envyful.api.gui.pane.Pane;
 import com.envyful.api.player.EnvyPlayer;
+import com.envyful.api.reforged.pixelmon.config.PokeSpecPricing;
 import com.envyful.api.reforged.pixelmon.config.UtilPokemonPrice;
 import com.envyful.api.reforged.pixelmon.sprite.UtilSprite;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderConfig;
 import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoFactory;
+import com.envyful.ultimate.poke.builder.forge.ui.transformer.PriceTransformer;
 import com.google.common.collect.Lists;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.entities.pixelmon.abilities.AbilityBase;
@@ -48,6 +50,9 @@ public class EditPokemonUI {
         pane.set(config.getSpritePos() % 9, config.getSpritePos() / 9,
                  GuiFactory.displayable(UtilSprite.getPokemonElement(pokemon, config.getSpriteSettings())));
 
+        List<PokeSpecPricing> pricingModifiers =
+                UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers();
+
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getShinyButton(),
                                                 (envyPlayer, clickType) -> {
                                                     GuiConfig.ShinyUI shinyUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getShinyUI();
@@ -61,6 +66,11 @@ public class EditPokemonUI {
                                                             .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
                                                             .trueAcceptHandler((envyPlayer1, clickType1) -> handleShinyConfirmation(player, pokemon, true))
                                                             .falseAcceptHandler((envyPlayer1, clickType1) -> handleShinyConfirmation(player, pokemon, false))
+                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                                                    pokemon,
+                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getShinyCost(),
+                                                                    pricingModifiers
+                                                            )))
                                                             .displayItem(new PositionableItem(
                                                                     UtilSprite.getPokemonElement(pokemon, shinyUI.getSpriteConfig()),
                                                                     shinyUI.getPokemonPos()
@@ -96,6 +106,11 @@ public class EditPokemonUI {
                                                                                           ability.endsWith(" (HA")
                                                                 );
                                                             })
+                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                                                    pokemon,
+                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getAbilityCost(),
+                                                                    pricingModifiers
+                                                            )))
                                                             .displayItem(new PositionableItem(
                                                                     UtilSprite.getPokemonElement(pokemon, abilitiesUI.getSpriteConfig()),
                                                                     abilitiesUI.getPokemonPos()
@@ -119,6 +134,11 @@ public class EditPokemonUI {
                                                                     UtilSprite.getPokemonElement(pokemon, evUI.getSpriteConfig()),
                                                                     evUI.getPokemonPos()
                                                             ))
+                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                                                    pokemon,
+                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getEvIncrementCosts().values().toArray(new Integer[0])[0],
+                                                                    pricingModifiers
+                                                            )))
                                                             .open();
                                                 });
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getIvButton(),
@@ -137,6 +157,11 @@ public class EditPokemonUI {
                                                                     UtilSprite.getPokemonElement(pokemon, ivUI.getSpriteConfig()),
                                                                     ivUI.getPokemonPos()
                                                             ))
+                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                                                    pokemon,
+                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getIvIncrementCosts().values().toArray(new Integer[0])[0],
+                                                                    pricingModifiers
+                                                            )))
                                                             .open();
                                                 });
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getPokeballButton(),
@@ -155,6 +180,11 @@ public class EditPokemonUI {
                                                                     UtilSprite.getPokemonElement(pokemon, ballUI.getSpriteConfig()),
                                                                     ballUI.getPokemonPos()
                                                             ))
+                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                                                    pokemon,
+                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getBallCosts().values().toArray(new Integer[0])[0],
+                                                                    pricingModifiers
+                                                            )))
                                                             .open();
                                                 });
 
@@ -174,6 +204,11 @@ public class EditPokemonUI {
                                                                     UtilSprite.getPokemonElement(pokemon, natureUI.getSpriteConfig()),
                                                                     natureUI.getPokemonPos()
                                                             ))
+                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                                                    pokemon,
+                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getNatureCosts().values().toArray(new Integer[0])[0],
+                                                                    pricingModifiers
+                                                            )))
                                                             .open();
                                                 });
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getGrowthButton(),
@@ -192,6 +227,11 @@ public class EditPokemonUI {
                                                                     UtilSprite.getPokemonElement(pokemon, growthUI.getSpriteConfig()),
                                                                     growthUI.getPokemonPos()
                                                             ))
+                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                                                    pokemon,
+                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getGrowthCosts().values().toArray(new Integer[0])[0],
+                                                                    pricingModifiers
+                                                            )))
                                                             .open();
                                                 });
 
@@ -211,6 +251,11 @@ public class EditPokemonUI {
                                                                     UtilSprite.getPokemonElement(pokemon, levelUI.getSpriteConfig()),
                                                                     levelUI.getPokemonPos()
                                                             ))
+                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                                                    pokemon,
+                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getCostPerLevel(),
+                                                                    pricingModifiers
+                                                            )))
                                                             .open();
                                                 });
 

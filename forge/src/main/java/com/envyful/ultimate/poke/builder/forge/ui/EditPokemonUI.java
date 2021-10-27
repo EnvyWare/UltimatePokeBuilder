@@ -416,6 +416,11 @@ public class EditPokemonUI {
                 .key(s)
                 .confirm(ConfirmationUI.builder().config(evUI.getConfirmConfig()))
                 .currentValue(pokemon.getEVs().get(statsType))
+                .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                        pokemon,
+                        UltimatePokeBuilderForge.getInstance().getConfig().getEvIncrementCosts().values().toArray(new Integer[0])[0],
+                        UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers()
+                )))
                 .displayItem(new PositionableItem(
                         UtilSprite.getPokemonElement(pokemon, evUI.getSpriteConfig()),
                         evUI.getPokemonPos()
@@ -484,6 +489,11 @@ public class EditPokemonUI {
                 .key(s)
                 .confirm(ConfirmationUI.builder().config(ivUI.getConfirmConfig()))
                 .currentValue(pokemon.getIVs().get(statsType))
+                .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                        pokemon,
+                        UltimatePokeBuilderForge.getInstance().getConfig().getIvIncrementCosts().values().toArray(new Integer[0])[0],
+                        UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers()
+                )))
                 .displayItem(new PositionableItem(
                         UtilSprite.getPokemonElement(pokemon, ivUI.getSpriteConfig()),
                         ivUI.getPokemonPos()

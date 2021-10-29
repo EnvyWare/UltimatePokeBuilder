@@ -12,6 +12,7 @@ import com.envyful.api.forge.command.completion.player.PlayerTabCompleter;
 import com.envyful.api.player.EnvyPlayer;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.eco.player.PokeBuilderAttribute;
+import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentString;
 
@@ -27,7 +28,7 @@ import net.minecraft.util.text.TextComponentString;
 public class GiveCommand {
 
     @CommandProcessor
-    public void onCommand(@Sender EntityPlayerMP player,
+    public void onCommand(@Sender ICommandSender player,
                           @Completable(PlayerTabCompleter.class) @Argument EntityPlayerMP target,
                           @Argument int amount) {
         if (amount <= 0) {

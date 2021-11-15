@@ -275,14 +275,14 @@ public class EditPokemonUI {
             if (shiny) {
                 player.message(UtilChatColour.translateColourCodes(
                         '&',
-                        UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowShiny()
+                        UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowNonShiny()
                                 .replace("%cost%", 0 + "")
                                 .replace("%pokemon%", pokemon.getLocalizedName())
                 ));
             } else {
                 player.message(UtilChatColour.translateColourCodes(
                         '&',
-                        UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowShiny()
+                        UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowNonShiny()
                                 .replace("%cost%", 0 + "")
                                 .replace("%pokemon%", pokemon.getLocalizedName())
                 ));
@@ -315,7 +315,7 @@ public class EditPokemonUI {
         } else {
             player.message(UtilChatColour.translateColourCodes(
                     '&',
-                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowShiny()
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowNonShiny()
                             .replace("%cost%", shinyCost + "")
                             .replace("%pokemon%", pokemon.getLocalizedName())
             ));

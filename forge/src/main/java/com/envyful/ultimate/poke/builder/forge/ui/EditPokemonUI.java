@@ -103,7 +103,7 @@ public class EditPokemonUI {
 
                                                                 handleAbilityConfirmation(player, pokemon,
                                                                                           pokemon.getBaseStats().getAllAbilities().get(index),
-                                                                                          ability.endsWith(" (HA")
+                                                                                          ability.endsWith(" (HA)")
                                                                 );
                                                             })
                                                             .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(

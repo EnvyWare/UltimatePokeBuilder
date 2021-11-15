@@ -462,7 +462,7 @@ public class EditPokemonUI {
 
                     PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
                     int cost = (int) UtilPokemonPrice.getMinPrice(pokemon,
-                                                                  config.getIvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().get(statsType) - value),
+                                                                  config.getIvIncrementCosts().get(s) * Math.abs(pokemon.getIVs().get(statsType) - value),
                                                                   config.getPricingModifiers());
 
                     if (!EcoFactory.hasBalance(player, cost)) {

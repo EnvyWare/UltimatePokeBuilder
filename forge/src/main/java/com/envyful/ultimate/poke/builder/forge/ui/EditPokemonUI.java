@@ -389,6 +389,13 @@ public class EditPokemonUI {
                         return;
                     }
 
+                    if (value > 0 && (pokemon.getEVs().getTotal() +  value) > 510) {
+                        open(player, pokemon);
+                        player.message(UtilChatColour.translateColourCodes('&',
+                                                                           UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getEvsMax()));
+                        return;
+                    }
+
                     PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
                     int cost = (int) UtilPokemonPrice.getMinPrice(pokemon,
                                                                   config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().get(statsType) - value),

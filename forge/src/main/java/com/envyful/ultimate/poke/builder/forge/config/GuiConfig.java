@@ -353,7 +353,7 @@ public class GuiConfig extends AbstractYamlConfig {
         );
 
         private NumberModificationUI.NumberModificationConfig evEditAmount = new NumberModificationUI.NumberModificationConfig(
-                "UPB", 4, 31, 0,  new PositionableConfigItem(
+                "UPB", 4, 252, 0,  new PositionableConfigItem(
                 "minecraft:chest", 1, (byte) 0, "&bCurrent Value: &a%value%",
                 Lists.newArrayList(), 2, 1, Maps.newHashMap()),
                 new HashMap<String, NumberModificationUI.EditValueButton>() {

@@ -32,6 +32,7 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
         private String amountMustBeGreaterThanZero = "&c&l(!) &cAmount of tokens cannot be less than zero.";
         private String cannotTakeThisMany = "&c&l(!) &c%player% doesn't have enough tokens for you to take this amount";
         private String insufficientFunds = "&c&l(!) &cYou do not have enough money to purchase this!";
+        private String evsMax = "&c&l(!) &cYou cannot have an EV total of greater than 510!";
 
         private String pokemonNowShiny = "&e&l(!) &e%pokemon% is now &6&lSHINY";
         private String pokemonNowNonShiny = "&e&l(!) &e%pokemon% is now &f&lNON SHINY&e for %cost%";
@@ -119,6 +120,10 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
 
         public String getNatureChanged() {
             return this.natureChanged;
+        }
+
+        public String getEvsMax() {
+            return this.evsMax;
         }
     }
 }

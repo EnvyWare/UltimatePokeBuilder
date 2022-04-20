@@ -43,7 +43,7 @@ repositories {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
-    compileOnly fg.deobf('pixelmon:Pixelmon-1.12.2-8.3.6-server:8.3.8')
+    compileOnly fg.deobf('pixelmon:Pixelmon-1.12.2-8.3.8-server:8.3.8')
 
     compileOnly 'com.github.EnvyWare.ForgePlaceholderAPI:api:0.0.1'
 

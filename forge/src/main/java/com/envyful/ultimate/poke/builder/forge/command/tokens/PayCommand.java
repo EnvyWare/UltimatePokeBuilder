@@ -71,7 +71,7 @@ public class PayCommand {
         )));
 
         targetAttribute.setTokens(targetAttribute.getTokens() + amount);
-        sender.sendMessage(new TextComponentString(UtilChatColour.translateColourCodes(
+        target.sendMessage(new TextComponentString(UtilChatColour.translateColourCodes(
                 '&',
                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getReceivedPlayerTokens()
                         .replace("%amount%", amount + "")

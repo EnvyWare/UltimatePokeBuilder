@@ -67,6 +67,7 @@ public class PayCommand {
                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getSentTokens()
                         .replace("%amount%", amount + "")
                         .replace("%player%", targetPlayer.getName())
+                        .replace("%new_total%", senderAttribute.getTokens() + "")
         )));
 
         targetAttribute.setTokens(targetAttribute.getTokens() + amount);
@@ -75,6 +76,7 @@ public class PayCommand {
                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getReceivedPlayerTokens()
                         .replace("%amount%", amount + "")
                         .replace("%player%", senderPlayer.getName())
+                        .replace("%new_total%", targetAttribute.getTokens() + "")
         )));
     }
 }

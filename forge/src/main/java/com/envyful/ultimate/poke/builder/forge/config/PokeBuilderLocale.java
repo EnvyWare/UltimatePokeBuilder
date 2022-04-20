@@ -28,8 +28,8 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
         private String tokensTaken = "&e&l(!) &eYou (%player%) lost %tokens% tokens taken by %sender%";
         private String givenTokens = "&e&l(!) &eYou (%sender%) gave %player% %tokens% tokens";
         private String takenTokens = "&e&l(!) &eYou (%sender%) took %tokens% tokens from %player%";
-        private String sentTokens = "&c&l(!) %amount% send to %player%";
-        private String receivedPlayerTokens = "&c&l(!) %amount% received from %player%";
+        private String sentTokens = "&c&l(!) %amount% send to %player% %new_total%";
+        private String receivedPlayerTokens = "&c&l(!) %amount% received from %player% %new_total%";
 
         private String amountMustBeGreaterThanZero = "&c&l(!) &cAmount of tokens cannot be less than zero.";
         private String cannotTakeThisMany = "&c&l(!) &c%player% doesn't have enough tokens for you to take this amount";

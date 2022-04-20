@@ -28,10 +28,13 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
         private String tokensTaken = "&e&l(!) &eYou (%player%) lost %tokens% tokens taken by %sender%";
         private String givenTokens = "&e&l(!) &eYou (%sender%) gave %player% %tokens% tokens";
         private String takenTokens = "&e&l(!) &eYou (%sender%) took %tokens% tokens from %player%";
+        private String sentTokens = "&c&l(!) %amount% send to %player%";
+        private String receivedPlayerTokens = "&c&l(!) %amount% received from %player%";
 
         private String amountMustBeGreaterThanZero = "&c&l(!) &cAmount of tokens cannot be less than zero.";
         private String cannotTakeThisMany = "&c&l(!) &c%player% doesn't have enough tokens for you to take this amount";
         private String insufficientFunds = "&c&l(!) &cYou do not have enough money to purchase this!";
+        private String insufficientFundsPay = "&c&l(!) &cYou do not have enough tokens";
         private String evsMax = "&c&l(!) &cYou cannot have an EV total of greater than 510!";
 
         private String pokemonNowShiny = "&e&l(!) &e%pokemon% is now &6&lSHINY";
@@ -124,6 +127,18 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
 
         public String getEvsMax() {
             return this.evsMax;
+        }
+
+        public String getInsufficientFundsPay() {
+            return this.insufficientFundsPay;
+        }
+
+        public String getSentTokens() {
+            return this.sentTokens;
+        }
+
+        public String getReceivedPlayerTokens() {
+            return this.receivedPlayerTokens;
         }
     }
 }

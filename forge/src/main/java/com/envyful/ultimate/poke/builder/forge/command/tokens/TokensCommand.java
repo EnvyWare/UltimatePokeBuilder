@@ -19,7 +19,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
         }
 )
 @Permissible("ultimate.poke.builder.command.tokens")
-@SubCommands({GiveCommand.class, TakeCommand.class})
+@SubCommands({GiveCommand.class, TakeCommand.class, PayCommand.class})
 public class TokensCommand {
 
     @CommandProcessor

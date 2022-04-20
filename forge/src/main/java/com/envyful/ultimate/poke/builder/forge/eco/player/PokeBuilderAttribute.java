@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class PokeBuilderAttribute extends AbstractForgeAttribute<UltimatePokeBuilderForge> {
 
@@ -17,6 +18,10 @@ public class PokeBuilderAttribute extends AbstractForgeAttribute<UltimatePokeBui
 
     public PokeBuilderAttribute(UltimatePokeBuilderForge manager, EnvyPlayer<?> parent) {
         super(manager, (ForgeEnvyPlayer) parent);
+    }
+
+    public PokeBuilderAttribute(UUID uuid) {
+        super(uuid);
     }
 
     public int getTokens() {

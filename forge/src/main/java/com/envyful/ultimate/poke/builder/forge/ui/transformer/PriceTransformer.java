@@ -17,7 +17,7 @@ public class PriceTransformer implements Transformer {
 
     @Override
     public String transformName(String name) {
-        return name.replace("%cost%", String.format("%.2f", this.price));
+        return name.replace("%cost%", String.format("%,.2f", this.price));
     }
 
     @Override

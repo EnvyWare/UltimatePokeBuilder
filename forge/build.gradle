@@ -30,22 +30,28 @@ repositories {
 
     maven { url 'https://jitpack.io' }
 
-    flatDir {
-        dirs '../../Libraries/'
+    ivy {
+        setUrl('https://download.nodecdn.net/containers/reforged/server/release')
+        metadataSources {
+            artifact()
+        }
+        patternLayout {
+            artifact('[revision]/[artifact].[ext]')
+        }
     }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
-    compileOnly fg.deobf('com.pixelmonmod.pixelmon:Pixelmon-1.12.2-8.3.1-server:1.0')
+    compileOnly fg.deobf('pixelmon:Pixelmon-1.12.2-8.3.6-server:8.3.8')
 
-    compileOnly 'com.github.Pixelmon-Development.ForgePlaceholderAPI:api:0.0.1'
+    compileOnly 'com.github.EnvyWare.ForgePlaceholderAPI:api:0.0.1'
 
     shadow group: 'org.spongepowered', name: 'configurate-yaml', version: '4.0.0'
 
-    shadow group: 'com.github.Pixelmon-Development.API', name: 'commons', version: '1.1.8'
-    shadow group: 'com.github.Pixelmon-Development.API', name: 'forge', version: '1.1.8'
-    shadow group: 'com.github.Pixelmon-Development.API', name: 'reforged', version: '1.1.8'
+    shadow group: 'com.github.EnvyWare.API', name: 'commons', version: '2.2.9'
+    shadow group: 'com.github.EnvyWare.API', name: 'forge', version: '2.2.9'
+    shadow group: 'com.github.EnvyWare.API', name: 'reforged', version: '2.2.9'
 }
 
 shadowJar {

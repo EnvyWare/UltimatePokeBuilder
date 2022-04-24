@@ -31,6 +31,7 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
         private String sentTokens = "&c&l(!) %amount% send to %player% %new_total%";
         private String receivedPlayerTokens = "&c&l(!) %amount% received from %player% %new_total%";
 
+        private String cannotPaySelf = "&c&l(!) &cCannot pay yourself!";
         private String amountMustBeGreaterThanZero = "&c&l(!) &cAmount of tokens cannot be less than zero.";
         private String cannotTakeThisMany = "&c&l(!) &c%player% doesn't have enough tokens for you to take this amount";
         private String insufficientFunds = "&c&l(!) &cYou do not have enough money to purchase this!";
@@ -139,6 +140,10 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
 
         public String getReceivedPlayerTokens() {
             return this.receivedPlayerTokens;
+        }
+
+        public String getCannotPaySelf() {
+            return this.cannotPaySelf;
         }
     }
 }

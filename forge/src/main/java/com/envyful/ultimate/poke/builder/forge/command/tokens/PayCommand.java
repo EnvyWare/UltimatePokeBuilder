@@ -15,6 +15,8 @@ import com.envyful.ultimate.poke.builder.forge.eco.player.PokeBuilderAttribute;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.text.TextComponentString;
 
+import java.util.Objects;
+
 @Command(
         value = "pay",
         description = "§7/tokens pay <player> <amount>",
@@ -55,6 +57,14 @@ public class PayCommand {
         }
 
         EnvyPlayer<?> targetPlayer = UltimatePokeBuilderForge.getInstance().getPlayerManager().getPlayer(target);
+
+        if (Objects.equals(senderPlayer.getUuid(), targetPlayer.getUuid())) {
+            sender.sendMessage(new TextComponentString(UtilChatColour.translateColourCodes('&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getCannotPaySelf()
+            )));
+            return;
+        }
+
         PokeBuilderAttribute targetAttribute = targetPlayer.getAttribute(UltimatePokeBuilderForge.class);
 
         if (targetAttribute == null) {

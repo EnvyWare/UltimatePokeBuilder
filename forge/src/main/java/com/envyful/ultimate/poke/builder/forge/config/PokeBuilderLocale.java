@@ -47,6 +47,8 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
         private String levelChanged = "&e&l(!) &e%pokemon%'s new level is %level% for %cost%";
         private String growthChanged = "&e&l(!) &e%pokemon%'s new growth is %growth% for %cost%";
         private String natureChanged = "&e&l(!) &e%pokemon%'s new nature is %nature% for %cost%";
+        private String pokemonNowTradeable = "&e&l(!) &e%pokemon% is now &a&lTRADEABLE";
+        private String pokemonNowUntradeable = "&e&l(!) &e%pokemon% is now &c&lUNTRADEABLE&e for %cost%";
 
         public Messages() {}
 
@@ -144,6 +146,14 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
 
         public String getCannotPaySelf() {
             return this.cannotPaySelf;
+        }
+
+        public String getPokemonNowTradeable() {
+            return this.pokemonNowTradeable;
+        }
+
+        public String getPokemonNowUntradeable() {
+            return this.pokemonNowUntradeable;
         }
     }
 }

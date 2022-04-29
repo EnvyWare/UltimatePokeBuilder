@@ -52,6 +52,30 @@ public class EditPokemonUI {
 
         List<PokeSpecPricing> pricingModifiers =
                 UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers();
+        UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getUntradeableButton(),
+                (envyPlayer, clickType) -> {
+                    GuiConfig.UntradeableUI untradeableUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getUntradeableUI();
+
+                    TrueFalseSelectionUI.builder()
+                            .player(envyPlayer)
+                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                            .config(untradeableUI.getTrueFalseSettings())
+                            .confirm(ConfirmationUI.builder().config(untradeableUI.getConfirmConfig()))
+                            .startsTrue(pokemon.hasSpecFlag("Untradeable"))
+                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                            .trueAcceptHandler((envyPlayer1, clickType1) -> handleUntradeableConfirmation(player, pokemon, true))
+                            .falseAcceptHandler((envyPlayer1, clickType1) -> handleUntradeableConfirmation(player, pokemon, false))
+                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                    pokemon,
+                                    UltimatePokeBuilderForge.getInstance().getConfig().getUntradeableCost(),
+                                    pricingModifiers
+                            )))
+                            .displayItem(new PositionableItem(
+                                    UtilSprite.getPokemonElement(pokemon, untradeableUI.getSpriteConfig()),
+                                    untradeableUI.getPokemonPos()
+                            ))
+                            .open();
+                });
 
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getShinyButton(),
                                                 (envyPlayer, clickType) -> {
@@ -266,6 +290,67 @@ public class EditPokemonUI {
                 .height(config.getGuiSettings().getHeight())
                 .title(UtilChatColour.translateColourCodes('&', config.getGuiSettings().getTitle()))
                 .build().open(player);
+    }
+
+    private static void handleUntradeableConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, boolean untradeable) {
+        if (pokemon.hasSpecFlag("Untradeable") == untradeable) {
+            open(player, pokemon);
+
+            if (untradeable) {
+                player.message(UtilChatColour.translateColourCodes(
+                        '&',
+                        UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowUntradeable()
+                                .replace("%cost%", 0 + "")
+                                .replace("%pokemon%", pokemon.getLocalizedName())
+                ));
+            } else {
+                player.message(UtilChatColour.translateColourCodes(
+                        '&',
+                        UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowTradeable()
+                                .replace("%cost%", 0 + "")
+                                .replace("%pokemon%", pokemon.getLocalizedName())
+                ));
+            }
+
+            return;
+        }
+
+        int untradeableCost = (int) UtilPokemonPrice.getMinPrice(pokemon,
+                UltimatePokeBuilderForge.getInstance().getConfig().getUntradeableCost(),
+                UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers());
+
+        if (!EcoFactory.hasBalance(player, untradeableCost)) {
+            open(player, pokemon);
+            player.message(UtilChatColour.translateColourCodes('&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
+            return;
+        }
+
+        EcoFactory.takeBalance(player, untradeableCost);
+
+        if (untradeable) {
+            pokemon.addSpecFlag("Untradeable");
+        } else {
+            pokemon.removeSpecFlag("Untradeable");
+        }
+
+        if (untradeable) {
+            player.message(UtilChatColour.translateColourCodes(
+                    '&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowUntradeable()
+                            .replace("%cost%", untradeableCost + "")
+                            .replace("%pokemon%", pokemon.getLocalizedName())
+            ));
+        } else {
+            player.message(UtilChatColour.translateColourCodes(
+                    '&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowTradeable()
+                            .replace("%cost%", untradeableCost + "")
+                            .replace("%pokemon%", pokemon.getLocalizedName())
+            ));
+        }
+
+        open(player, pokemon);
     }
 
     private static void handleShinyConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, boolean shiny) {

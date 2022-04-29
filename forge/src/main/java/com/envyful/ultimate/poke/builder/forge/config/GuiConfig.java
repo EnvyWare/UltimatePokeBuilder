@@ -31,6 +31,7 @@ public class GuiConfig extends AbstractYamlConfig {
     private LevelUI levelUI = new LevelUI();
     private GrowthUI growthUI = new GrowthUI();
     private NatureUI natureUI = new NatureUI();
+    private UntradeableUI untradeableUI = new UntradeableUI();
 
     public GuiConfig() {
         super();
@@ -74,6 +75,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
     public NatureUI getNatureUI() {
         return this.natureUI;
+    }
+
+    public UntradeableUI getUntradeableUI() {
+        return this.untradeableUI;
     }
 
     @ConfigSerializable
@@ -206,6 +211,13 @@ public class GuiConfig extends AbstractYamlConfig {
                 Maps.newHashMap())
         );
 
+        private PermissibleConfigItem untradeableButton = new PermissibleConfigItem(
+                "minecraft:barrier", 1, (byte) 0, "&eUntradeable",
+                Lists.newArrayList(), 3, 1, "", Maps.newHashMap(), new ConfigItem(
+                "minecraft:barrier", 1, (byte) 0, "&cNo Permission", Lists.newArrayList(),
+                Maps.newHashMap())
+        );
+
         private SpriteConfig spriteSettings = new SpriteConfig();
 
         public ConfigInterface getGuiSettings() {
@@ -255,6 +267,10 @@ public class GuiConfig extends AbstractYamlConfig {
         public PermissibleConfigItem getShinyButton() {
             return this.shinyButton;
         }
+
+        public PermissibleConfigItem getUntradeableButton() {
+            return this.untradeableButton;
+        }
     }
 
     @ConfigSerializable
@@ -294,6 +310,42 @@ public class GuiConfig extends AbstractYamlConfig {
         }
     }
 
+    @ConfigSerializable
+    public static class UntradeableUI {
+
+        private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
+
+        private TrueFalseSelectionUI.TrueFalseConfig trueFalseSettings = new TrueFalseSelectionUI.TrueFalseConfig(
+                new PositionableConfigItem("minecraft:barrier", 1, (byte) 0 , "&c&lUNTRADEABLE",
+                        Lists.newArrayList(),
+                        2, 1, Maps.newHashMap()),
+                new PositionableConfigItem("minecraft:barrier", 1, (byte) 0 , "&a&lTRADEABLE",
+                        Lists.newArrayList(),
+                        2, 1, Maps.newHashMap())
+        );
+
+        private int pokemonPos = 9;
+
+        private SpriteConfig spriteConfig = new SpriteConfig();
+
+        public UntradeableUI() {}
+
+        public int getPokemonPos() {
+            return this.pokemonPos;
+        }
+
+        public TrueFalseSelectionUI.TrueFalseConfig getTrueFalseSettings() {
+            return this.trueFalseSettings;
+        }
+
+        public SpriteConfig getSpriteConfig() {
+            return this.spriteConfig;
+        }
+
+        public ConfirmationUI.ConfirmConfig getConfirmConfig() {
+            return this.confirmConfig;
+        }
+    }
 
     @ConfigSerializable
     public static class AbilitiesUI {

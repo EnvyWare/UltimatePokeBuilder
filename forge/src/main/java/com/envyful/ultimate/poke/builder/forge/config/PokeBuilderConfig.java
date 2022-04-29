@@ -24,6 +24,7 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
     private String economyHandler = "tokens";
     private int defaultTokens = 500;
     private int shinyCost = 200;
+    private int untradeableCost = 600;
     private int abilityCost = 500;
     private int hiddenAbilityCost = 1000;
     private int costPerLevel = 200;
@@ -153,6 +154,10 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     public int getShinyCost() {
         return this.shinyCost;
+    }
+
+    public int getUntradeableCost() {
+        return this.untradeableCost;
     }
 
     public int getCostPerLevel() {

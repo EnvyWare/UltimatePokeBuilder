@@ -32,6 +32,7 @@ public class GuiConfig extends AbstractYamlConfig {
     private GrowthUI growthUI = new GrowthUI();
     private NatureUI natureUI = new NatureUI();
     private UntradeableUI untradeableUI = new UntradeableUI();
+    private GenderUI genderUI = new GenderUI();
 
     public GuiConfig() {
         super();
@@ -79,6 +80,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
     public UntradeableUI getUntradeableUI() {
         return this.untradeableUI;
+    }
+
+    public GenderUI getGenderUI() {
+        return this.genderUI;
     }
 
     @ConfigSerializable
@@ -218,6 +223,13 @@ public class GuiConfig extends AbstractYamlConfig {
                 Maps.newHashMap())
         );
 
+        private PermissibleConfigItem genderButton = new PermissibleConfigItem(
+                "minecraft:stone", 1, (byte) 0, "&eGender",
+                Lists.newArrayList(), 3, 2, "", Maps.newHashMap(), new ConfigItem(
+                "minecraft:barrier", 1, (byte) 0, "&cNo Permission", Lists.newArrayList(),
+                Maps.newHashMap())
+        );
+
         private SpriteConfig spriteSettings = new SpriteConfig();
 
         public ConfigInterface getGuiSettings() {
@@ -270,6 +282,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
         public PermissibleConfigItem getUntradeableButton() {
             return this.untradeableButton;
+        }
+
+        public PermissibleConfigItem getGenderButton() {
+            return this.genderButton;
         }
     }
 
@@ -329,6 +345,43 @@ public class GuiConfig extends AbstractYamlConfig {
         private SpriteConfig spriteConfig = new SpriteConfig();
 
         public UntradeableUI() {}
+
+        public int getPokemonPos() {
+            return this.pokemonPos;
+        }
+
+        public TrueFalseSelectionUI.TrueFalseConfig getTrueFalseSettings() {
+            return this.trueFalseSettings;
+        }
+
+        public SpriteConfig getSpriteConfig() {
+            return this.spriteConfig;
+        }
+
+        public ConfirmationUI.ConfirmConfig getConfirmConfig() {
+            return this.confirmConfig;
+        }
+    }
+
+    @ConfigSerializable
+    public static class GenderUI {
+
+        private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
+
+        private TrueFalseSelectionUI.TrueFalseConfig trueFalseSettings = new TrueFalseSelectionUI.TrueFalseConfig(
+                new PositionableConfigItem("minecraft:stone", 1, (byte) 0 , "&b&lMALE",
+                        Lists.newArrayList(),
+                        2, 1, Maps.newHashMap()),
+                new PositionableConfigItem("minecraft:stone", 1, (byte) 0 , "&d&lFEMALE",
+                        Lists.newArrayList(),
+                        2, 1, Maps.newHashMap())
+        );
+
+        private int pokemonPos = 9;
+
+        private SpriteConfig spriteConfig = new SpriteConfig();
+
+        public GenderUI() {}
 
         public int getPokemonPos() {
             return this.pokemonPos;

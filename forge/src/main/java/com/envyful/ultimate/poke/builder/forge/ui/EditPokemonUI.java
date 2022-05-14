@@ -19,6 +19,7 @@ import com.envyful.ultimate.poke.builder.forge.ui.transformer.PriceTransformer;
 import com.google.common.collect.Lists;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.entities.pixelmon.abilities.AbilityBase;
+import com.pixelmonmod.pixelmon.entities.pixelmon.stats.Gender;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
 import com.pixelmonmod.pixelmon.enums.EnumGrowth;
 import com.pixelmonmod.pixelmon.enums.EnumNature;
@@ -76,6 +77,33 @@ public class EditPokemonUI {
                             ))
                             .open();
                 });
+
+        if (!Objects.equals(pokemon.getGender(), Gender.None)) {
+            UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getGenderButton(),
+                    (envyPlayer, clickType) -> {
+                        GuiConfig.GenderUI genderUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getGenderUI();
+
+                        TrueFalseSelectionUI.builder()
+                                .player(envyPlayer)
+                                .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                                .config(genderUI.getTrueFalseSettings())
+                                .confirm(ConfirmationUI.builder().config(genderUI.getConfirmConfig()))
+                                .startsTrue(Objects.equals(pokemon.getGender(), Gender.Male))
+                                .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                                .trueAcceptHandler((envyPlayer1, clickType1) -> handleGenderConfirmation(player, pokemon, Gender.Male))
+                                .falseAcceptHandler((envyPlayer1, clickType1) -> handleGenderConfirmation(player, pokemon, Gender.Female))
+                                .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                        pokemon,
+                                        UltimatePokeBuilderForge.getInstance().getConfig().getGenderCost(),
+                                        pricingModifiers
+                                )))
+                                .displayItem(new PositionableItem(
+                                        UtilSprite.getPokemonElement(pokemon, genderUI.getSpriteConfig()),
+                                        genderUI.getPokemonPos()
+                                ))
+                                .open();
+                    });
+        }
 
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getShinyButton(),
                                                 (envyPlayer, clickType) -> {
@@ -349,6 +377,45 @@ public class EditPokemonUI {
                             .replace("%pokemon%", pokemon.getLocalizedName())
             ));
         }
+
+        open(player, pokemon);
+    }
+
+    private static void handleGenderConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, Gender gender) {
+        if (Objects.equals(pokemon.getGender(), gender)) {
+            open(player, pokemon);
+
+            player.message(UtilChatColour.translateColourCodes(
+                    '&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonGenderNow()
+                            .replace("%cost%", 0 + "")
+                            .replace("%pokemon%", pokemon.getLocalizedName())
+                            .replace("%gender%", gender.getLocalizedName())
+            ));
+            return;
+        }
+
+        int genderCost = (int) UtilPokemonPrice.getMinPrice(pokemon,
+                UltimatePokeBuilderForge.getInstance().getConfig().getGenderCost(),
+                UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers());
+
+        if (!EcoFactory.hasBalance(player, genderCost)) {
+            open(player, pokemon);
+            player.message(UtilChatColour.translateColourCodes('&',
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
+            return;
+        }
+
+        EcoFactory.takeBalance(player, genderCost);
+
+        pokemon.setGender(gender);
+        player.message(UtilChatColour.translateColourCodes(
+                '&',
+                UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonGenderNow()
+                        .replace("%cost%", 0 + "")
+                        .replace("%pokemon%", pokemon.getLocalizedName())
+                        .replace("%gender%", gender.getLocalizedName())
+        ));
 
         open(player, pokemon);
     }

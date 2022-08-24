@@ -14,6 +14,7 @@ buildscript {
     }
 }
 
+forgeVersion = "1.12.2"
 apply plugin: 'net.minecraftforge.gradle'
 
 minecraft {

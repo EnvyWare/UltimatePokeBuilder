@@ -20,7 +20,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -44,10 +43,6 @@ public class UltimatePokeBuilderForge {
     public UltimatePokeBuilderForge() {
         MinecraftForge.EVENT_BUS.register(this);
         instance = this;
-    }
-
-    @SubscribeEvent
-    public void onServerStarting(FMLServerStartingEvent event) {
         GuiFactory.setPlatformFactory(new ForgeGuiFactory());
 
         this.loadConfig();

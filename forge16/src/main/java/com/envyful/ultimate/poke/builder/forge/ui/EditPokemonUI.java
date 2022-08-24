@@ -5,9 +5,9 @@ import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.forge.config.UtilConfigItem;
 import com.envyful.api.forge.gui.item.PositionableItem;
 import com.envyful.api.forge.gui.type.*;
+import com.envyful.api.forge.player.ForgeEnvyPlayer;
 import com.envyful.api.gui.factory.GuiFactory;
 import com.envyful.api.gui.pane.Pane;
-import com.envyful.api.player.EnvyPlayer;
 import com.envyful.api.reforged.pixelmon.config.PokeSpecPricing;
 import com.envyful.api.reforged.pixelmon.config.UtilPokemonPrice;
 import com.envyful.api.reforged.pixelmon.sprite.UtilSprite;
@@ -16,22 +16,25 @@ import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderConfig;
 import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoFactory;
 import com.envyful.ultimate.poke.builder.forge.ui.transformer.PriceTransformer;
-import com.google.common.collect.Lists;
+import com.pixelmonmod.api.Flags;
+import com.pixelmonmod.pixelmon.api.pokemon.Nature;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
-import com.pixelmonmod.pixelmon.entities.pixelmon.abilities.AbilityBase;
-import com.pixelmonmod.pixelmon.entities.pixelmon.stats.Gender;
-import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
+import com.pixelmonmod.pixelmon.api.pokemon.ability.Ability;
+import com.pixelmonmod.pixelmon.api.pokemon.item.pokeball.PokeBall;
+import com.pixelmonmod.pixelmon.api.pokemon.item.pokeball.PokeBallRegistry;
+import com.pixelmonmod.pixelmon.api.pokemon.species.gender.Gender;
+import com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType;
+import com.pixelmonmod.pixelmon.api.util.ITranslatable;
 import com.pixelmonmod.pixelmon.enums.EnumGrowth;
-import com.pixelmonmod.pixelmon.enums.EnumNature;
-import com.pixelmonmod.pixelmon.enums.items.EnumPokeballs;
-import net.minecraft.entity.player.EntityPlayerMP;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class EditPokemonUI {
 
-    public static void open(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon) {
+    public static void open(ForgeEnvyPlayer player, Pokemon pokemon) {
         GuiConfig.EditPokemonUI config = UltimatePokeBuilderForge.getInstance().getGuiConfig().getEditPokemonUI();
 
         Pane pane = GuiFactory.paneBuilder()
@@ -53,32 +56,8 @@ public class EditPokemonUI {
 
         List<PokeSpecPricing> pricingModifiers =
                 UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers();
-//        UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getUntradeableButton(),
-//                (envyPlayer, clickType) -> {
-//                    GuiConfig.UntradeableUI untradeableUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getUntradeableUI();
-//
-//                    TrueFalseSelectionUI.builder()
-//                            .player(envyPlayer)
-//                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
-//                            .config(untradeableUI.getTrueFalseSettings())
-//                            .confirm(ConfirmationUI.builder().config(untradeableUI.getConfirmConfig()))
-//                            .startsTrue(pokemon.hasSpecFlag("Untradeable"))
-//                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
-//                            .trueAcceptHandler((envyPlayer1, clickType1) -> handleUntradeableConfirmation(player, pokemon, true))
-//                            .falseAcceptHandler((envyPlayer1, clickType1) -> handleUntradeableConfirmation(player, pokemon, false))
-//                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
-//                                    pokemon,
-//                                    UltimatePokeBuilderForge.getInstance().getConfig().getUntradeableCost(),
-//                                    pricingModifiers
-//                            )))
-//                            .displayItem(new PositionableItem(
-//                                    UtilSprite.getPokemonElement(pokemon, untradeableUI.getSpriteConfig()),
-//                                    untradeableUI.getPokemonPos()
-//                            ))
-//                            .open();
-//                });
 
-        if (!Objects.equals(pokemon.getGender(), Gender.None)) {
+        if (!Objects.equals(pokemon.getGender(), Gender.NONE)) {
             UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getGenderButton(),
                     (envyPlayer, clickType) -> {
                         GuiConfig.GenderUI genderUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getGenderUI();
@@ -88,10 +67,10 @@ public class EditPokemonUI {
                                 .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
                                 .config(genderUI.getTrueFalseSettings())
                                 .confirm(ConfirmationUI.builder().config(genderUI.getConfirmConfig()))
-                                .startsTrue(Objects.equals(pokemon.getGender(), Gender.Male))
+                                .startsTrue(Objects.equals(pokemon.getGender(), Gender.MALE))
                                 .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
-                                .trueAcceptHandler((envyPlayer1, clickType1) -> handleGenderConfirmation(player, pokemon, Gender.Male))
-                                .falseAcceptHandler((envyPlayer1, clickType1) -> handleGenderConfirmation(player, pokemon, Gender.Female))
+                                .trueAcceptHandler((envyPlayer1, clickType1) -> handleGenderConfirmation(player, pokemon, Gender.MALE))
+                                .falseAcceptHandler((envyPlayer1, clickType1) -> handleGenderConfirmation(player, pokemon, Gender.FEMALE))
                                 .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
                                         pokemon,
                                         UltimatePokeBuilderForge.getInstance().getConfig().getGenderCost(),
@@ -135,7 +114,8 @@ public class EditPokemonUI {
                                                     GuiConfig.AbilitiesUI abilitiesUI =
                                                             UltimatePokeBuilderForge.getInstance().getGuiConfig().getAbilitiesUI();
 
-                                                    List<String> abilitiesStripped = Lists.newArrayList(pokemon.getSpecies().getBaseStats(pokemon.getForm()).getAbilitiesArray());
+                                                    List<String> abilitiesStripped = Arrays.stream(pokemon.getForm().getAbilities().getAll())
+                                                            .map(ITranslatable::getLocalizedName).collect(Collectors.toList());
 
                                                     if (abilitiesStripped.size() == 3 && abilitiesStripped.get(2) != null) {
                                                         abilitiesStripped.set(2, abilitiesStripped.get(2) + " (HA)");
@@ -154,7 +134,7 @@ public class EditPokemonUI {
                                                                 int index = abilitiesStripped.indexOf(ability);
 
                                                                 handleAbilityConfirmation(player, pokemon,
-                                                                                          pokemon.getBaseStats().getAllAbilities().get(index),
+                                                                                          pokemon.getForm().getAbilities().getAll()[index],
                                                                                           ability.endsWith(" (HA)")
                                                                 );
                                                             })
@@ -295,7 +275,7 @@ public class EditPokemonUI {
                                                             .player(player)
                                                             .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
                                                             .config(levelUI.getLevelEditAmount())
-                                                            .currentValue(pokemon.getLevel())
+                                                            .currentValue(pokemon.getPokemonLevel())
                                                             .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
                                                             .confirm(ConfirmationUI.builder().config(levelUI.getConfirmConfig()))
                                                             .acceptHandler((envyPlayer1, clickType1, level) -> handleLevelConfirmation(player, pokemon, level))
@@ -320,8 +300,8 @@ public class EditPokemonUI {
                 .build().open(player);
     }
 
-    private static void handleUntradeableConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, boolean untradeable) {
-        if (pokemon.hasSpecFlag("Untradeable") == untradeable) {
+    private static void handleUntradeableConfirmation(ForgeEnvyPlayer player, Pokemon pokemon, boolean untradeable) {
+        if (pokemon.isUntradeable() == untradeable) {
             open(player, pokemon);
 
             if (untradeable) {
@@ -357,9 +337,9 @@ public class EditPokemonUI {
         EcoFactory.takeBalance(player, untradeableCost);
 
         if (untradeable) {
-            pokemon.addSpecFlag("Untradeable");
+            pokemon.addFlag(Flags.UNTRADEABLE);
         } else {
-            pokemon.removeSpecFlag("Untradeable");
+            pokemon.removeFlag(Flags.UNTRADEABLE);
         }
 
         if (untradeable) {
@@ -381,7 +361,7 @@ public class EditPokemonUI {
         open(player, pokemon);
     }
 
-    private static void handleGenderConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, Gender gender) {
+    private static void handleGenderConfirmation(ForgeEnvyPlayer player, Pokemon pokemon, Gender gender) {
         if (Objects.equals(pokemon.getGender(), gender)) {
             open(player, pokemon);
 
@@ -420,7 +400,7 @@ public class EditPokemonUI {
         open(player, pokemon);
     }
 
-    private static void handleShinyConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, boolean shiny) {
+    private static void handleShinyConfirmation(ForgeEnvyPlayer player, Pokemon pokemon, boolean shiny) {
         if (pokemon.isShiny() == shiny) {
             open(player, pokemon);
 
@@ -476,8 +456,8 @@ public class EditPokemonUI {
         open(player, pokemon);
     }
 
-    private static void handleAbilityConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon,
-                                                  AbilityBase ability, boolean hiddenAbility) {
+    private static void handleAbilityConfirmation(ForgeEnvyPlayer player, Pokemon pokemon,
+                                                  Ability ability, boolean hiddenAbility) {
         if (Objects.equals(pokemon.getAbility(), ability)) {
             open(player, pokemon);
             player.message(UtilChatColour.translateColourCodes(
@@ -513,10 +493,10 @@ public class EditPokemonUI {
         open(player, pokemon);
     }
 
-    private static void openEVSelect(String s, EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon) {
+    private static void openEVSelect(String s, ForgeEnvyPlayer player, Pokemon pokemon) {
         GuiConfig.EvUI evUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getEvUI();
 
-        StatsType statsType = findStatsType(s);
+        BattleStatsType statsType = findStatsType(s);
 
         if (statsType == null) {
             return;
@@ -528,7 +508,7 @@ public class EditPokemonUI {
                 .config(evUI.getEvEditAmount())
                 .returnHandler((e, c) -> open(player, pokemon))
                 .acceptHandler((envyPlayer, clickType, value) -> {
-                    if (pokemon.getEVs().get(statsType) == value) {
+                    if (pokemon.getEVs().getStat(statsType) == value) {
                         open(player, pokemon);
                         player.message(UtilChatColour.translateColourCodes(
                                 '&',
@@ -550,7 +530,7 @@ public class EditPokemonUI {
 
                     PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
                     int cost = (int) UtilPokemonPrice.getMinPrice(pokemon,
-                                                                  config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().get(statsType) - value),
+                                                                  config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().getStat(statsType) - value),
                             config.getPricingModifiers());
 
                     if (!EcoFactory.hasBalance(player, cost)) {
@@ -561,7 +541,7 @@ public class EditPokemonUI {
                     }
 
                     EcoFactory.takeBalance(player, cost);
-                    pokemon.getEVs().set(statsType, value);
+                    pokemon.getEVs().setStat(statsType, value);
                     player.message(UtilChatColour.translateColourCodes(
                             '&',
                             UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getEvChanged()
@@ -574,7 +554,7 @@ public class EditPokemonUI {
                 })
                 .key(s)
                 .confirm(ConfirmationUI.builder().config(evUI.getConfirmConfig()))
-                .currentValue(pokemon.getEVs().get(statsType))
+                .currentValue(pokemon.getEVs().getStat(statsType))
                 .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
                         pokemon,
                         UltimatePokeBuilderForge.getInstance().getConfig().getEvIncrementCosts().values().toArray(new Integer[0])[0],
@@ -591,10 +571,10 @@ public class EditPokemonUI {
                 .open();
     }
 
-    private static void openIVSelect(String s, EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon) {
+    private static void openIVSelect(String s, ForgeEnvyPlayer player, Pokemon pokemon) {
         GuiConfig.IvUI ivUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getIvUI();
 
-        StatsType statsType = findStatsType(s);
+        BattleStatsType statsType = findStatsType(s);
 
         if (statsType == null) {
             return;
@@ -606,7 +586,7 @@ public class EditPokemonUI {
                 .config(ivUI.getIvEditAmount())
                 .returnHandler((e, c) -> open(player, pokemon))
                 .acceptHandler((envyPlayer, clickType, value) -> {
-                    if (pokemon.getIVs().get(statsType) == value) {
+                    if (pokemon.getIVs().getStat(statsType) == value) {
                         open(player, pokemon);
                         player.message(UtilChatColour.translateColourCodes(
                                 '&',
@@ -621,7 +601,7 @@ public class EditPokemonUI {
 
                     PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
                     int cost = (int) UtilPokemonPrice.getMinPrice(pokemon,
-                                                                  config.getIvIncrementCosts().get(s) * Math.abs(pokemon.getIVs().get(statsType) - value),
+                                                                  config.getIvIncrementCosts().get(s) * Math.abs(pokemon.getIVs().getStat(statsType) - value),
                                                                   config.getPricingModifiers());
 
                     if (!EcoFactory.hasBalance(player, cost)) {
@@ -634,7 +614,7 @@ public class EditPokemonUI {
                     }
 
                     EcoFactory.takeBalance(player, cost);
-                    pokemon.getIVs().set(statsType, value);
+                    pokemon.getIVs().setStat(statsType, value);
                     player.message(UtilChatColour.translateColourCodes(
                             '&',
                             UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getIvChanged()
@@ -647,7 +627,7 @@ public class EditPokemonUI {
                 })
                 .key(s)
                 .confirm(ConfirmationUI.builder().config(ivUI.getConfirmConfig()))
-                .currentValue(pokemon.getIVs().get(statsType))
+                .currentValue(pokemon.getIVs().getStat(statsType))
                 .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
                         pokemon,
                         UltimatePokeBuilderForge.getInstance().getConfig().getIvIncrementCosts().values().toArray(new Integer[0])[0],
@@ -664,8 +644,8 @@ public class EditPokemonUI {
                 .open();
     }
 
-    private static StatsType findStatsType(String s) {
-        for (StatsType statValue : StatsType.getStatValues()) {
+    private static BattleStatsType findStatsType(String s) {
+        for (BattleStatsType statValue : BattleStatsType.EV_IV_STATS) {
             if (statValue.name().equalsIgnoreCase(s)) {
                 return statValue;
             }
@@ -674,14 +654,14 @@ public class EditPokemonUI {
         return null;
     }
 
-    private static void handleBallConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, String s) {
-        EnumPokeballs pokeball = findPokeBall(s);
+    private static void handleBallConfirmation(ForgeEnvyPlayer player, Pokemon pokemon, String s) {
+        PokeBall pokeball = findPokeBall(s);
 
         if (pokeball == null) {
             return;
         }
 
-        if (pokeball == pokemon.getCaughtBall()) {
+        if (pokeball == pokemon.getBall()) {
             open(player, pokemon);
             player.message(UtilChatColour.translateColourCodes(
                     '&',
@@ -704,7 +684,7 @@ public class EditPokemonUI {
         }
 
         EcoFactory.takeBalance(player, cost);
-        pokemon.setCaughtBall(pokeball);
+        pokemon.setBall(pokeball);
         player.message(UtilChatColour.translateColourCodes(
                 '&',
                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokeballChanged()
@@ -715,9 +695,9 @@ public class EditPokemonUI {
         open(player, pokemon);
     }
 
-    private static EnumPokeballs findPokeBall(String s) {
-        for (EnumPokeballs ball : EnumPokeballs.values()) {
-            if (ball.name().equalsIgnoreCase(s)) {
+    private static PokeBall findPokeBall(String s) {
+        for (PokeBall ball : PokeBallRegistry.getAll()) {
+            if (ball.getName().equalsIgnoreCase(s)) {
                 return ball;
             }
         }
@@ -725,8 +705,8 @@ public class EditPokemonUI {
         return null;
     }
 
-    private static void handleLevelConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, int level) {
-        if (pokemon.getLevel() == level) {
+    private static void handleLevelConfirmation(ForgeEnvyPlayer player, Pokemon pokemon, int level) {
+        if (pokemon.getPokemonLevel() == level) {
             open(player, pokemon);
             player.message(UtilChatColour.translateColourCodes(
                     '&',
@@ -739,7 +719,7 @@ public class EditPokemonUI {
         }
 
         PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-        int cost = (int) UtilPokemonPrice.getMinPrice(pokemon, config.getCostPerLevel() * Math.abs(pokemon.getLevel() - level), config.getPricingModifiers());
+        int cost = (int) UtilPokemonPrice.getMinPrice(pokemon, config.getCostPerLevel() * Math.abs(pokemon.getPokemonLevel() - level), config.getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, cost)) {
             open(player, pokemon);
@@ -760,7 +740,7 @@ public class EditPokemonUI {
         open(player, pokemon);
     }
 
-    private static void handleGrowthConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, String s) {
+    private static void handleGrowthConfirmation(ForgeEnvyPlayer player, Pokemon pokemon, String s) {
         EnumGrowth growth = findGrowth(s);
 
         if (growth == null) {
@@ -811,8 +791,8 @@ public class EditPokemonUI {
         return null;
     }
 
-    private static void handleNatureConfirmation(EnvyPlayer<EntityPlayerMP> player, Pokemon pokemon, String s) {
-        EnumNature nature = findNature(s);
+    private static void handleNatureConfirmation(ForgeEnvyPlayer player, Pokemon pokemon, String s) {
+        Nature nature = findNature(s);
 
         if (nature == null) {
             return;
@@ -854,8 +834,8 @@ public class EditPokemonUI {
         open(player, pokemon);
     }
 
-    private static EnumNature findNature(String s) {
-        for (EnumNature nature : EnumNature.values()) {
+    private static Nature findNature(String s) {
+        for (Nature nature : Nature.values()) {
             if (nature.name().equalsIgnoreCase(s)) {
                 return nature;
             }

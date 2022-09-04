@@ -3,6 +3,8 @@ package com.envyful.ultimate.poke.builder.forge.config;
 import com.envyful.api.config.data.ConfigPath;
 import com.envyful.api.config.type.SQLDatabaseDetails;
 import com.envyful.api.config.yaml.AbstractYamlConfig;
+import com.envyful.api.player.SaveMode;
+import com.envyful.api.player.SaveModeTypeAdapter;
 import com.envyful.api.reforged.pixelmon.config.PokeSpecPricing;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -22,6 +24,7 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
                                                                            "username", "password",
                                                                            "database");
 
+    private SaveMode saveMode = SaveMode.JSON;
     private String economyHandler = "tokens";
     private int defaultTokens = 500;
     private int shinyCost = 200;
@@ -34,9 +37,9 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
         {
             this.put("hp", 100);
             this.put("attack", 100);
-            this.put("defence", 100);
-            this.put("specialattack", 100);
-            this.put("specialdefence", 100);
+            this.put("defense", 100);
+            this.put("special_attack", 100);
+            this.put("special_defense", 100);
             this.put("speed", 100);
         }
     };
@@ -45,43 +48,43 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
         {
             this.put("hp", 100);
             this.put("attack", 100);
-            this.put("defence", 100);
-            this.put("specialattack", 100);
-            this.put("specialdefence", 100);
+            this.put("defense", 100);
+            this.put("special_attack", 100);
+            this.put("special_defense", 100);
             this.put("speed", 100);
         }
     };
 
     private Map<String, Integer> ballCosts = new HashMap<String, Integer>() {
         {
-            this.put("pokeball", 100);
-            this.put("greatball", 100);
-            this.put("ultraball", 100);
-            this.put("masterball", 100);
-            this.put("levelball", 100);
-            this.put("moonball", 100);
-            this.put("friendball", 100);
-            this.put("loveball", 100);
-            this.put("safariball", 100);
-            this.put("heavyball", 100);
-            this.put("fastball", 100);
-            this.put("repeatball", 100);
-            this.put("timerball", 100);
-            this.put("nestball", 100);
-            this.put("netball", 100);
-            this.put("diveball", 100);
-            this.put("luxuryball", 100);
-            this.put("healball", 100);
-            this.put("duskball", 100);
-            this.put("premierball", 100);
-            this.put("sportball", 100);
-            this.put("quickball", 100);
-            this.put("lureball", 100);
-            this.put("parkball", 100);
-            this.put("cherishball", 100);
-            this.put("gsball", 100);
-            this.put("beastball", 100);
-            this.put("dreamball", 100);
+            this.put("poke_ball", 100);
+            this.put("great_ball", 100);
+            this.put("ultra_ball", 100);
+            this.put("master_ball", 100);
+            this.put("level_ball", 100);
+            this.put("moon_ball", 100);
+            this.put("friend_ball", 100);
+            this.put("love_ball", 100);
+            this.put("safari_ball", 100);
+            this.put("heavy_ball", 100);
+            this.put("fast_ball", 100);
+            this.put("repeat_ball", 100);
+            this.put("timer_ball", 100);
+            this.put("nest_ball", 100);
+            this.put("net_ball", 100);
+            this.put("dive_ball", 100);
+            this.put("luxury_ball", 100);
+            this.put("heal_ball", 100);
+            this.put("dusk_ball", 100);
+            this.put("premier_ball", 100);
+            this.put("sport_ball", 100);
+            this.put("quick_ball", 100);
+            this.put("lure_ball", 100);
+            this.put("park_ball", 100);
+            this.put("cherish_ball", 100);
+            this.put("gs_ball", 100);
+            this.put("beast_ball", 100);
+            this.put("dream_ball", 100);
         }
     };
 
@@ -140,6 +143,10 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     public PokeBuilderConfig() {
         super();
+    }
+
+    public SaveMode getSaveMode() {
+        return this.saveMode;
     }
 
     public SQLDatabaseDetails getSqlDatabaseDetails() {

@@ -2,6 +2,7 @@ package com.envyful.ultimate.poke.builder.forge.ui;
 
 import com.envyful.api.config.type.ConfigItem;
 import com.envyful.api.forge.chat.UtilChatColour;
+import com.envyful.api.forge.config.UtilConfigInterface;
 import com.envyful.api.forge.config.UtilConfigItem;
 import com.envyful.api.forge.gui.item.PositionableItem;
 import com.envyful.api.forge.gui.type.*;
@@ -44,18 +45,14 @@ public class EditPokemonUI {
                 .height(config.getGuiSettings().getHeight())
                 .build();
 
-        for (ConfigItem fillerItem : config.getGuiSettings().getFillerItems()) {
-            pane.add(GuiFactory.displayable(UtilConfigItem.fromConfigItem(fillerItem)));
-        }
-
+        UtilConfigInterface.fillBackground(pane, config.getGuiSettings());
         UtilConfigItem.addConfigItem(pane, config.getBackButton(),
                                      (envyPlayer, clickType) -> SelectPokemonUI.open(player));
 
         pane.set(config.getSpritePos() % 9, config.getSpritePos() / 9,
                  GuiFactory.displayable(UtilSprite.getPokemonElement(pokemon, config.getSpriteSettings())));
 
-        List<PokeSpecPricing> pricingModifiers =
-                UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers();
+        List<PokeSpecPricing> pricingModifiers = UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers();
 
         if (!Objects.equals(pokemon.getGender(), Gender.NONE)) {
             UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getGenderButton(),
@@ -646,7 +643,7 @@ public class EditPokemonUI {
 
     private static BattleStatsType findStatsType(String s) {
         for (BattleStatsType statValue : BattleStatsType.EV_IV_STATS) {
-            if (statValue.name().equalsIgnoreCase(s)) {
+            if (statValue.name().equalsIgnoreCase(s) || statValue.getLocalizedName().equalsIgnoreCase(s)) {
                 return statValue;
             }
         }
@@ -658,6 +655,7 @@ public class EditPokemonUI {
         PokeBall pokeball = findPokeBall(s);
 
         if (pokeball == null) {
+            System.out.println("S:" + s);
             return;
         }
 
@@ -697,6 +695,7 @@ public class EditPokemonUI {
 
     private static PokeBall findPokeBall(String s) {
         for (PokeBall ball : PokeBallRegistry.getAll()) {
+            System.out.println(ball.getName());
             if (ball.getName().equalsIgnoreCase(s)) {
                 return ball;
             }

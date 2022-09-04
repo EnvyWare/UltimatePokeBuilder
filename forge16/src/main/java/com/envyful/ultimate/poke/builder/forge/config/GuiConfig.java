@@ -92,7 +92,7 @@ public class GuiConfig extends AbstractYamlConfig {
         private ConfigInterface guiSettings = new ConfigInterface(
                 "UltimatePokeBuilder", 3, "BLOCK",
                 ImmutableMap.of("one", new ConfigItem(
-                        "minecraft:stained_glass_pane", 1, (byte) 15, " ", Lists.newArrayList(), Maps.newHashMap()
+                        "minecraft:black_stained_glass_pane", 1, (byte) 15, " ", Lists.newArrayList(), Maps.newHashMap()
                 ))
         );
 
@@ -149,7 +149,7 @@ public class GuiConfig extends AbstractYamlConfig {
         private ConfigInterface guiSettings = new ConfigInterface(
                 "UltimatePokeBuilder", 4, "BLOCK",
                 ImmutableMap.of("one", new ConfigItem(
-                        "minecraft:stained_glass_pane", 1, (byte) 15, " ", Lists.newArrayList(), Maps.newHashMap()
+                        "minecraft:black_stained_glass_pane", 1, (byte) 15, " ", Lists.newArrayList(), Maps.newHashMap()
                 ))
         );
 
@@ -225,7 +225,7 @@ public class GuiConfig extends AbstractYamlConfig {
                 .build();
 
         private ExtendedConfigItem genderButton = ExtendedConfigItem.builder()
-                .type("pixelmon:stone")
+                .type("minecraft:stone")
                 .amount(1)
                 .name("&eGender")
                 .positions(Pair.of(3, 2))
@@ -447,9 +447,9 @@ public class GuiConfig extends AbstractYamlConfig {
                     {
                         this.put("hp", new ConfigItem("pixelmon:power_weight", 1, (byte) 0, "&a&lHP", Lists.newArrayList(), Maps.newHashMap()));
                         this.put("attack", new ConfigItem("pixelmon:power_bracer", 1, (byte) 0, "&c&lAttack", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("defence", new ConfigItem("pixelmon:power_belt", 1, (byte) 0, "&6&lDefence", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("specialattack", new ConfigItem("pixelmon:power_lens", 1, (byte) 0, "&d&lSp. Attack", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("specialdefence", new ConfigItem("pixelmon:power_band", 1, (byte) 0, "&e&lSp. Defence", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("defense", new ConfigItem("pixelmon:power_belt", 1, (byte) 0, "&6&lDefence", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("special_attack", new ConfigItem("pixelmon:power_lens", 1, (byte) 0, "&d&lSp. Attack", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("special_defense", new ConfigItem("pixelmon:power_band", 1, (byte) 0, "&e&lSp. Defence", Lists.newArrayList(), Maps.newHashMap()));
                         this.put("speed", new ConfigItem("pixelmon:power_anklet", 1, (byte) 0, "&b&lSpeed", Lists.newArrayList(), Maps.newHashMap()));
                     }
                 }, Lists.newArrayList(12, 13, 14, 21, 22, 23)
@@ -462,42 +462,42 @@ public class GuiConfig extends AbstractYamlConfig {
                 new HashMap<String, NumberModificationUI.EditValueButton>() {
                     {
                         this.put("one", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+1",
+                                "minecraft:lime_stained_glass_pane", 1,"&a&l+1",
                                 Lists.newArrayList(), 4, 1, Maps.newHashMap()
                         ), 1));
 
                         this.put("two", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+5",
+                                "minecraft:lime_stained_glass_pane", 1,"&a&l+5",
                                 Lists.newArrayList(), 5, 1, Maps.newHashMap()
                         ), 5));
 
                         this.put("three", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+10",
+                                "minecraft:lime_stained_glass_pane", 1,"&a&l+10",
                                 Lists.newArrayList(), 6, 1, Maps.newHashMap()
                         ), 10));
 
                         this.put("four", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+15",
+                                "minecraft:lime_stained_glass_pane", 1,"&a&l+15",
                                 Lists.newArrayList(), 7, 1, Maps.newHashMap()
                         ), 15));
 
                         this.put("five", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-1",
+                                "minecraft:red_stained_glass_pane", 1, (byte) 14, "&c&l-1",
                                 Lists.newArrayList(), 4, 2, Maps.newHashMap()
                         ), -1));
 
                         this.put("six", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-5",
+                                "minecraft:red_stained_glass_pane", 1, (byte) 14, "&c&l-5",
                                 Lists.newArrayList(), 5, 2, Maps.newHashMap()
                         ), -5));
 
                         this.put("seven", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-10",
+                                "minecraft:red_stained_glass_pane", 1, (byte) 14, "&c&l-10",
                                 Lists.newArrayList(), 6, 2, Maps.newHashMap()
                         ), -10));
 
                         this.put("eight", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-15",
+                                "minecraft:red_stained_glass_pane", 1, (byte) 14, "&c&l-15",
                                 Lists.newArrayList(), 7, 2, Maps.newHashMap()
                         ), -15));
                     }
@@ -547,9 +547,9 @@ public class GuiConfig extends AbstractYamlConfig {
                     {
                         this.put("hp", new ConfigItem("pixelmon:power_weight", 1, (byte) 0, "&a&lHP", Lists.newArrayList(), Maps.newHashMap()));
                         this.put("attack", new ConfigItem("pixelmon:power_bracer", 1, (byte) 0, "&c&lAttack", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("defence", new ConfigItem("pixelmon:power_belt", 1, (byte) 0, "&6&lDefence", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("specialattack", new ConfigItem("pixelmon:power_lens", 1, (byte) 0, "&d&lSp. Attack", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("specialdefence", new ConfigItem("pixelmon:power_band", 1, (byte) 0, "&e&lSp. Defence", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("defense", new ConfigItem("pixelmon:power_belt", 1, (byte) 0, "&6&lDefence", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("special_attack", new ConfigItem("pixelmon:power_lens", 1, (byte) 0, "&d&lSp. Attack", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("special_defense", new ConfigItem("pixelmon:power_band", 1, (byte) 0, "&e&lSp. Defence", Lists.newArrayList(), Maps.newHashMap()));
                         this.put("speed", new ConfigItem("pixelmon:power_anklet", 1, (byte) 0, "&b&lSpeed", Lists.newArrayList(), Maps.newHashMap()));
                     }
                 }, Lists.newArrayList(12, 13, 14, 21, 22, 23)
@@ -562,42 +562,42 @@ public class GuiConfig extends AbstractYamlConfig {
                 new HashMap<String, NumberModificationUI.EditValueButton>() {
                     {
                         this.put("one", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+1",
+                                "minecraft:lime_stained_glass_pane", 1, (byte) 5, "&a&l+1",
                                 Lists.newArrayList(), 4, 1, Maps.newHashMap()
                         ), 1));
 
                         this.put("two", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+5",
+                                "minecraft:lime_stained_glass_pane", 1, (byte) 5, "&a&l+5",
                                 Lists.newArrayList(), 5, 1, Maps.newHashMap()
                         ), 5));
 
                         this.put("three", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+10",
+                                "minecraft:lime_stained_glass_pane", 1, (byte) 5, "&a&l+10",
                                 Lists.newArrayList(), 6, 1, Maps.newHashMap()
                         ), 10));
 
                         this.put("four", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+15",
+                                "minecraft:lime_stained_glass_pane", 1, (byte) 5, "&a&l+15",
                                 Lists.newArrayList(), 7, 1, Maps.newHashMap()
                         ), 15));
 
                         this.put("five", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-1",
+                                "minecraft:red_stained_glass_pane", 1, (byte) 14, "&c&l-1",
                                 Lists.newArrayList(), 4, 2, Maps.newHashMap()
                         ), -1));
 
                         this.put("six", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-5",
+                                "minecraft:red_stained_glass_pane", 1, (byte) 14, "&c&l-5",
                                 Lists.newArrayList(), 5, 2, Maps.newHashMap()
                         ), -5));
 
                         this.put("seven", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-10",
+                                "minecraft:red_stained_glass_pane", 1, (byte) 14, "&c&l-10",
                                 Lists.newArrayList(), 6, 2, Maps.newHashMap()
                         ), -10));
 
                         this.put("eight", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-15",
+                                "minecraft:red_stained_glass_pane", 1, (byte) 14, "&c&l-15",
                                 Lists.newArrayList(), 7, 2, Maps.newHashMap()
                         ), -15));
                     }
@@ -645,34 +645,34 @@ public class GuiConfig extends AbstractYamlConfig {
                 "UltimatePokeBuilder", 6,
                 new HashMap<String, ConfigItem>() {
                     {
-                        this.put("pokeball", new ConfigItem("pixelmon:poke_ball", 1, (byte) 0, "&aPokeball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("greatball", new ConfigItem("pixelmon:great_ball", 1, (byte) 0, "&aGreat Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("ultraball", new ConfigItem("pixelmon:ultra_ball", 1, (byte) 0, "&aUltra Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("masterball", new ConfigItem("pixelmon:master_ball", 1, (byte) 0, "&aMaster Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("levelball", new ConfigItem("pixelmon:level_ball", 1, (byte) 0, "&aLevel Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("moonball", new ConfigItem("pixelmon:moon_ball", 1, (byte) 0, "&aMoon Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("friendball", new ConfigItem("pixelmon:friend_ball", 1, (byte) 0, "&aFriend Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("loveball", new ConfigItem("pixelmon:love_ball", 1, (byte) 0, "&aLove Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("safariball", new ConfigItem("pixelmon:safari_ball", 1, (byte) 0, "&aSafari Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("heavyball", new ConfigItem("pixelmon:heavy_ball", 1, (byte) 0, "&aHeavy Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("fastball", new ConfigItem("pixelmon:fast_ball", 1, (byte) 0, "&aFast Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("repeatball", new ConfigItem("pixelmon:repeat_ball", 1, (byte) 0, "&aRepeat Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("timerball", new ConfigItem("pixelmon:timer_ball", 1, (byte) 0, "&aTimer Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("nestball", new ConfigItem("pixelmon:nest_ball", 1, (byte) 0, "&aNest Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("netball", new ConfigItem("pixelmon:net_ball", 1, (byte) 0, "&aNet Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("diveball", new ConfigItem("pixelmon:dive_ball", 1, (byte) 0, "&aDive Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("luxuryball", new ConfigItem("pixelmon:luxury_ball", 1, (byte) 0, "&aLuxury Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("healball", new ConfigItem("pixelmon:heal_ball", 1, (byte) 0, "&aHeal Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("duskball", new ConfigItem("pixelmon:dusk_ball", 1, (byte) 0, "&aDusk Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("premierball", new ConfigItem("pixelmon:premier_ball", 1, (byte) 0, "&aPremier Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("sportball", new ConfigItem("pixelmon:sport_ball", 1, (byte) 0, "&aSport Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("quickball", new ConfigItem("pixelmon:quick_ball", 1, (byte) 0, "&aQuick Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("lureball", new ConfigItem("pixelmon:lure_ball", 1, (byte) 0, "&aLure Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("parkball", new ConfigItem("pixelmon:park_ball", 1, (byte) 0, "&aPark Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("cherishball", new ConfigItem("pixelmon:cherish_ball", 1, (byte) 0, "&aCherish Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("gsball", new ConfigItem("pixelmon:gs_ball", 1, (byte) 0, "&aGS Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("beastball", new ConfigItem("pixelmon:beast_ball", 1, (byte) 0, "&aBeast Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("dreamball", new ConfigItem("pixelmon:dream_ball", 1, (byte) 0, "&aDream Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("poke_ball", new ConfigItem("pixelmon:poke_ball", 1, (byte) 0, "&aPokeball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("great_ball", new ConfigItem("pixelmon:great_ball", 1, (byte) 0, "&aGreat Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("ultra_ball", new ConfigItem("pixelmon:ultra_ball", 1, (byte) 0, "&aUltra Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("master_ball", new ConfigItem("pixelmon:master_ball", 1, (byte) 0, "&aMaster Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("level_ball", new ConfigItem("pixelmon:level_ball", 1, (byte) 0, "&aLevel Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("moon_ball", new ConfigItem("pixelmon:moon_ball", 1, (byte) 0, "&aMoon Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("friend_ball", new ConfigItem("pixelmon:friend_ball", 1, (byte) 0, "&aFriend Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("love_ball", new ConfigItem("pixelmon:love_ball", 1, (byte) 0, "&aLove Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("safari_ball", new ConfigItem("pixelmon:safari_ball", 1, (byte) 0, "&aSafari Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("heavy_ball", new ConfigItem("pixelmon:heavy_ball", 1, (byte) 0, "&aHeavy Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("fast_ball", new ConfigItem("pixelmon:fast_ball", 1, (byte) 0, "&aFast Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("repeat_ball", new ConfigItem("pixelmon:repeat_ball", 1, (byte) 0, "&aRepeat Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("timer_ball", new ConfigItem("pixelmon:timer_ball", 1, (byte) 0, "&aTimer Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("nest_ball", new ConfigItem("pixelmon:nest_ball", 1, (byte) 0, "&aNest Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("net_ball", new ConfigItem("pixelmon:net_ball", 1, (byte) 0, "&aNet Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("dive_ball", new ConfigItem("pixelmon:dive_ball", 1, (byte) 0, "&aDive Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("luxury_ball", new ConfigItem("pixelmon:luxury_ball", 1, (byte) 0, "&aLuxury Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("heal_ball", new ConfigItem("pixelmon:heal_ball", 1, (byte) 0, "&aHeal Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("dusk_ball", new ConfigItem("pixelmon:dusk_ball", 1, (byte) 0, "&aDusk Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("premier_ball", new ConfigItem("pixelmon:premier_ball", 1, (byte) 0, "&aPremier Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("sport_ball", new ConfigItem("pixelmon:sport_ball", 1, (byte) 0, "&aSport Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("quick_ball", new ConfigItem("pixelmon:quick_ball", 1, (byte) 0, "&aQuick Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("lure_ball", new ConfigItem("pixelmon:lure_ball", 1, (byte) 0, "&aLure Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("park_ball", new ConfigItem("pixelmon:park_ball", 1, (byte) 0, "&aPark Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("cherish_ball", new ConfigItem("pixelmon:cherish_ball", 1, (byte) 0, "&aCherish Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("gs_ball", new ConfigItem("pixelmon:gs_ball", 1, (byte) 0, "&aGS Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("beast_ball", new ConfigItem("pixelmon:beast_ball", 1, (byte) 0, "&aBeast Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("dream_ball", new ConfigItem("pixelmon:dream_ball", 1, (byte) 0, "&aDream Ball", Lists.newArrayList(), Maps.newHashMap()));
                     }
                 }, Lists.newArrayList(12, 13, 14, 15, 16,
                 21, 22, 23, 24, 25,
@@ -715,42 +715,42 @@ public class GuiConfig extends AbstractYamlConfig {
                 new HashMap<String, NumberModificationUI.EditValueButton>() {
                     {
                         this.put("one", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+1",
+                                "minecraft:lime_stained_glass_pane", 1, (byte) 5, "&a&l+1",
                                 Lists.newArrayList(), 4, 1, Maps.newHashMap()
                         ), 1));
 
                         this.put("two", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+5",
+                                "minecraft:lime_stained_glass_pane", 1, (byte) 5, "&a&l+5",
                                 Lists.newArrayList(), 5, 1, Maps.newHashMap()
                         ), 5));
 
                         this.put("three", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+10",
+                                "minecraft:lime_stained_glass_pane", 1, (byte) 5, "&a&l+10",
                                 Lists.newArrayList(), 6, 1, Maps.newHashMap()
                         ), 10));
 
                         this.put("four", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+25",
+                                "minecraft:lime_stained_glass_pane", 1, (byte) 5, "&a&l+25",
                                 Lists.newArrayList(), 7, 1, Maps.newHashMap()
                         ), 25));
 
                         this.put("five", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-1",
+                                "minecraft:red_stained_glass_pane", 1, (byte) 14, "&c&l-1",
                                 Lists.newArrayList(), 4, 2, Maps.newHashMap()
                         ), -1));
 
                         this.put("six", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-5",
+                                "minecraft:red_stained_glass_pane", 1, (byte) 14, "&c&l-5",
                                 Lists.newArrayList(), 5, 2, Maps.newHashMap()
                         ), -5));
 
                         this.put("seven", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-10",
+                                "minecraft:red_stained_glass_pane", 1, (byte) 14, "&c&l-10",
                                 Lists.newArrayList(), 6, 2, Maps.newHashMap()
                         ), -10));
 
                         this.put("eight", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-25",
+                                "minecraft:red_stained_glass_pane", 1, (byte) 14, "&c&l-25",
                                 Lists.newArrayList(), 7, 2, Maps.newHashMap()
                         ), -25));
                     }

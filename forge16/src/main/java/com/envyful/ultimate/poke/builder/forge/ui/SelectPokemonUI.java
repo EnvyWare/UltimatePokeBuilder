@@ -2,6 +2,7 @@ package com.envyful.ultimate.poke.builder.forge.ui;
 
 import com.envyful.api.config.type.ConfigItem;
 import com.envyful.api.forge.chat.UtilChatColour;
+import com.envyful.api.forge.config.UtilConfigInterface;
 import com.envyful.api.forge.config.UtilConfigItem;
 import com.envyful.api.forge.player.ForgeEnvyPlayer;
 import com.envyful.api.gui.factory.GuiFactory;
@@ -25,11 +26,8 @@ public class SelectPokemonUI {
                 .height(config.getGuiSettings().getHeight())
                 .build();
 
-        for (ConfigItem fillerItem : config.getGuiSettings().getFillerItems()) {
-            pane.add(GuiFactory.displayable(UtilConfigItem.fromConfigItem(fillerItem)));
-        }
-
-        UtilConfigItem.addConfigItem(pane, config.getInfoItem());
+        UtilConfigInterface.fillBackground(pane, config.getGuiSettings());
+        UtilConfigItem.builder().extendedConfigItem(player, pane, config.getInfoItem());
 
         Pokemon[] all = StorageProxy.getParty(player.getParent()).getAll();
 
@@ -64,18 +62,15 @@ public class SelectPokemonUI {
 
             pane.set(pos % 9, pos / 9, GuiFactory.displayableBuilder(
                     UtilSprite.getPokemonElement(pokemon, config.getSpriteSettings()))
-                    .clickHandler((envyPlayer, clickType) -> {
-                        EditPokemonUI.open(player, pokemon);
-                    })
+                    .clickHandler((envyPlayer, clickType) -> EditPokemonUI.open(player, pokemon))
                     .build());
         }
 
         GuiFactory.guiBuilder()
                 .setPlayerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
                 .addPane(pane)
-                .setCloseConsumer(envyPlayer -> {})
                 .height(config.getGuiSettings().getHeight())
-                .title(UtilChatColour.translateColourCodes('&', config.getGuiSettings().getTitle()))
+                .title(UtilChatColour.colour(config.getGuiSettings().getTitle()))
                 .build().open(player);
     }
 

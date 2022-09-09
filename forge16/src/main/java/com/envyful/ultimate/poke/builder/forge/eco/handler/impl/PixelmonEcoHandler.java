@@ -60,6 +60,6 @@ public class PixelmonEcoHandler implements EcoHandler {
             return;
         }
 
-        bank.add(balance);
+        bank.take(balance);
     }
 }

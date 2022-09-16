@@ -1,6 +1,5 @@
 package com.envyful.ultimate.poke.builder.forge.ui;
 
-import com.envyful.api.config.type.ConfigItem;
 import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.forge.config.UtilConfigInterface;
 import com.envyful.api.forge.config.UtilConfigItem;
@@ -80,7 +79,30 @@ public class EditPokemonUI {
                                 .open();
                     });
         }
+        UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getUntradeableButton(),
+                (envyPlayer, clickType) -> {
+                    GuiConfig.UntradeableUI untradeableUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getUntradeableUI();
 
+                    TrueFalseSelectionUI.builder()
+                            .player(envyPlayer)
+                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                            .config(untradeableUI.getTrueFalseSettings())
+                            .confirm(ConfirmationUI.builder().config(untradeableUI.getConfirmConfig()))
+                            .startsTrue(pokemon.isUntradeable())
+                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                            .trueAcceptHandler((envyPlayer1, clickType1) -> handleUntradeableConfirmation(player, pokemon, true))
+                            .falseAcceptHandler((envyPlayer1, clickType1) -> handleUntradeableConfirmation(player, pokemon, false))
+                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                    pokemon,
+                                    UltimatePokeBuilderForge.getInstance().getConfig().getUntradeableCost(),
+                                    pricingModifiers
+                            )))
+                            .displayItem(new PositionableItem(
+                                    UtilSprite.getPokemonElement(pokemon, untradeableUI.getSpriteConfig()),
+                                    untradeableUI.getPokemonPos()
+                            ))
+                            .open();
+                });
         UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getShinyButton(),
                                                 (envyPlayer, clickType) -> {
                                                     GuiConfig.ShinyUI shinyUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getShinyUI();

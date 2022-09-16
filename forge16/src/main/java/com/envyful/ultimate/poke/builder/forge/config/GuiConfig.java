@@ -199,7 +199,14 @@ public class GuiConfig extends AbstractYamlConfig {
                 .positions(Pair.of(4, 2))
                 .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
                 .build();
-
+        private ExtendedConfigItem untradeableButton = ExtendedConfigItem
+                .builder()
+                .type("minecraft:barrier")
+                .amount(1)
+                .name("&eUntradeable")
+                .positions(Pair.of(3, 1))
+                .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
+                .build();
         private ExtendedConfigItem levelButton = ExtendedConfigItem.builder()
                 .type("pixelmon:rare_candy")
                 .amount(1)
@@ -284,6 +291,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
         public ExtendedConfigItem getGenderButton() {
             return this.genderButton;
+        }
+
+        public ExtendedConfigItem getUntradeableButton() {
+            return this.untradeableButton;
         }
     }
 

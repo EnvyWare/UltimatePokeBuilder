@@ -78,7 +78,7 @@ public class PayCommand {
         ), Util.NIL_UUID);
 
         targetAttribute.setTokens(targetAttribute.getTokens() + amount);
-        sender.sendMessage(UtilChatColour.colour(
+        target.sendMessage(UtilChatColour.colour(
                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getReceivedPlayerTokens()
                         .replace("%amount%", amount + "")
                         .replace("%player%", senderPlayer.getName())

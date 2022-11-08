@@ -51,7 +51,7 @@ public class GiveCommand {
                         .replace("%tokens%", amount + "")
         ), Util.NIL_UUID);
 
-        player.sendMessage(UtilChatColour.colour(
+        target.sendMessage(UtilChatColour.colour(
                 UltimatePokeBuilderForge.getInstance()
                         .getLocale().getMessages().getReceivedTokens()
                         .replace("%sender%", UtilPlayer.getName(player))

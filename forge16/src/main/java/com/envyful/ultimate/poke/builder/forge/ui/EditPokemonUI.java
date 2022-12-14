@@ -677,7 +677,6 @@ public class EditPokemonUI {
         PokeBall pokeball = findPokeBall(s);
 
         if (pokeball == null) {
-            System.out.println("S:" + s);
             return;
         }
 
@@ -717,7 +716,6 @@ public class EditPokemonUI {
 
     private static PokeBall findPokeBall(String s) {
         for (PokeBall ball : PokeBallRegistry.getAll()) {
-            System.out.println(ball.getName());
             if (ball.getName().equalsIgnoreCase(s)) {
                 return ball;
             }

@@ -3,8 +3,7 @@ package com.envyful.ultimate.poke.builder.forge.config;
 import com.envyful.api.config.data.ConfigPath;
 import com.envyful.api.config.type.ConfigInterface;
 import com.envyful.api.config.type.ConfigItem;
-import com.envyful.api.config.type.PermissibleConfigItem;
-import com.envyful.api.config.type.PositionableConfigItem;
+import com.envyful.api.config.type.ExtendedConfigItem;
 import com.envyful.api.config.yaml.AbstractYamlConfig;
 import com.envyful.api.forge.gui.type.*;
 import com.envyful.api.reforged.pixelmon.config.SpriteConfig;
@@ -96,7 +95,7 @@ public class GuiConfig extends AbstractYamlConfig {
                 ))
         );
 
-        private PositionableConfigItem infoItem = new PositionableConfigItem(
+        private ExtendedConfigItem infoItem = new ExtendedConfigItem(
                 "minecraft:nether_star", 1, (byte) 0, "&bClick the pokemon to edit", Lists.newArrayList(),
                 4, 0, Maps.newHashMap()
         );
@@ -122,7 +121,7 @@ public class GuiConfig extends AbstractYamlConfig {
             return this.guiSettings;
         }
 
-        public PositionableConfigItem getInfoItem() {
+        public ExtendedConfigItem getInfoItem() {
             return this.infoItem;
         }
 
@@ -153,77 +152,77 @@ public class GuiConfig extends AbstractYamlConfig {
                 ))
         );
 
-        private PositionableConfigItem backButton = new PositionableConfigItem(
+        private ExtendedConfigItem backButton = new ExtendedConfigItem(
                 "pixelmon:eject_button", 1, (byte) 0, "&cBack",
                 Lists.newArrayList(), 0, 0, Maps.newHashMap()
         );
 
         private int spritePos = 9;
 
-        private PermissibleConfigItem evButton = new PermissibleConfigItem(
+        private ExtendedConfigItem evButton = new ExtendedConfigItem(
                 "pixelmon:hp_up", 1, (byte) 0, "&eEVs",
                 Lists.newArrayList(), 7, 2, "", Maps.newHashMap(), new ConfigItem(
                 "minecraft:barrier", 1, (byte) 0, "&cNo Permission", Lists.newArrayList(),
                 Maps.newHashMap())
         );
 
-        private PermissibleConfigItem ivButton = new PermissibleConfigItem(
+        private ExtendedConfigItem ivButton = new ExtendedConfigItem(
                 "pixelmon:protein", 1, (byte) 0, "&eIVs",
                 Lists.newArrayList(), 7, 1, "", Maps.newHashMap(), new ConfigItem(
                 "minecraft:barrier", 1, (byte) 0, "&cNo Permission", Lists.newArrayList(),
                 Maps.newHashMap())
         );
 
-        private PermissibleConfigItem abilityButton = new PermissibleConfigItem(
+        private ExtendedConfigItem abilityButton = new ExtendedConfigItem(
                 "pixelmon:power_band", 1, (byte) 0, "&eAbility",
                 Lists.newArrayList(), 5, 2, "", Maps.newHashMap(), new ConfigItem(
                 "minecraft:barrier", 1, (byte) 0, "&cNo Permission", Lists.newArrayList(),
                 Maps.newHashMap())
         );
 
-        private PermissibleConfigItem growthButton = new PermissibleConfigItem(
+        private ExtendedConfigItem growthButton = new ExtendedConfigItem(
                 "pixelmon:choice_scarf", 1, (byte) 0, "&eGrowth",
                 Lists.newArrayList(), 5, 1, "", Maps.newHashMap(), new ConfigItem(
                 "minecraft:barrier", 1, (byte) 0, "&cNo Permission", Lists.newArrayList(),
                 Maps.newHashMap())
         );
 
-        private PermissibleConfigItem natureButton = new PermissibleConfigItem(
+        private ExtendedConfigItem natureButton = new ExtendedConfigItem(
                 "pixelmon:ground_gem", 1, (byte) 0, "&eNature",
                 Lists.newArrayList(), 4, 2, "", Maps.newHashMap(), new ConfigItem(
                 "minecraft:barrier", 1, (byte) 0, "&cNo Permission", Lists.newArrayList(),
                 Maps.newHashMap())
         );
 
-        private PermissibleConfigItem levelButton = new PermissibleConfigItem(
+        private ExtendedConfigItem levelButton = new ExtendedConfigItem(
                 "pixelmon:rare_candy", 1, (byte) 0, "&eLevel",
                 Lists.newArrayList(), 4, 1, "", Maps.newHashMap(), new ConfigItem(
                 "minecraft:barrier", 1, (byte) 0, "&cNo Permission", Lists.newArrayList(),
                 Maps.newHashMap())
         );
 
-        private PermissibleConfigItem pokeballButton = new PermissibleConfigItem(
+        private ExtendedConfigItem pokeballButton = new ExtendedConfigItem(
                 "pixelmon:poke_ball", 1, (byte) 0, "&ePokeBall",
                 Lists.newArrayList(), 2, 2, "", Maps.newHashMap(), new ConfigItem(
                 "minecraft:barrier", 1, (byte) 0, "&cNo Permission", Lists.newArrayList(),
                 Maps.newHashMap())
         );
 
-        private PermissibleConfigItem shinyButton = new PermissibleConfigItem(
+        private ExtendedConfigItem shinyButton = new ExtendedConfigItem(
                 "pixelmon:shiny_stone", 1, (byte) 0, "&eShiny",
                 Lists.newArrayList(), 2, 1, "", Maps.newHashMap(), new ConfigItem(
                 "minecraft:barrier", 1, (byte) 0, "&cNo Permission", Lists.newArrayList(),
                 Maps.newHashMap())
         );
 
-        private PermissibleConfigItem untradeableButton = new PermissibleConfigItem(
+        private ExtendedConfigItem untradeableButton = new ExtendedConfigItem(
                 "minecraft:barrier", 1, (byte) 0, "&eUntradeable",
                 Lists.newArrayList(), 3, 1, "", Maps.newHashMap(), new ConfigItem(
                 "minecraft:barrier", 1, (byte) 0, "&cNo Permission", Lists.newArrayList(),
                 Maps.newHashMap())
         );
 
-        private PermissibleConfigItem genderButton = new PermissibleConfigItem(
+        private ExtendedConfigItem genderButton = new ExtendedConfigItem(
                 "minecraft:stone", 1, (byte) 0, "&eGender",
                 Lists.newArrayList(), 3, 2, "", Maps.newHashMap(), new ConfigItem(
                 "minecraft:barrier", 1, (byte) 0, "&cNo Permission", Lists.newArrayList(),
@@ -236,7 +235,7 @@ public class GuiConfig extends AbstractYamlConfig {
             return this.guiSettings;
         }
 
-        public PositionableConfigItem getBackButton() {
+        public ExtendedConfigItem getBackButton() {
             return this.backButton;
         }
 
@@ -248,43 +247,43 @@ public class GuiConfig extends AbstractYamlConfig {
             return this.spriteSettings;
         }
 
-        public PermissibleConfigItem getEvButton() {
+        public ExtendedConfigItem getEvButton() {
             return this.evButton;
         }
 
-        public PermissibleConfigItem getIvButton() {
+        public ExtendedConfigItem getIvButton() {
             return this.ivButton;
         }
 
-        public PermissibleConfigItem getAbilityButton() {
+        public ExtendedConfigItem getAbilityButton() {
             return this.abilityButton;
         }
 
-        public PermissibleConfigItem getGrowthButton() {
+        public ExtendedConfigItem getGrowthButton() {
             return this.growthButton;
         }
 
-        public PermissibleConfigItem getNatureButton() {
+        public ExtendedConfigItem getNatureButton() {
             return this.natureButton;
         }
 
-        public PermissibleConfigItem getLevelButton() {
+        public ExtendedConfigItem getLevelButton() {
             return this.levelButton;
         }
 
-        public PermissibleConfigItem getPokeballButton() {
+        public ExtendedConfigItem getPokeballButton() {
             return this.pokeballButton;
         }
 
-        public PermissibleConfigItem getShinyButton() {
+        public ExtendedConfigItem getShinyButton() {
             return this.shinyButton;
         }
 
-        public PermissibleConfigItem getUntradeableButton() {
+        public ExtendedConfigItem getUntradeableButton() {
             return this.untradeableButton;
         }
 
-        public PermissibleConfigItem getGenderButton() {
+        public ExtendedConfigItem getGenderButton() {
             return this.genderButton;
         }
     }
@@ -295,10 +294,10 @@ public class GuiConfig extends AbstractYamlConfig {
         private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
 
         private TrueFalseSelectionUI.TrueFalseConfig trueFalseSettings = new TrueFalseSelectionUI.TrueFalseConfig(
-                new PositionableConfigItem("pixelmon:shiny_stone", 1, (byte) 0 , "&6&lSHINY",
+                new ExtendedConfigItem("pixelmon:shiny_stone", 1, (byte) 0 , "&6&lSHINY",
                                            Lists.newArrayList(),
                                            2, 1, Maps.newHashMap()),
-                new PositionableConfigItem("pixelmon:dusk_stone", 1, (byte) 0 , "&f&lNON-SHINY",
+                new ExtendedConfigItem("pixelmon:dusk_stone", 1, (byte) 0 , "&f&lNON-SHINY",
                                            Lists.newArrayList(),
                                            2, 1, Maps.newHashMap())
         );
@@ -332,10 +331,10 @@ public class GuiConfig extends AbstractYamlConfig {
         private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
 
         private TrueFalseSelectionUI.TrueFalseConfig trueFalseSettings = new TrueFalseSelectionUI.TrueFalseConfig(
-                new PositionableConfigItem("minecraft:barrier", 1, (byte) 0 , "&c&lUNTRADEABLE",
+                new ExtendedConfigItem("minecraft:barrier", 1, (byte) 0 , "&c&lUNTRADEABLE",
                         Lists.newArrayList(),
                         2, 1, Maps.newHashMap()),
-                new PositionableConfigItem("minecraft:barrier", 1, (byte) 0 , "&a&lTRADEABLE",
+                new ExtendedConfigItem("minecraft:barrier", 1, (byte) 0 , "&a&lTRADEABLE",
                         Lists.newArrayList(),
                         2, 1, Maps.newHashMap())
         );
@@ -369,10 +368,10 @@ public class GuiConfig extends AbstractYamlConfig {
         private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
 
         private TrueFalseSelectionUI.TrueFalseConfig trueFalseSettings = new TrueFalseSelectionUI.TrueFalseConfig(
-                new PositionableConfigItem("minecraft:stone", 1, (byte) 0 , "&b&lMALE",
+                new ExtendedConfigItem("minecraft:stone", 1, (byte) 0 , "&b&lMALE",
                         Lists.newArrayList(),
                         2, 1, Maps.newHashMap()),
-                new PositionableConfigItem("minecraft:stone", 1, (byte) 0 , "&d&lFEMALE",
+                new ExtendedConfigItem("minecraft:stone", 1, (byte) 0 , "&d&lFEMALE",
                         Lists.newArrayList(),
                         2, 1, Maps.newHashMap())
         );
@@ -458,47 +457,47 @@ public class GuiConfig extends AbstractYamlConfig {
         );
 
         private NumberModificationUI.NumberModificationConfig evEditAmount = new NumberModificationUI.NumberModificationConfig(
-                "UPB", 4, 252, 0,  new PositionableConfigItem(
+                "UPB", 4, 252, 0,  new ExtendedConfigItem(
                 "minecraft:chest", 1, (byte) 0, "&bCurrent Value: &a%value%",
                 Lists.newArrayList(), 2, 1, Maps.newHashMap()),
                 new HashMap<String, NumberModificationUI.EditValueButton>() {
                     {
-                        this.put("one", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("one", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+1",
                                 Lists.newArrayList(), 4, 1, Maps.newHashMap()
                         ), 1));
 
-                        this.put("two", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("two", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+5",
                                 Lists.newArrayList(), 5, 1, Maps.newHashMap()
                         ), 5));
 
-                        this.put("three", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("three", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+10",
                                 Lists.newArrayList(), 6, 1, Maps.newHashMap()
                         ), 10));
 
-                        this.put("four", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("four", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+15",
                                 Lists.newArrayList(), 7, 1, Maps.newHashMap()
                         ), 15));
 
-                        this.put("five", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("five", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-1",
                                 Lists.newArrayList(), 4, 2, Maps.newHashMap()
                         ), -1));
 
-                        this.put("six", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("six", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-5",
                                 Lists.newArrayList(), 5, 2, Maps.newHashMap()
                         ), -5));
 
-                        this.put("seven", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("seven", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-10",
                                 Lists.newArrayList(), 6, 2, Maps.newHashMap()
                         ), -10));
 
-                        this.put("eight", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("eight", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-15",
                                 Lists.newArrayList(), 7, 2, Maps.newHashMap()
                         ), -15));
@@ -558,47 +557,47 @@ public class GuiConfig extends AbstractYamlConfig {
         );
 
         private NumberModificationUI.NumberModificationConfig ivEditAmount = new NumberModificationUI.NumberModificationConfig(
-                "UPB", 4, 31, 0,  new PositionableConfigItem(
+                "UPB", 4, 31, 0,  new ExtendedConfigItem(
                 "minecraft:chest", 1, (byte) 0, "&bCurrent Value: &a%value%",
                 Lists.newArrayList(), 2, 1, Maps.newHashMap()),
                 new HashMap<String, NumberModificationUI.EditValueButton>() {
                     {
-                        this.put("one", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("one", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+1",
                                 Lists.newArrayList(), 4, 1, Maps.newHashMap()
                         ), 1));
 
-                        this.put("two", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("two", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+5",
                                 Lists.newArrayList(), 5, 1, Maps.newHashMap()
                         ), 5));
 
-                        this.put("three", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("three", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+10",
                                 Lists.newArrayList(), 6, 1, Maps.newHashMap()
                         ), 10));
 
-                        this.put("four", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("four", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+15",
                                 Lists.newArrayList(), 7, 1, Maps.newHashMap()
                         ), 15));
 
-                        this.put("five", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("five", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-1",
                                 Lists.newArrayList(), 4, 2, Maps.newHashMap()
                         ), -1));
 
-                        this.put("six", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("six", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-5",
                                 Lists.newArrayList(), 5, 2, Maps.newHashMap()
                         ), -5));
 
-                        this.put("seven", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("seven", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-10",
                                 Lists.newArrayList(), 6, 2, Maps.newHashMap()
                         ), -10));
 
-                        this.put("eight", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("eight", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-15",
                                 Lists.newArrayList(), 7, 2, Maps.newHashMap()
                         ), -15));
@@ -711,47 +710,47 @@ public class GuiConfig extends AbstractYamlConfig {
         private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
 
         private NumberModificationUI.NumberModificationConfig levelEditAmount = new NumberModificationUI.NumberModificationConfig(
-                "UPB", 4, 100, 1,  new PositionableConfigItem(
+                "UPB", 4, 100, 1,  new ExtendedConfigItem(
                 "minecraft:chest", 1, (byte) 0, "&bCurrent Level: &a%value%",
                 Lists.newArrayList(), 2, 1, Maps.newHashMap()),
                 new HashMap<String, NumberModificationUI.EditValueButton>() {
                     {
-                        this.put("one", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("one", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+1",
                                 Lists.newArrayList(), 4, 1, Maps.newHashMap()
                         ), 1));
 
-                        this.put("two", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("two", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+5",
                                 Lists.newArrayList(), 5, 1, Maps.newHashMap()
                         ), 5));
 
-                        this.put("three", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("three", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+10",
                                 Lists.newArrayList(), 6, 1, Maps.newHashMap()
                         ), 10));
 
-                        this.put("four", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("four", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 5, "&a&l+25",
                                 Lists.newArrayList(), 7, 1, Maps.newHashMap()
                         ), 25));
 
-                        this.put("five", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("five", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-1",
                                 Lists.newArrayList(), 4, 2, Maps.newHashMap()
                         ), -1));
 
-                        this.put("six", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("six", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-5",
                                 Lists.newArrayList(), 5, 2, Maps.newHashMap()
                         ), -5));
 
-                        this.put("seven", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("seven", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-10",
                                 Lists.newArrayList(), 6, 2, Maps.newHashMap()
                         ), -10));
 
-                        this.put("eight", new NumberModificationUI.EditValueButton(new PositionableConfigItem(
+                        this.put("eight", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
                                 "minecraft:stained_glass_pane", 1, (byte) 14, "&c&l-25",
                                 Lists.newArrayList(), 7, 2, Maps.newHashMap()
                         ), -25));

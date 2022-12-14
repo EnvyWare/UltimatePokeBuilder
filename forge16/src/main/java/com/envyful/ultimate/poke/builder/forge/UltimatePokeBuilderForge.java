@@ -27,7 +27,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.system.CallbackI;
 
 import java.io.File;
 import java.io.IOException;
@@ -111,8 +110,8 @@ public class UltimatePokeBuilderForge {
         return this.playerManager;
     }
 
-    public PokeBuilderConfig getConfig() {
-        return this.config;
+    public static PokeBuilderConfig getConfig() {
+        return instance.config;
     }
 
     public GuiConfig getGuiConfig() {

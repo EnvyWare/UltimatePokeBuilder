@@ -1,3 +1,2 @@
 rootProject.name = 'UltimatePokeBuilder'
-include 'forge',
-        'forge16'
+include 'forge16'

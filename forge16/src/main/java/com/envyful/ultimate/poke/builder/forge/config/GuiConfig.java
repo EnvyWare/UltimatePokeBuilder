@@ -33,6 +33,7 @@ public class GuiConfig extends AbstractYamlConfig {
     private NatureUI natureUI = new NatureUI();
     private UntradeableUI untradeableUI = new UntradeableUI();
     private GenderUI genderUI = new GenderUI();
+    private UnbreedableUI unbreedableUI = new UnbreedableUI();
 
     public GuiConfig() {
         super();
@@ -84,6 +85,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
     public GenderUI getGenderUI() {
         return this.genderUI;
+    }
+
+    public UnbreedableUI getUnbreedableUI() {
+        return this.unbreedableUI;
     }
 
     @ConfigSerializable
@@ -239,6 +244,15 @@ public class GuiConfig extends AbstractYamlConfig {
                 .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
                 .build();
 
+        private ExtendedConfigItem unbreedableButton = ExtendedConfigItem
+                .builder()
+                .type("minecraft:barrier")
+                .amount(1)
+                .name("&eUnbreedable")
+                .positions(Pair.of(3, 2))
+                .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
+                .build();
+
         private SpriteConfig spriteSettings = new SpriteConfig();
 
         public ConfigInterface getGuiSettings() {
@@ -295,6 +309,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
         public ExtendedConfigItem getUntradeableButton() {
             return this.untradeableButton;
+        }
+
+        public ExtendedConfigItem getUnbreedableButton() {
+            return this.unbreedableButton;
         }
     }
 
@@ -354,6 +372,44 @@ public class GuiConfig extends AbstractYamlConfig {
         private SpriteConfig spriteConfig = new SpriteConfig();
 
         public UntradeableUI() {}
+
+        public int getPokemonPos() {
+            return this.pokemonPos;
+        }
+
+        public TrueFalseSelectionUI.TrueFalseConfig getTrueFalseSettings() {
+            return this.trueFalseSettings;
+        }
+
+        public SpriteConfig getSpriteConfig() {
+            return this.spriteConfig;
+        }
+
+        public ConfirmationUI.ConfirmConfig getConfirmConfig() {
+            return this.confirmConfig;
+        }
+    }
+
+    @ConfigSerializable
+    public static class UnbreedableUI {
+
+        private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
+
+        private TrueFalseSelectionUI.TrueFalseConfig trueFalseSettings = new TrueFalseSelectionUI.TrueFalseConfig(
+                new ExtendedConfigItem("minecraft:barrier", 1, (byte) 0 , "&c&lUNBREEDABLE",
+                        Lists.newArrayList(),
+                        2, 1, Maps.newHashMap()),
+                new ExtendedConfigItem("minecraft:barrier", 1, (byte) 0 , "&a&lBREEDABLE",
+                        Lists.newArrayList(),
+                        2, 1, Maps.newHashMap())
+        );
+
+        private int pokemonPos = 9;
+
+        private SpriteConfig spriteConfig = new SpriteConfig();
+
+        public UnbreedableUI() {
+        }
 
         public int getPokemonPos() {
             return this.pokemonPos;

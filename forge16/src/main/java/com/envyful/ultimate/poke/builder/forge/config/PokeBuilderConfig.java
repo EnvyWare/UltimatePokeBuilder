@@ -4,7 +4,6 @@ import com.envyful.api.config.data.ConfigPath;
 import com.envyful.api.config.type.SQLDatabaseDetails;
 import com.envyful.api.config.yaml.AbstractYamlConfig;
 import com.envyful.api.player.SaveMode;
-import com.envyful.api.player.SaveModeTypeAdapter;
 import com.envyful.api.reforged.pixelmon.config.PokeSpecPricing;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -29,6 +28,7 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
     private int defaultTokens = 500;
     private int shinyCost = 200;
     private int untradeableCost = 600;
+    private int unbreedableCost = 600;
     private int genderCost = 600;
     private int abilityCost = 500;
     private int hiddenAbilityCost = 1000;
@@ -167,6 +167,10 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     public int getUntradeableCost() {
         return this.untradeableCost;
+    }
+
+    public int getUnbreedableCost() {
+        return this.unbreedableCost;
     }
 
     public int getGenderCost() {

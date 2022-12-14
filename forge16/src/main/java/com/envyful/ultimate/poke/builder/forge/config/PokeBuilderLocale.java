@@ -50,6 +50,8 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
         private String pokemonNowTradeable = "&e&l(!) &e%pokemon% is now &a&lTRADEABLE";
         private String pokemonNowUntradeable = "&e&l(!) &e%pokemon% is now &c&lUNTRADEABLE&e for %cost%";
         private String pokemonGenderNow = "&e&l(!) &e%pokemon% is now %gender%";
+        private String pokemonNowBreedable = "&e&l(!) &e%pokemon% is now &a&lBREEDABLE";
+        private String pokemonNowUnbreedable = "&e&l(!) &e%pokemon% is now &c&lUNBREEDABLE&e for %cost%";
 
         public Messages() {}
 
@@ -159,6 +161,14 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
 
         public String getPokemonGenderNow() {
             return this.pokemonGenderNow;
+        }
+
+        public String getPokemonNowBreedable() {
+            return this.pokemonNowBreedable;
+        }
+
+        public String getPokemonNowUnbreedable() {
+            return this.pokemonNowUnbreedable;
         }
     }
 }

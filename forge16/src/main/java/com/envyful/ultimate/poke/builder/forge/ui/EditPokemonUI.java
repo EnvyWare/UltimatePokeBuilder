@@ -112,6 +112,33 @@ public class EditPokemonUI {
                 .extendedConfigItem(player, pane, config.getUntradeableButton());
 
         UtilConfigItem.builder()
+                .combinedClickHandler(config.getUnbreedableButton(), (envyPlayer, clickType) -> {
+                    GuiConfig.UnbreedableUI unbreedableUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getUnbreedableUI();
+
+                    TrueFalseSelectionUI.builder()
+                            .player(envyPlayer)
+                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                            .config(unbreedableUI.getTrueFalseSettings())
+                            .confirm(ConfirmationUI.builder().config(unbreedableUI.getConfirmConfig()))
+                            .startsTrue(pokemon.isUnbreedable())
+                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                            .trueAcceptHandler((envyPlayer1, clickType1) -> handleUnbreedableConfirmation(player, pokemon, true))
+                            .falseAcceptHandler((envyPlayer1, clickType1) -> handleUnbreedableConfirmation(player, pokemon, false))
+                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                    pokemon,
+                                    UltimatePokeBuilderForge.getInstance().getConfig().getUnbreedableCost(),
+                                    pricingModifiers
+                            )))
+                            .transformer(name -> name.replace("%current%", pokemon.isUnbreedable() + ""))
+                            .displayItem(new PositionableItem(
+                                    UtilSprite.getPokemonElement(pokemon, unbreedableUI.getSpriteConfig()),
+                                    unbreedableUI.getPokemonPos()
+                            ))
+                            .open();
+                })
+                .extendedConfigItem(player, pane, config.getUnbreedableButton());
+
+        UtilConfigItem.builder()
                 .combinedClickHandler(config.getShinyButton(), (envyPlayer, clickType) -> {
                     GuiConfig.ShinyUI shinyUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getShinyUI();
 
@@ -338,6 +365,63 @@ public class EditPokemonUI {
                 .height(config.getGuiSettings().getHeight())
                 .title(UtilChatColour.colour(config.getGuiSettings().getTitle()))
                 .build().open(player);
+    }
+
+    private static void handleUnbreedableConfirmation(ForgeEnvyPlayer player, Pokemon pokemon, boolean unbreedable) {
+        if (pokemon.isUnbreedable() == unbreedable) {
+            open(player, pokemon);
+
+            if (unbreedable) {
+                player.message(UtilChatColour.colour(
+                        UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowUnbreedable()
+                                .replace("%cost%", 0 + "")
+                                .replace("%pokemon%", pokemon.getLocalizedName())
+                ));
+            } else {
+                player.message(UtilChatColour.colour(
+                        UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowBreedable()
+                                .replace("%cost%", 0 + "")
+                                .replace("%pokemon%", pokemon.getLocalizedName())
+                ));
+            }
+
+            return;
+        }
+
+        int unbreedableCost = (int)UtilPokemonPrice.getMinPrice(pokemon,
+                UltimatePokeBuilderForge.getInstance().getConfig().getUnbreedableCost(),
+                UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers());
+
+        if (!EcoFactory.hasBalance(player, unbreedableCost)) {
+            open(player, pokemon);
+            player.message(UtilChatColour.colour(
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
+            return;
+        }
+
+        EcoFactory.takeBalance(player, unbreedableCost);
+
+        if (unbreedable) {
+            pokemon.addFlag(Flags.UNBREEDABLE);
+        } else {
+            pokemon.removeFlag(Flags.UNBREEDABLE);
+        }
+
+        if (unbreedable) {
+            player.message(UtilChatColour.colour(
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowUnbreedable()
+                            .replace("%cost%", unbreedableCost + "")
+                            .replace("%pokemon%", pokemon.getLocalizedName())
+            ));
+        } else {
+            player.message(UtilChatColour.colour(
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowBreedable()
+                            .replace("%cost%", unbreedableCost + "")
+                            .replace("%pokemon%", pokemon.getLocalizedName())
+            ));
+        }
+
+        open(player, pokemon);
     }
 
     private static void handleUntradeableConfirmation(ForgeEnvyPlayer player, Pokemon pokemon, boolean untradeable) {

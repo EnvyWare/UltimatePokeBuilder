@@ -74,6 +74,7 @@ public class EditPokemonUI {
                                         UltimatePokeBuilderForge.getInstance().getConfig().getGenderCost(),
                                         pricingModifiers
                                 )))
+                                .transformer(name -> name.replace("%current%", pokemon.getGender().getLocalizedName()))
                                 .displayItem(new PositionableItem(
                                         UtilSprite.getPokemonElement(pokemon, genderUI.getSpriteConfig()),
                                         genderUI.getPokemonPos()
@@ -101,6 +102,7 @@ public class EditPokemonUI {
                                     UltimatePokeBuilderForge.getInstance().getConfig().getUntradeableCost(),
                                     pricingModifiers
                             )))
+                            .transformer(name -> name.replace("%current%", pokemon.isUntradeable() + ""))
                             .displayItem(new PositionableItem(
                                     UtilSprite.getPokemonElement(pokemon, untradeableUI.getSpriteConfig()),
                                     untradeableUI.getPokemonPos()
@@ -127,6 +129,7 @@ public class EditPokemonUI {
                                     UltimatePokeBuilderForge.getInstance().getConfig().getShinyCost(),
                                     pricingModifiers
                             )))
+                            .transformer(name -> name.replace("%current%", pokemon.getPalette().getLocalizedName()))
                             .displayItem(new PositionableItem(
                                     UtilSprite.getPokemonElement(pokemon, shinyUI.getSpriteConfig()),
                                     shinyUI.getPokemonPos()
@@ -169,6 +172,7 @@ public class EditPokemonUI {
                                     UltimatePokeBuilderForge.getInstance().getConfig().getAbilityCost(),
                                     pricingModifiers
                             )))
+                            .transformer(name -> name.replace("%current%", pokemon.getAbility().getLocalizedName()))
                             .displayItem(new PositionableItem(
                                     UtilSprite.getPokemonElement(pokemon, abilitiesUI.getSpriteConfig()),
                                     abilitiesUI.getPokemonPos()
@@ -582,6 +586,7 @@ public class EditPokemonUI {
                         UltimatePokeBuilderForge.getInstance().getConfig().getEvIncrementCosts().values().toArray(new Integer[0])[0],
                         UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers()
                 )))
+                .transformer(name -> name.replace("%current%", String.valueOf(pokemon.getEVs().getStat(statsType))))
                 .displayItem(new PositionableItem(
                         UtilSprite.getPokemonElement(pokemon, evUI.getSpriteConfig()),
                         evUI.getPokemonPos()
@@ -652,6 +657,7 @@ public class EditPokemonUI {
                         UltimatePokeBuilderForge.getInstance().getConfig().getIvIncrementCosts().values().toArray(new Integer[0])[0],
                         UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers()
                 )))
+                .transformer(name -> name.replace("%current%", String.valueOf(pokemon.getIVs().getStat(statsType))))
                 .displayItem(new PositionableItem(
                         UtilSprite.getPokemonElement(pokemon, ivUI.getSpriteConfig()),
                         ivUI.getPokemonPos()

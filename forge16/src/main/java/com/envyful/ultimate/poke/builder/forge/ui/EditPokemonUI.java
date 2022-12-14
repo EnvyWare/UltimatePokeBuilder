@@ -45,17 +45,19 @@ public class EditPokemonUI {
                 .build();
 
         UtilConfigInterface.fillBackground(pane, config.getGuiSettings());
-        UtilConfigItem.addConfigItem(pane, config.getBackButton(),
-                                     (envyPlayer, clickType) -> SelectPokemonUI.open(player));
+
+        UtilConfigItem.builder()
+                .combinedClickHandler(config.getBackButton(), (envyPlayer, clickType) -> SelectPokemonUI.open(player))
+                .extendedConfigItem(player, pane, config.getBackButton());
 
         pane.set(config.getSpritePos() % 9, config.getSpritePos() / 9,
-                 GuiFactory.displayable(UtilSprite.getPokemonElement(pokemon, config.getSpriteSettings())));
+                GuiFactory.displayable(UtilSprite.getPokemonElement(pokemon, config.getSpriteSettings())));
 
         List<PokeSpecPricing> pricingModifiers = UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers();
 
         if (!Objects.equals(pokemon.getGender(), Gender.NONE)) {
-            UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getGenderButton(),
-                    (envyPlayer, clickType) -> {
+            UtilConfigItem.builder()
+                    .combinedClickHandler(config.getGenderButton(), (envyPlayer, clickType) -> {
                         GuiConfig.GenderUI genderUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getGenderUI();
 
                         TrueFalseSelectionUI.builder()
@@ -77,10 +79,12 @@ public class EditPokemonUI {
                                         genderUI.getPokemonPos()
                                 ))
                                 .open();
-                    });
+                    })
+                    .extendedConfigItem(player, pane, config.getGenderButton());
         }
-        UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getUntradeableButton(),
-                (envyPlayer, clickType) -> {
+
+        UtilConfigItem.builder()
+                .combinedClickHandler(config.getUntradeableButton(), (envyPlayer, clickType) -> {
                     GuiConfig.UntradeableUI untradeableUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getUntradeableUI();
 
                     TrueFalseSelectionUI.builder()
@@ -102,220 +106,233 @@ public class EditPokemonUI {
                                     untradeableUI.getPokemonPos()
                             ))
                             .open();
-                });
-        UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getShinyButton(),
-                                                (envyPlayer, clickType) -> {
-                                                    GuiConfig.ShinyUI shinyUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getShinyUI();
+                })
+                .extendedConfigItem(player, pane, config.getUntradeableButton());
 
-                                                    TrueFalseSelectionUI.builder()
-                                                            .player(envyPlayer)
-                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
-                                                            .config(shinyUI.getTrueFalseSettings())
-                                                            .confirm(ConfirmationUI.builder().config(shinyUI.getConfirmConfig()))
-                                                            .startsTrue(!pokemon.isShiny())
-                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
-                                                            .trueAcceptHandler((envyPlayer1, clickType1) -> handleShinyConfirmation(player, pokemon, true))
-                                                            .falseAcceptHandler((envyPlayer1, clickType1) -> handleShinyConfirmation(player, pokemon, false))
-                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
-                                                                    pokemon,
-                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getShinyCost(),
-                                                                    pricingModifiers
-                                                            )))
-                                                            .displayItem(new PositionableItem(
-                                                                    UtilSprite.getPokemonElement(pokemon, shinyUI.getSpriteConfig()),
-                                                                    shinyUI.getPokemonPos()
-                                                            ))
-                                                            .open();
-                                                });
+        UtilConfigItem.builder()
+                .combinedClickHandler(config.getShinyButton(), (envyPlayer, clickType) -> {
+                    GuiConfig.ShinyUI shinyUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getShinyUI();
 
-        UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getAbilityButton(),
-                                                (envyPlayer, clickType) -> {
-                                                    GuiConfig.AbilitiesUI abilitiesUI =
-                                                            UltimatePokeBuilderForge.getInstance().getGuiConfig().getAbilitiesUI();
+                    TrueFalseSelectionUI.builder()
+                            .player(envyPlayer)
+                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                            .config(shinyUI.getTrueFalseSettings())
+                            .confirm(ConfirmationUI.builder().config(shinyUI.getConfirmConfig()))
+                            .startsTrue(!pokemon.isShiny())
+                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                            .trueAcceptHandler((envyPlayer1, clickType1) -> handleShinyConfirmation(player, pokemon, true))
+                            .falseAcceptHandler((envyPlayer1, clickType1) -> handleShinyConfirmation(player, pokemon, false))
+                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                    pokemon,
+                                    UltimatePokeBuilderForge.getInstance().getConfig().getShinyCost(),
+                                    pricingModifiers
+                            )))
+                            .displayItem(new PositionableItem(
+                                    UtilSprite.getPokemonElement(pokemon, shinyUI.getSpriteConfig()),
+                                    shinyUI.getPokemonPos()
+                            ))
+                            .open();
+                })
+                .extendedConfigItem(player, pane, config.getShinyButton());
 
-                                                    List<String> abilitiesStripped = Arrays.stream(pokemon.getForm().getAbilities().getAll())
-                                                            .map(ITranslatable::getLocalizedName).collect(Collectors.toList());
+        UtilConfigItem.builder()
+                .combinedClickHandler(config.getAbilityButton(), (envyPlayer, clickType) -> {
+                    GuiConfig.AbilitiesUI abilitiesUI =
+                            UltimatePokeBuilderForge.getInstance().getGuiConfig().getAbilitiesUI();
 
-                                                    if (abilitiesStripped.size() == 3 && abilitiesStripped.get(2) != null) {
-                                                        abilitiesStripped.set(2, abilitiesStripped.get(2) + " (HA)");
-                                                    }
+                    List<String> abilitiesStripped = Arrays.stream(pokemon.getForm().getAbilities().getAll())
+                            .map(ITranslatable::getLocalizedName).collect(Collectors.toList());
 
-                                                    abilitiesStripped.removeIf(s -> s == null || s.equalsIgnoreCase("null"));
+                    if (abilitiesStripped.size() == 3 && abilitiesStripped.get(2) != null) {
+                        abilitiesStripped.set(2, abilitiesStripped.get(2) + " (HA)");
+                    }
 
-                                                    DynamicSelectionUI.builder()
-                                                            .player(player)
-                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
-                                                            .config(abilitiesUI.getAbilitySelection())
-                                                            .confirm(ConfirmationUI.builder().config(abilitiesUI.getConfirmConfig()))
-                                                            .displayNames(abilitiesStripped)
-                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
-                                                            .acceptHandler((envyPlayer1, clickType1, ability) -> {
-                                                                int index = abilitiesStripped.indexOf(ability);
+                    abilitiesStripped.removeIf(s -> s == null || s.equalsIgnoreCase("null"));
 
-                                                                handleAbilityConfirmation(player, pokemon,
-                                                                                          pokemon.getForm().getAbilities().getAll()[index],
-                                                                                          ability.endsWith(" (HA)")
-                                                                );
-                                                            })
-                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
-                                                                    pokemon,
-                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getAbilityCost(),
-                                                                    pricingModifiers
-                                                            )))
-                                                            .displayItem(new PositionableItem(
-                                                                    UtilSprite.getPokemonElement(pokemon, abilitiesUI.getSpriteConfig()),
-                                                                    abilitiesUI.getPokemonPos()
-                                                            ))
-                                                            .open();
-                                                });
-        UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getEvButton(),
-                                                (envyPlayer, clickType) -> {
-                                                    GuiConfig.EvUI evUI =
-                                                            UltimatePokeBuilderForge.getInstance().getGuiConfig().getEvUI();
+                    DynamicSelectionUI.builder()
+                            .player(player)
+                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                            .config(abilitiesUI.getAbilitySelection())
+                            .confirm(ConfirmationUI.builder().config(abilitiesUI.getConfirmConfig()))
+                            .displayNames(abilitiesStripped)
+                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                            .acceptHandler((envyPlayer1, clickType1, ability) -> {
+                                int index = abilitiesStripped.indexOf(ability);
 
-                                                    MultiSelectionUI.builder()
-                                                            .player(player)
-                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
-                                                            .config(evUI.getEvSelection())
-                                                            .page(0)
-                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
-                                                            .selectHandler((envyPlayer1, clickType1, s) -> openEVSelect(s,
-                                                                                                             player, pokemon))
-                                                            .displayItem(new PositionableItem(
-                                                                    UtilSprite.getPokemonElement(pokemon, evUI.getSpriteConfig()),
-                                                                    evUI.getPokemonPos()
-                                                            ))
-                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
-                                                                    pokemon,
-                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getEvIncrementCosts().values().toArray(new Integer[0])[0],
-                                                                    pricingModifiers
-                                                            )))
-                                                            .open();
-                                                });
-        UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getIvButton(),
-                                                (envyPlayer, clickType) -> {
-                                                    GuiConfig.IvUI ivUI =
-                                                            UltimatePokeBuilderForge.getInstance().getGuiConfig().getIvUI();
+                                handleAbilityConfirmation(player, pokemon,
+                                        pokemon.getForm().getAbilities().getAll()[index],
+                                        ability.endsWith(" (HA)")
+                                );
+                            })
+                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                    pokemon,
+                                    UltimatePokeBuilderForge.getInstance().getConfig().getAbilityCost(),
+                                    pricingModifiers
+                            )))
+                            .displayItem(new PositionableItem(
+                                    UtilSprite.getPokemonElement(pokemon, abilitiesUI.getSpriteConfig()),
+                                    abilitiesUI.getPokemonPos()
+                            ))
+                            .open();
+                })
+                .extendedConfigItem(player, pane, config.getAbilityButton());
 
-                                                    MultiSelectionUI.builder()
-                                                            .player(player)
-                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
-                                                            .config(ivUI.getIvSelection())
-                                                            .page(0)
-                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
-                                                            .selectHandler((envyPlayer1, clickType1, s) -> openIVSelect(s, player, pokemon))
-                                                            .displayItem(new PositionableItem(
-                                                                    UtilSprite.getPokemonElement(pokemon, ivUI.getSpriteConfig()),
-                                                                    ivUI.getPokemonPos()
-                                                            ))
-                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
-                                                                    pokemon,
-                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getIvIncrementCosts().values().toArray(new Integer[0])[0],
-                                                                    pricingModifiers
-                                                            )))
-                                                            .open();
-                                                });
-        UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getPokeballButton(),
-                                                (envyPlayer, clickType) -> {
-                                                    GuiConfig.PokeBallUI ballUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getBallUI();
+        UtilConfigItem.builder()
+                .combinedClickHandler(config.getEvButton(), (envyPlayer, clickType) -> {
+                    GuiConfig.EvUI evUI =
+                            UltimatePokeBuilderForge.getInstance().getGuiConfig().getEvUI();
 
-                                                    MultiSelectionUI.builder()
-                                                            .player(player)
-                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
-                                                            .config(ballUI.getBallSelection())
-                                                            .page(0)
-                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
-                                                            .confirm(ConfirmationUI.builder().config(ballUI.getConfirmConfig()))
-                                                            .acceptHandler((envyPlayer1, clickType1, s) -> handleBallConfirmation(player, pokemon, s))
-                                                            .displayItem(new PositionableItem(
-                                                                    UtilSprite.getPokemonElement(pokemon, ballUI.getSpriteConfig()),
-                                                                    ballUI.getPokemonPos()
-                                                            ))
-                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
-                                                                    pokemon,
-                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getBallCosts().values().toArray(new Integer[0])[0],
-                                                                    pricingModifiers
-                                                            )))
-                                                            .open();
-                                                });
+                    MultiSelectionUI.builder()
+                            .player(player)
+                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                            .config(evUI.getEvSelection())
+                            .page(0)
+                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                            .selectHandler((envyPlayer1, clickType1, s) -> openEVSelect(s,
+                                    player, pokemon))
+                            .displayItem(new PositionableItem(
+                                    UtilSprite.getPokemonElement(pokemon, evUI.getSpriteConfig()),
+                                    evUI.getPokemonPos()
+                            ))
+                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                    pokemon,
+                                    UltimatePokeBuilderForge.getInstance().getConfig().getEvIncrementCosts().values().toArray(new Integer[0])[0],
+                                    pricingModifiers
+                            )))
+                            .open();
+                })
+                .extendedConfigItem(player, pane, config.getEvButton());
 
-        UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getNatureButton(),
-                                                (envyPlayer, clickType) -> {
-                                                    GuiConfig.NatureUI natureUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getNatureUI();
+        UtilConfigItem.builder()
+                .combinedClickHandler(config.getIvButton(), (envyPlayer, clickType) -> {
+                    GuiConfig.IvUI ivUI =
+                            UltimatePokeBuilderForge.getInstance().getGuiConfig().getIvUI();
 
-                                                    MultiSelectionUI.builder()
-                                                            .player(player)
-                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
-                                                            .config(natureUI.getNatureSelection())
-                                                            .page(0)
-                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
-                                                            .confirm(ConfirmationUI.builder().config(natureUI.getConfirmConfig()))
-                                                            .acceptHandler((envyPlayer1, clickType1, s) -> handleNatureConfirmation(player, pokemon, s))
-                                                            .displayItem(new PositionableItem(
-                                                                    UtilSprite.getPokemonElement(pokemon, natureUI.getSpriteConfig()),
-                                                                    natureUI.getPokemonPos()
-                                                            ))
-                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
-                                                                    pokemon,
-                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getNatureCosts().values().toArray(new Integer[0])[0],
-                                                                    pricingModifiers
-                                                            )))
-                                                            .open();
-                                                });
-        UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getGrowthButton(),
-                                                (envyPlayer, clickType) -> {
-                                                    GuiConfig.GrowthUI growthUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getGrowthUI();
+                    MultiSelectionUI.builder()
+                            .player(player)
+                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                            .config(ivUI.getIvSelection())
+                            .page(0)
+                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                            .selectHandler((envyPlayer1, clickType1, s) -> openIVSelect(s, player, pokemon))
+                            .displayItem(new PositionableItem(
+                                    UtilSprite.getPokemonElement(pokemon, ivUI.getSpriteConfig()),
+                                    ivUI.getPokemonPos()
+                            ))
+                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                    pokemon,
+                                    UltimatePokeBuilderForge.getInstance().getConfig().getIvIncrementCosts().values().toArray(new Integer[0])[0],
+                                    pricingModifiers
+                            )))
+                            .open();
+                })
+                .extendedConfigItem(player, pane, config.getIvButton());
 
-                                                    MultiSelectionUI.builder()
-                                                            .player(player)
-                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
-                                                            .config(growthUI.getGrowthSelection())
-                                                            .page(0)
-                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
-                                                            .confirm(ConfirmationUI.builder().config(growthUI.getConfirmConfig()))
-                                                            .acceptHandler((envyPlayer1, clickType1, s) -> handleGrowthConfirmation(player, pokemon, s))
-                                                            .displayItem(new PositionableItem(
-                                                                    UtilSprite.getPokemonElement(pokemon, growthUI.getSpriteConfig()),
-                                                                    growthUI.getPokemonPos()
-                                                            ))
-                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
-                                                                    pokemon,
-                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getGrowthCosts().values().toArray(new Integer[0])[0],
-                                                                    pricingModifiers
-                                                            )))
-                                                            .open();
-                                                });
+        UtilConfigItem.builder()
+                .combinedClickHandler(config.getPokeballButton(), (envyPlayer, clickType) -> {
+                    GuiConfig.PokeBallUI ballUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getBallUI();
 
-        UtilConfigItem.addPermissibleConfigItem(pane, player.getParent(), config.getLevelButton(),
-                                                (envyPlayer, clickType) -> {
-                                                    GuiConfig.LevelUI levelUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getLevelUI();
+                    MultiSelectionUI.builder()
+                            .player(player)
+                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                            .config(ballUI.getBallSelection())
+                            .page(0)
+                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                            .confirm(ConfirmationUI.builder().config(ballUI.getConfirmConfig()))
+                            .acceptHandler((envyPlayer1, clickType1, s) -> handleBallConfirmation(player, pokemon, s))
+                            .displayItem(new PositionableItem(
+                                    UtilSprite.getPokemonElement(pokemon, ballUI.getSpriteConfig()),
+                                    ballUI.getPokemonPos()
+                            ))
+                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                    pokemon,
+                                    UltimatePokeBuilderForge.getInstance().getConfig().getBallCosts().values().toArray(new Integer[0])[0],
+                                    pricingModifiers
+                            )))
+                            .open();
+                })
+                .extendedConfigItem(player, pane, config.getPokeballButton());
 
-                                                    NumberModificationUI.builder()
-                                                            .player(player)
-                                                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
-                                                            .config(levelUI.getLevelEditAmount())
-                                                            .currentValue(pokemon.getPokemonLevel())
-                                                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
-                                                            .confirm(ConfirmationUI.builder().config(levelUI.getConfirmConfig()))
-                                                            .acceptHandler((envyPlayer1, clickType1, level) -> handleLevelConfirmation(player, pokemon, level))
-                                                            .displayItem(new PositionableItem(
-                                                                    UtilSprite.getPokemonElement(pokemon, levelUI.getSpriteConfig()),
-                                                                    levelUI.getPokemonPos()
-                                                            ))
-                                                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
-                                                                    pokemon,
-                                                                    UltimatePokeBuilderForge.getInstance().getConfig().getCostPerLevel(),
-                                                                    pricingModifiers
-                                                            )))
-                                                            .open();
-                                                });
+        UtilConfigItem.builder()
+                .combinedClickHandler(config.getNatureButton(), (envyPlayer, clickType) -> {
+                    GuiConfig.NatureUI natureUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getNatureUI();
+
+                    MultiSelectionUI.builder()
+                            .player(player)
+                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                            .config(natureUI.getNatureSelection())
+                            .page(0)
+                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                            .confirm(ConfirmationUI.builder().config(natureUI.getConfirmConfig()))
+                            .acceptHandler((envyPlayer1, clickType1, s) -> handleNatureConfirmation(player, pokemon, s))
+                            .displayItem(new PositionableItem(
+                                    UtilSprite.getPokemonElement(pokemon, natureUI.getSpriteConfig()),
+                                    natureUI.getPokemonPos()
+                            ))
+                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                    pokemon,
+                                    UltimatePokeBuilderForge.getInstance().getConfig().getNatureCosts().values().toArray(new Integer[0])[0],
+                                    pricingModifiers
+                            )))
+                            .open();
+                })
+                .extendedConfigItem(player, pane, config.getNatureButton());
+
+        UtilConfigItem.builder()
+                .combinedClickHandler(config.getGrowthButton(), (envyPlayer, clickType) -> {
+                    GuiConfig.GrowthUI growthUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getGrowthUI();
+
+                    MultiSelectionUI.builder()
+                            .player(player)
+                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                            .config(growthUI.getGrowthSelection())
+                            .page(0)
+                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                            .confirm(ConfirmationUI.builder().config(growthUI.getConfirmConfig()))
+                            .acceptHandler((envyPlayer1, clickType1, s) -> handleGrowthConfirmation(player, pokemon, s))
+                            .displayItem(new PositionableItem(
+                                    UtilSprite.getPokemonElement(pokemon, growthUI.getSpriteConfig()),
+                                    growthUI.getPokemonPos()
+                            ))
+                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                    pokemon,
+                                    UltimatePokeBuilderForge.getInstance().getConfig().getGrowthCosts().values().toArray(new Integer[0])[0],
+                                    pricingModifiers
+                            )))
+                            .open();
+                })
+                .extendedConfigItem(player, pane, config.getGrowthButton());
+
+        UtilConfigItem.builder()
+                .combinedClickHandler(config.getLevelButton(), (envyPlayer, clickType) -> {
+                    GuiConfig.LevelUI levelUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getLevelUI();
+
+                    NumberModificationUI.builder()
+                            .player(player)
+                            .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
+                            .config(levelUI.getLevelEditAmount())
+                            .currentValue(pokemon.getPokemonLevel())
+                            .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
+                            .confirm(ConfirmationUI.builder().config(levelUI.getConfirmConfig()))
+                            .acceptHandler((envyPlayer1, clickType1, level) -> handleLevelConfirmation(player, pokemon, level))
+                            .displayItem(new PositionableItem(
+                                    UtilSprite.getPokemonElement(pokemon, levelUI.getSpriteConfig()),
+                                    levelUI.getPokemonPos()
+                            ))
+                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                    pokemon,
+                                    UltimatePokeBuilderForge.getInstance().getConfig().getCostPerLevel(),
+                                    pricingModifiers
+                            )))
+                            .open();
+                })
+                .extendedConfigItem(player, pane, config.getLevelButton());
 
         GuiFactory.guiBuilder()
                 .setPlayerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
                 .addPane(pane)
-                .setCloseConsumer(envyPlayer -> {})
                 .height(config.getGuiSettings().getHeight())
-                .title(UtilChatColour.translateColourCodes('&', config.getGuiSettings().getTitle()))
+                .title(UtilChatColour.colour(config.getGuiSettings().getTitle()))
                 .build().open(player);
     }
 
@@ -324,15 +341,13 @@ public class EditPokemonUI {
             open(player, pokemon);
 
             if (untradeable) {
-                player.message(UtilChatColour.translateColourCodes(
-                        '&',
+                player.message(UtilChatColour.colour(
                         UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowUntradeable()
                                 .replace("%cost%", 0 + "")
                                 .replace("%pokemon%", pokemon.getLocalizedName())
                 ));
             } else {
-                player.message(UtilChatColour.translateColourCodes(
-                        '&',
+                player.message(UtilChatColour.colour(
                         UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowTradeable()
                                 .replace("%cost%", 0 + "")
                                 .replace("%pokemon%", pokemon.getLocalizedName())
@@ -342,13 +357,13 @@ public class EditPokemonUI {
             return;
         }
 
-        int untradeableCost = (int) UtilPokemonPrice.getMinPrice(pokemon,
+        int untradeableCost = (int)UtilPokemonPrice.getMinPrice(pokemon,
                 UltimatePokeBuilderForge.getInstance().getConfig().getUntradeableCost(),
                 UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, untradeableCost)) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes('&',
+            player.message(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
             return;
         }
@@ -362,15 +377,13 @@ public class EditPokemonUI {
         }
 
         if (untradeable) {
-            player.message(UtilChatColour.translateColourCodes(
-                    '&',
+            player.message(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowUntradeable()
                             .replace("%cost%", untradeableCost + "")
                             .replace("%pokemon%", pokemon.getLocalizedName())
             ));
         } else {
-            player.message(UtilChatColour.translateColourCodes(
-                    '&',
+            player.message(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowTradeable()
                             .replace("%cost%", untradeableCost + "")
                             .replace("%pokemon%", pokemon.getLocalizedName())
@@ -384,8 +397,7 @@ public class EditPokemonUI {
         if (Objects.equals(pokemon.getGender(), gender)) {
             open(player, pokemon);
 
-            player.message(UtilChatColour.translateColourCodes(
-                    '&',
+            player.message(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonGenderNow()
                             .replace("%cost%", 0 + "")
                             .replace("%pokemon%", pokemon.getLocalizedName())
@@ -394,13 +406,13 @@ public class EditPokemonUI {
             return;
         }
 
-        int genderCost = (int) UtilPokemonPrice.getMinPrice(pokemon,
+        int genderCost = (int)UtilPokemonPrice.getMinPrice(pokemon,
                 UltimatePokeBuilderForge.getInstance().getConfig().getGenderCost(),
                 UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, genderCost)) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes('&',
+            player.message(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
             return;
         }
@@ -408,8 +420,7 @@ public class EditPokemonUI {
         EcoFactory.takeBalance(player, genderCost);
 
         pokemon.setGender(gender);
-        player.message(UtilChatColour.translateColourCodes(
-                '&',
+        player.message(UtilChatColour.colour(
                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonGenderNow()
                         .replace("%cost%", 0 + "")
                         .replace("%pokemon%", pokemon.getLocalizedName())
@@ -424,15 +435,13 @@ public class EditPokemonUI {
             open(player, pokemon);
 
             if (shiny) {
-                player.message(UtilChatColour.translateColourCodes(
-                        '&',
+                player.message(UtilChatColour.colour(
                         UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowNonShiny()
                                 .replace("%cost%", 0 + "")
                                 .replace("%pokemon%", pokemon.getLocalizedName())
                 ));
             } else {
-                player.message(UtilChatColour.translateColourCodes(
-                        '&',
+                player.message(UtilChatColour.colour(
                         UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowNonShiny()
                                 .replace("%cost%", 0 + "")
                                 .replace("%pokemon%", pokemon.getLocalizedName())
@@ -442,14 +451,14 @@ public class EditPokemonUI {
             return;
         }
 
-        int shinyCost = (int) UtilPokemonPrice.getMinPrice(pokemon,
-                                                           UltimatePokeBuilderForge.getInstance().getConfig().getShinyCost(),
+        int shinyCost = (int)UtilPokemonPrice.getMinPrice(pokemon,
+                UltimatePokeBuilderForge.getInstance().getConfig().getShinyCost(),
                 UltimatePokeBuilderForge.getInstance().getConfig().getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, shinyCost)) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes('&',
-                                                               UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
+            player.message(UtilChatColour.colour(
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
             return;
         }
 
@@ -457,15 +466,13 @@ public class EditPokemonUI {
         pokemon.setShiny(shiny);
 
         if (shiny) {
-            player.message(UtilChatColour.translateColourCodes(
-                    '&',
+            player.message(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowShiny()
                             .replace("%cost%", shinyCost + "")
                             .replace("%pokemon%", pokemon.getLocalizedName())
             ));
         } else {
-            player.message(UtilChatColour.translateColourCodes(
-                    '&',
+            player.message(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokemonNowNonShiny()
                             .replace("%cost%", shinyCost + "")
                             .replace("%pokemon%", pokemon.getLocalizedName())
@@ -479,8 +486,7 @@ public class EditPokemonUI {
                                                   Ability ability, boolean hiddenAbility) {
         if (Objects.equals(pokemon.getAbility(), ability)) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes(
-                    '&',
+            player.message(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getAbilityChanged()
                             .replace("%cost%", 0 + "")
                             .replace("%pokemon%", pokemon.getLocalizedName())
@@ -490,20 +496,19 @@ public class EditPokemonUI {
         }
 
         PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-        int cost = (int) UtilPokemonPrice.getMinPrice(pokemon, hiddenAbility ? config.getHiddenAbilityCost() :
+        int cost = (int)UtilPokemonPrice.getMinPrice(pokemon, hiddenAbility ? config.getHiddenAbilityCost() :
                 config.getAbilityCost(), config.getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, cost)) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes('&',
-                                                               UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
+            player.message(UtilChatColour.colour(
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
             return;
         }
 
         EcoFactory.takeBalance(player, cost);
         pokemon.setAbility(ability);
-        player.message(UtilChatColour.translateColourCodes(
-                '&',
+        player.message(UtilChatColour.colour(
                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getAbilityChanged()
                         .replace("%cost%", cost + "")
                         .replace("%pokemon%", pokemon.getLocalizedName())
@@ -529,8 +534,7 @@ public class EditPokemonUI {
                 .acceptHandler((envyPlayer, clickType, value) -> {
                     if (pokemon.getEVs().getStat(statsType) == value) {
                         open(player, pokemon);
-                        player.message(UtilChatColour.translateColourCodes(
-                                '&',
+                        player.message(UtilChatColour.colour(
                                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getEvChanged()
                                         .replace("%cost%", 0 + "")
                                         .replace("%pokemon%", pokemon.getLocalizedName())
@@ -540,29 +544,28 @@ public class EditPokemonUI {
                         return;
                     }
 
-                    if (value > 0 && (pokemon.getEVs().getTotal() +  value) > 510) {
+                    if (value > 0 && (pokemon.getEVs().getTotal() + value) > 510) {
                         open(player, pokemon);
-                        player.message(UtilChatColour.translateColourCodes('&',
-                                                                           UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getEvsMax()));
+                        player.message(UtilChatColour.colour(
+                                UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getEvsMax()));
                         return;
                     }
 
                     PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-                    int cost = (int) UtilPokemonPrice.getMinPrice(pokemon,
-                                                                  config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().getStat(statsType) - value),
+                    int cost = (int)UtilPokemonPrice.getMinPrice(pokemon,
+                            config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().getStat(statsType) - value),
                             config.getPricingModifiers());
 
                     if (!EcoFactory.hasBalance(player, cost)) {
                         open(player, pokemon);
-                        player.message(UtilChatColour.translateColourCodes('&',
-                                                                           UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
+                        player.message(UtilChatColour.colour(
+                                UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
                         return;
                     }
 
                     EcoFactory.takeBalance(player, cost);
                     pokemon.getEVs().setStat(statsType, value);
-                    player.message(UtilChatColour.translateColourCodes(
-                            '&',
+                    player.message(UtilChatColour.colour(
                             UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getEvChanged()
                                     .replace("%cost%", cost + "")
                                     .replace("%pokemon%", pokemon.getLocalizedName())
@@ -607,8 +610,7 @@ public class EditPokemonUI {
                 .acceptHandler((envyPlayer, clickType, value) -> {
                     if (pokemon.getIVs().getStat(statsType) == value) {
                         open(player, pokemon);
-                        player.message(UtilChatColour.translateColourCodes(
-                                '&',
+                        player.message(UtilChatColour.colour(
                                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getIvChanged()
                                         .replace("%cost%", 0 + "")
                                         .replace("%pokemon%", pokemon.getLocalizedName())
@@ -619,14 +621,13 @@ public class EditPokemonUI {
                     }
 
                     PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-                    int cost = (int) UtilPokemonPrice.getMinPrice(pokemon,
-                                                                  config.getIvIncrementCosts().get(s) * Math.abs(pokemon.getIVs().getStat(statsType) - value),
-                                                                  config.getPricingModifiers());
+                    int cost = (int)UtilPokemonPrice.getMinPrice(pokemon,
+                            config.getIvIncrementCosts().get(s) * Math.abs(pokemon.getIVs().getStat(statsType) - value),
+                            config.getPricingModifiers());
 
                     if (!EcoFactory.hasBalance(player, cost)) {
                         open(player, pokemon);
-                        player.message(UtilChatColour.translateColourCodes(
-                                '&',
+                        player.message(UtilChatColour.colour(
                                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()
                         ));
                         return;
@@ -634,8 +635,7 @@ public class EditPokemonUI {
 
                     EcoFactory.takeBalance(player, cost);
                     pokemon.getIVs().setStat(statsType, value);
-                    player.message(UtilChatColour.translateColourCodes(
-                            '&',
+                    player.message(UtilChatColour.colour(
                             UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getIvChanged()
                                     .replace("%cost%", cost + "")
                                     .replace("%pokemon%", pokemon.getLocalizedName())
@@ -682,8 +682,7 @@ public class EditPokemonUI {
 
         if (pokeball == pokemon.getBall()) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes(
-                    '&',
+            player.message(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokeballChanged()
                             .replace("%cost%", 0 + "")
                             .replace("%pokemon%", pokemon.getLocalizedName())
@@ -693,19 +692,18 @@ public class EditPokemonUI {
         }
 
         PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-        int cost = (int) UtilPokemonPrice.getMinPrice(pokemon, config.getBallCosts().get(s), config.getPricingModifiers());
+        int cost = (int)UtilPokemonPrice.getMinPrice(pokemon, config.getBallCosts().get(s), config.getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, cost)) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes('&',
-                                                               UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
+            player.message(UtilChatColour.colour(
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
             return;
         }
 
         EcoFactory.takeBalance(player, cost);
         pokemon.setBall(pokeball);
-        player.message(UtilChatColour.translateColourCodes(
-                '&',
+        player.message(UtilChatColour.colour(
                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getPokeballChanged()
                         .replace("%cost%", cost + "")
                         .replace("%pokemon%", pokemon.getLocalizedName())
@@ -727,8 +725,7 @@ public class EditPokemonUI {
     private static void handleLevelConfirmation(ForgeEnvyPlayer player, Pokemon pokemon, int level) {
         if (pokemon.getPokemonLevel() == level) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes(
-                    '&',
+            player.message(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getLevelChanged()
                             .replace("%cost%", 0 + "")
                             .replace("%pokemon%", pokemon.getLocalizedName())
@@ -738,19 +735,18 @@ public class EditPokemonUI {
         }
 
         PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-        int cost = (int) UtilPokemonPrice.getMinPrice(pokemon, config.getCostPerLevel() * Math.abs(pokemon.getPokemonLevel() - level), config.getPricingModifiers());
+        int cost = (int)UtilPokemonPrice.getMinPrice(pokemon, config.getCostPerLevel() * Math.abs(pokemon.getPokemonLevel() - level), config.getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, cost)) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes('&',
-                                                               UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
+            player.message(UtilChatColour.colour(
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
             return;
         }
 
         EcoFactory.takeBalance(player, cost);
         pokemon.setLevel(level);
-        player.message(UtilChatColour.translateColourCodes(
-                '&',
+        player.message(UtilChatColour.colour(
                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getLevelChanged()
                         .replace("%cost%", cost + "")
                         .replace("%pokemon%", pokemon.getLocalizedName())
@@ -768,8 +764,7 @@ public class EditPokemonUI {
 
         if (pokemon.getGrowth() == growth) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes(
-                    '&',
+            player.message(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getGrowthChanged()
                             .replace("%cost%", 0 + "")
                             .replace("%pokemon%", pokemon.getLocalizedName())
@@ -779,19 +774,18 @@ public class EditPokemonUI {
         }
 
         PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-        int cost = (int) UtilPokemonPrice.getMinPrice(pokemon, config.getGrowthCosts().get(s), config.getPricingModifiers());
+        int cost = (int)UtilPokemonPrice.getMinPrice(pokemon, config.getGrowthCosts().get(s), config.getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, cost)) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes('&',
-                                                               UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
+            player.message(UtilChatColour.colour(
+                    UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()));
             return;
         }
 
         EcoFactory.takeBalance(player, cost);
         pokemon.setGrowth(growth);
-        player.message(UtilChatColour.translateColourCodes(
-                '&',
+        player.message(UtilChatColour.colour(
                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getGrowthChanged()
                         .replace("%cost%", cost + "")
                         .replace("%pokemon%", pokemon.getLocalizedName())
@@ -819,8 +813,7 @@ public class EditPokemonUI {
 
         if (pokemon.getNature() == nature) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes(
-                    '&',
+            player.message(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getNatureChanged()
                             .replace("%cost%", 0 + "")
                             .replace("%pokemon%", pokemon.getLocalizedName())
@@ -830,12 +823,11 @@ public class EditPokemonUI {
         }
 
         PokeBuilderConfig config = UltimatePokeBuilderForge.getInstance().getConfig();
-        int cost = (int) UtilPokemonPrice.getMinPrice(pokemon, config.getNatureCosts().get(s), config.getPricingModifiers());
+        int cost = (int)UtilPokemonPrice.getMinPrice(pokemon, config.getNatureCosts().get(s), config.getPricingModifiers());
 
         if (!EcoFactory.hasBalance(player, cost)) {
             open(player, pokemon);
-            player.message(UtilChatColour.translateColourCodes(
-                    '&',
+            player.message(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getInsufficientFunds()
             ));
             return;
@@ -843,8 +835,7 @@ public class EditPokemonUI {
 
         EcoFactory.takeBalance(player, cost);
         pokemon.setNature(nature);
-        player.message(UtilChatColour.translateColourCodes(
-                '&',
+        player.message(UtilChatColour.colour(
                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getNatureChanged()
                         .replace("%cost%", cost + "")
                         .replace("%pokemon%", pokemon.getLocalizedName())

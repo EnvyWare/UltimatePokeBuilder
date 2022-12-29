@@ -58,6 +58,7 @@ public class EditPokemonUI {
 
         if (!Objects.equals(pokemon.getGender(), Gender.NONE)) {
             UtilConfigItem.builder()
+                    .asyncClick(false)
                     .combinedClickHandler(config.getGenderButton(), (envyPlayer, clickType) -> {
                         GuiConfig.GenderUI genderUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getGenderUI();
 
@@ -87,6 +88,7 @@ public class EditPokemonUI {
         }
 
         UtilConfigItem.builder()
+                .asyncClick(false)
                 .combinedClickHandler(config.getUntradeableButton(), (envyPlayer, clickType) -> {
                     GuiConfig.UntradeableUI untradeableUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getUntradeableUI();
 
@@ -115,6 +117,7 @@ public class EditPokemonUI {
                 .extendedConfigItem(player, pane, config.getUntradeableButton());
 
         UtilConfigItem.builder()
+                .asyncClick(false)
                 .combinedClickHandler(config.getUnbreedableButton(), (envyPlayer, clickType) -> {
                     GuiConfig.UnbreedableUI unbreedableUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getUnbreedableUI();
 
@@ -143,6 +146,7 @@ public class EditPokemonUI {
                 .extendedConfigItem(player, pane, config.getUnbreedableButton());
 
         UtilConfigItem.builder()
+                .asyncClick(false)
                 .combinedClickHandler(config.getShinyButton(), (envyPlayer, clickType) -> {
                     GuiConfig.ShinyUI shinyUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getShinyUI();
 
@@ -171,6 +175,7 @@ public class EditPokemonUI {
                 .extendedConfigItem(player, pane, config.getShinyButton());
 
         UtilConfigItem.builder()
+                .asyncClick(false)
                 .combinedClickHandler(config.getAbilityButton(), (envyPlayer, clickType) -> {
                     GuiConfig.AbilitiesUI abilitiesUI =
                             UltimatePokeBuilderForge.getInstance().getGuiConfig().getAbilitiesUI();
@@ -215,6 +220,7 @@ public class EditPokemonUI {
                 .extendedConfigItem(player, pane, config.getAbilityButton());
 
         UtilConfigItem.builder()
+                .asyncClick(false)
                 .combinedClickHandler(config.getEvButton(), (envyPlayer, clickType) -> {
                     GuiConfig.EvUI evUI =
                             UltimatePokeBuilderForge.getInstance().getGuiConfig().getEvUI();
@@ -242,6 +248,7 @@ public class EditPokemonUI {
                 .extendedConfigItem(player, pane, config.getEvButton());
 
         UtilConfigItem.builder()
+                .asyncClick(false)
                 .combinedClickHandler(config.getIvButton(), (envyPlayer, clickType) -> {
                     GuiConfig.IvUI ivUI =
                             UltimatePokeBuilderForge.getInstance().getGuiConfig().getIvUI();
@@ -268,6 +275,7 @@ public class EditPokemonUI {
                 .extendedConfigItem(player, pane, config.getIvButton());
 
         UtilConfigItem.builder()
+                .asyncClick(false)
                 .combinedClickHandler(config.getPokeballButton(), (envyPlayer, clickType) -> {
                     GuiConfig.PokeBallUI ballUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getBallUI();
 
@@ -294,6 +302,7 @@ public class EditPokemonUI {
                 .extendedConfigItem(player, pane, config.getPokeballButton());
 
         UtilConfigItem.builder()
+                .asyncClick(false)
                 .combinedClickHandler(config.getNatureButton(), (envyPlayer, clickType) -> {
                     GuiConfig.NatureUI natureUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getNatureUI();
 
@@ -320,6 +329,7 @@ public class EditPokemonUI {
                 .extendedConfigItem(player, pane, config.getNatureButton());
 
         UtilConfigItem.builder()
+                .asyncClick(false)
                 .combinedClickHandler(config.getGrowthButton(), (envyPlayer, clickType) -> {
                     GuiConfig.GrowthUI growthUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getGrowthUI();
 
@@ -346,6 +356,7 @@ public class EditPokemonUI {
                 .extendedConfigItem(player, pane, config.getGrowthButton());
 
         UtilConfigItem.builder()
+                .asyncClick(false)
                 .combinedClickHandler(config.getLevelButton(), (envyPlayer, clickType) -> {
                     GuiConfig.LevelUI levelUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getLevelUI();
 

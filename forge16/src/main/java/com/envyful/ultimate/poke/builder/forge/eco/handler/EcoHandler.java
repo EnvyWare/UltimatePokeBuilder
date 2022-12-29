@@ -6,14 +6,14 @@ public interface EcoHandler {
 
     String getId();
 
-    boolean hasBalance(ForgeEnvyPlayer player, int balance);
+    boolean hasBalance(ForgeEnvyPlayer player, double balance);
 
-    int getBalance(ForgeEnvyPlayer player);
+    double getBalance(ForgeEnvyPlayer player);
 
-    void setBalance(ForgeEnvyPlayer player, int balance);
+    void setBalance(ForgeEnvyPlayer player, double balance);
 
-    void addBalance(ForgeEnvyPlayer player, int balance);
+    void addBalance(ForgeEnvyPlayer player, double balance);
 
-    void takeBalance(ForgeEnvyPlayer player, int balance);
+    void takeBalance(ForgeEnvyPlayer player, double balance);
 
 }

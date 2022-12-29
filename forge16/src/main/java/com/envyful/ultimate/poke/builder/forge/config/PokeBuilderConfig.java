@@ -25,14 +25,14 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     private SaveMode saveMode = SaveMode.JSON;
     private String economyHandler = "tokens";
-    private int defaultTokens = 500;
-    private int shinyCost = 200;
-    private int untradeableCost = 600;
-    private int unbreedableCost = 600;
-    private int genderCost = 600;
-    private int abilityCost = 500;
-    private int hiddenAbilityCost = 1000;
-    private int costPerLevel = 200;
+    private double defaultTokens = 500;
+    private double shinyCost = 200;
+    private double untradeableCost = 600;
+    private double unbreedableCost = 600;
+    private double genderCost = 600;
+    private double abilityCost = 500;
+    private double hiddenAbilityCost = 1000;
+    private double costPerLevel = 200;
     private Map<String, Integer> evIncrementCosts = new HashMap<String, Integer>() {
         {
             this.put("hp", 100);
@@ -157,35 +157,35 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
         return this.economyHandler;
     }
 
-    public int getDefaultTokens() {
+    public double getDefaultTokens() {
         return this.defaultTokens;
     }
 
-    public int getShinyCost() {
+    public double getShinyCost() {
         return this.shinyCost;
     }
 
-    public int getUntradeableCost() {
+    public double getUntradeableCost() {
         return this.untradeableCost;
     }
 
-    public int getUnbreedableCost() {
+    public double getUnbreedableCost() {
         return this.unbreedableCost;
     }
 
-    public int getGenderCost() {
+    public double getGenderCost() {
         return this.genderCost;
     }
 
-    public int getCostPerLevel() {
+    public double getCostPerLevel() {
         return this.costPerLevel;
     }
 
-    public int getAbilityCost() {
+    public double getAbilityCost() {
         return this.abilityCost;
     }
 
-    public int getHiddenAbilityCost() {
+    public double getHiddenAbilityCost() {
         return this.hiddenAbilityCost;
     }
 

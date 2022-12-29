@@ -16,7 +16,7 @@ import java.util.UUID;
 @DataDirectory("config/players/UltimatePokeBuilder/")
 public class PokeBuilderAttribute extends AbstractForgeAttribute<UltimatePokeBuilderForge> {
 
-    private int tokens = 0;
+    private double tokens = 0;
 
     public PokeBuilderAttribute(UltimatePokeBuilderForge manager, EnvyPlayer<?> parent) {
         super(manager, (ForgeEnvyPlayer) parent);
@@ -26,11 +26,11 @@ public class PokeBuilderAttribute extends AbstractForgeAttribute<UltimatePokeBui
         super(uuid);
     }
 
-    public int getTokens() {
+    public double getTokens() {
         return this.tokens;
     }
 
-    public void setTokens(int tokens) {
+    public void setTokens(double tokens) {
         this.tokens = tokens;
     }
 
@@ -66,7 +66,7 @@ public class PokeBuilderAttribute extends AbstractForgeAttribute<UltimatePokeBui
         try (Connection connection = this.manager.getDatabase().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(PokeBuilderQueries.UPDATE_CREATE_USER)) {
             preparedStatement.setString(1, this.parent.getUuid().toString());
-            preparedStatement.setInt(2, this.tokens);
+            preparedStatement.setInt(2, (int)this.tokens);
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

@@ -17,23 +17,23 @@ public class EcoFactory {
         }
     }
 
-    public static boolean hasBalance(ForgeEnvyPlayer player, int balance) {
+    public static boolean hasBalance(ForgeEnvyPlayer player, double balance) {
         return handler.hasBalance(player, balance);
     }
 
-    public static int getBalance(ForgeEnvyPlayer player) {
+    public static double getBalance(ForgeEnvyPlayer player) {
         return handler.getBalance(player);
     }
 
-    public static void setBalance(ForgeEnvyPlayer player, int balance) {
+    public static void setBalance(ForgeEnvyPlayer player, double balance) {
         handler.setBalance(player, balance);
     }
 
-    public static void addBalance(ForgeEnvyPlayer player, int balance) {
+    public static void addBalance(ForgeEnvyPlayer player, double balance) {
         handler.addBalance(player, balance);
     }
 
-    public static void takeBalance(ForgeEnvyPlayer player, int balance) {
+    public static void takeBalance(ForgeEnvyPlayer player, double balance) {
         handler.takeBalance(player, balance);
     }
 }

@@ -1,6 +1,5 @@
 package com.envyful.ultimate.poke.builder.forge.ui;
 
-import com.envyful.api.config.type.ConfigItem;
 import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.forge.config.UtilConfigInterface;
 import com.envyful.api.forge.config.UtilConfigItem;

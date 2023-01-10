@@ -36,7 +36,7 @@ import java.sql.SQLException;
 )
 public class UltimatePokeBuilderForge {
 
-    public static final String VERSION = "2.1.5";
+    public static final String VERSION = "2.1.61";
 
     private static UltimatePokeBuilderForge instance;
 

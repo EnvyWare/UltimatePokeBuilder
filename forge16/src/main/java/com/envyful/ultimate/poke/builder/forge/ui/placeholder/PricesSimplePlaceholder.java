@@ -1,17 +1,17 @@
-package com.envyful.ultimate.poke.builder.forge.ui.transformer;
+package com.envyful.ultimate.poke.builder.forge.ui.placeholder;
 
 import com.envyful.api.text.parse.SimplePlaceholder;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 
 import java.util.Map;
 
-public class PricesTransformer implements SimplePlaceholder {
+public class PricesSimplePlaceholder implements SimplePlaceholder {
 
-    public static PricesTransformer of() {
-        return new PricesTransformer();
+    public static PricesSimplePlaceholder of() {
+        return new PricesSimplePlaceholder();
     }
 
-    protected PricesTransformer() {}
+    protected PricesSimplePlaceholder() {}
 
     @Override
     public String replace(String name) {

@@ -15,8 +15,8 @@ import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderConfig;
 import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoFactory;
-import com.envyful.ultimate.poke.builder.forge.ui.transformer.PriceTransformer;
-import com.envyful.ultimate.poke.builder.forge.ui.transformer.PricesTransformer;
+import com.envyful.ultimate.poke.builder.forge.ui.placeholder.PriceSimplePlaceholder;
+import com.envyful.ultimate.poke.builder.forge.ui.placeholder.PricesSimplePlaceholder;
 import com.pixelmonmod.api.Flags;
 import com.pixelmonmod.pixelmon.api.pokemon.Nature;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
@@ -71,13 +71,13 @@ public class EditPokemonUI {
                                 .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
                                 .trueAcceptHandler((envyPlayer1, clickType1) -> handleGenderConfirmation(player, pokemon, Gender.MALE))
                                 .falseAcceptHandler((envyPlayer1, clickType1) -> handleGenderConfirmation(player, pokemon, Gender.FEMALE))
-                                .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                                .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
                                         pokemon,
                                         UltimatePokeBuilderForge.getConfig().getGenderCost(),
                                         pricingModifiers
                                 )))
                                 .transformer(name -> name.replace("%current%", pokemon.getGender().getLocalizedName()))
-                                .transformer(PricesTransformer.of())
+                                .transformer(PricesSimplePlaceholder.of())
                                 .displayItem(new PositionableItem(
                                         UtilSprite.getPokemonElement(pokemon, genderUI.getSpriteConfig()),
                                         genderUI.getPokemonPos()
@@ -101,13 +101,13 @@ public class EditPokemonUI {
                             .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
                             .trueAcceptHandler((envyPlayer1, clickType1) -> handleUntradeableConfirmation(player, pokemon, true))
                             .falseAcceptHandler((envyPlayer1, clickType1) -> handleUntradeableConfirmation(player, pokemon, false))
-                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                            .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
                                     pokemon,
                                     UltimatePokeBuilderForge.getConfig().getUntradeableCost(),
                                     pricingModifiers
                             )))
                             .transformer(name -> name.replace("%current%", pokemon.isUntradeable() + ""))
-                            .transformer(PricesTransformer.of())
+                            .transformer(PricesSimplePlaceholder.of())
                             .displayItem(new PositionableItem(
                                     UtilSprite.getPokemonElement(pokemon, untradeableUI.getSpriteConfig()),
                                     untradeableUI.getPokemonPos()
@@ -130,12 +130,12 @@ public class EditPokemonUI {
                             .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
                             .trueAcceptHandler((envyPlayer1, clickType1) -> handleUnbreedableConfirmation(player, pokemon, true))
                             .falseAcceptHandler((envyPlayer1, clickType1) -> handleUnbreedableConfirmation(player, pokemon, false))
-                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                            .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
                                     pokemon,
                                     UltimatePokeBuilderForge.getConfig().getUnbreedableCost(),
                                     pricingModifiers
                             )))
-                            .transformer(PricesTransformer.of())
+                            .transformer(PricesSimplePlaceholder.of())
                             .transformer(name -> name.replace("%current%", pokemon.isUnbreedable() + ""))
                             .displayItem(new PositionableItem(
                                     UtilSprite.getPokemonElement(pokemon, unbreedableUI.getSpriteConfig()),
@@ -159,12 +159,12 @@ public class EditPokemonUI {
                             .returnHandler((envyPlayer1, clickType1) -> open(player, pokemon))
                             .trueAcceptHandler((envyPlayer1, clickType1) -> handleShinyConfirmation(player, pokemon, true))
                             .falseAcceptHandler((envyPlayer1, clickType1) -> handleShinyConfirmation(player, pokemon, false))
-                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                            .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
                                     pokemon,
                                     UltimatePokeBuilderForge.getConfig().getShinyCost(),
                                     pricingModifiers
                             )))
-                            .transformer(PricesTransformer.of())
+                            .transformer(PricesSimplePlaceholder.of())
                             .transformer(name -> name.replace("%current%", pokemon.getPalette().getLocalizedName()))
                             .displayItem(new PositionableItem(
                                     UtilSprite.getPokemonElement(pokemon, shinyUI.getSpriteConfig()),
@@ -204,12 +204,12 @@ public class EditPokemonUI {
                                         ability.endsWith(" (HA)")
                                 );
                             })
-                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                            .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
                                     pokemon,
                                     UltimatePokeBuilderForge.getConfig().getAbilityCost(),
                                     pricingModifiers
                             )))
-                            .transformer(PricesTransformer.of())
+                            .transformer(PricesSimplePlaceholder.of())
                             .transformer(name -> name.replace("%current%", pokemon.getAbility().getLocalizedName()))
                             .displayItem(new PositionableItem(
                                     UtilSprite.getPokemonElement(pokemon, abilitiesUI.getSpriteConfig()),
@@ -237,12 +237,12 @@ public class EditPokemonUI {
                                     UtilSprite.getPokemonElement(pokemon, evUI.getSpriteConfig()),
                                     evUI.getPokemonPos()
                             ))
-                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                            .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
                                     pokemon,
                                     UltimatePokeBuilderForge.getConfig().getEvIncrementCosts().values().toArray(new Integer[0])[0],
                                     pricingModifiers
                             )))
-                            .transformer(PricesTransformer.of())
+                            .transformer(PricesSimplePlaceholder.of())
                             .open();
                 })
                 .extendedConfigItem(player, pane, config.getEvButton());
@@ -264,12 +264,12 @@ public class EditPokemonUI {
                                     UtilSprite.getPokemonElement(pokemon, ivUI.getSpriteConfig()),
                                     ivUI.getPokemonPos()
                             ))
-                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                            .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
                                     pokemon,
                                     UltimatePokeBuilderForge.getConfig().getIvIncrementCosts().values().toArray(new Integer[0])[0],
                                     pricingModifiers
                             )))
-                            .transformer(PricesTransformer.of())
+                            .transformer(PricesSimplePlaceholder.of())
                             .open();
                 })
                 .extendedConfigItem(player, pane, config.getIvButton());
@@ -291,12 +291,12 @@ public class EditPokemonUI {
                                     UtilSprite.getPokemonElement(pokemon, ballUI.getSpriteConfig()),
                                     ballUI.getPokemonPos()
                             ))
-                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                            .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
                                     pokemon,
                                     UltimatePokeBuilderForge.getConfig().getBallCosts().values().toArray(new Integer[0])[0],
                                     pricingModifiers
                             )))
-                            .transformer(PricesTransformer.of())
+                            .transformer(PricesSimplePlaceholder.of())
                             .open();
                 })
                 .extendedConfigItem(player, pane, config.getPokeballButton());
@@ -318,12 +318,12 @@ public class EditPokemonUI {
                                     UtilSprite.getPokemonElement(pokemon, natureUI.getSpriteConfig()),
                                     natureUI.getPokemonPos()
                             ))
-                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                            .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
                                     pokemon,
                                     UltimatePokeBuilderForge.getConfig().getNatureCosts().values().toArray(new Integer[0])[0],
                                     pricingModifiers
                             )))
-                            .transformer(PricesTransformer.of())
+                            .transformer(PricesSimplePlaceholder.of())
                             .open();
                 })
                 .extendedConfigItem(player, pane, config.getNatureButton());
@@ -345,12 +345,12 @@ public class EditPokemonUI {
                                     UtilSprite.getPokemonElement(pokemon, growthUI.getSpriteConfig()),
                                     growthUI.getPokemonPos()
                             ))
-                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                            .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
                                     pokemon,
                                     UltimatePokeBuilderForge.getConfig().getGrowthCosts().values().toArray(new Integer[0])[0],
                                     pricingModifiers
                             )))
-                            .transformer(PricesTransformer.of())
+                            .transformer(PricesSimplePlaceholder.of())
                             .open();
                 })
                 .extendedConfigItem(player, pane, config.getGrowthButton());
@@ -372,12 +372,12 @@ public class EditPokemonUI {
                                     UtilSprite.getPokemonElement(pokemon, levelUI.getSpriteConfig()),
                                     levelUI.getPokemonPos()
                             ))
-                            .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                            .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
                                     pokemon,
                                     UltimatePokeBuilderForge.getConfig().getCostPerLevel(),
                                     pricingModifiers
                             )))
-                            .transformer(PricesTransformer.of())
+                            .transformer(PricesSimplePlaceholder.of())
                             .open();
                 })
                 .extendedConfigItem(player, pane, config.getLevelButton());
@@ -688,13 +688,13 @@ public class EditPokemonUI {
                 .key(s)
                 .confirm(ConfirmationUI.builder().config(evUI.getConfirmConfig()))
                 .currentValue(pokemon.getEVs().getStat(statsType))
-                .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
                         pokemon,
                         UltimatePokeBuilderForge.getConfig().getEvIncrementCosts().values().toArray(new Integer[0])[0],
                         UltimatePokeBuilderForge.getConfig().getPricingModifiers()
                 )))
                 .transformer(name -> name.replace("%current%", String.valueOf(pokemon.getEVs().getStat(statsType))))
-                .transformer(PricesTransformer.of())
+                .transformer(PricesSimplePlaceholder.of())
                 .displayItem(new PositionableItem(
                         UtilSprite.getPokemonElement(pokemon, evUI.getSpriteConfig()),
                         evUI.getPokemonPos()
@@ -760,8 +760,8 @@ public class EditPokemonUI {
                 .key(s)
                 .confirm(ConfirmationUI.builder().config(ivUI.getConfirmConfig()))
                 .currentValue(pokemon.getIVs().getStat(statsType))
-                .transformer(PricesTransformer.of())
-                .transformer(PriceTransformer.of(UtilPokemonPrice.getMinPrice(
+                .transformer(PricesSimplePlaceholder.of())
+                .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
                         pokemon,
                         UltimatePokeBuilderForge.getConfig().getIvIncrementCosts().values().toArray(new Integer[0])[0],
                         UltimatePokeBuilderForge.getConfig().getPricingModifiers()

@@ -96,19 +96,24 @@ public class GuiConfig extends AbstractYamlConfig {
 
         private ConfigInterface guiSettings = new ConfigInterface(
                 "UltimatePokeBuilder", 3, "BLOCK",
-                ImmutableMap.of("one", new ConfigItem(
-                        "minecraft:black_stained_glass_pane", 1, (byte) 15, " ", Lists.newArrayList(), Maps.newHashMap()
-                ))
+                ImmutableMap.of("one",
+                        ConfigItem.builder()
+                                .type("minecraft:black_stained_glass_pane")
+                                .amount(1)
+                                .name(" ").build())
         );
 
-        private ExtendedConfigItem infoItem = new ExtendedConfigItem(
-                "minecraft:nether_star", 1, (byte) 0, "&bClick the pokemon to edit", Lists.newArrayList(),
-                4, 0, Maps.newHashMap()
-        );
+        private ExtendedConfigItem infoItem = ExtendedConfigItem.builder()
+                .type("minecraft:nether_star")
+                .amount(1)
+                .name("&bClick the pokemon to edit")
+                .positions(Pair.of(4, 0))
+                .build();
 
-        private ConfigItem eggItem = new ConfigItem(
-                "minecraft:barrier", 1, (byte) 0, "&cCannot edit eggs", Lists.newArrayList(), Maps.newHashMap()
-        );
+        private ConfigItem eggItem = ConfigItem.builder()
+                .type("minecraft:barrier")
+                .amount(1)
+                .name("&cCannot edit eggs").build();
 
         private List<Integer> partyPositions = Lists.newArrayList(
                 10, 11, 12, 14, 15, 16
@@ -116,12 +121,10 @@ public class GuiConfig extends AbstractYamlConfig {
 
         private SpriteConfig spriteSettings = new SpriteConfig();
 
-        private ConfigItem blacklistedItem = new ConfigItem(
-                "minecraft:barrier", 1, (byte) 0, "&c&lBlocked", Lists.newArrayList(), Maps.newHashMap()
-        );
-
-        public SelectUI() {
-        }
+        private ConfigItem blacklistedItem = ConfigItem.builder()
+                .type("minecraft:barrier")
+                .amount(1)
+                .name("&c&lBlocked").build();
 
         public ConfigInterface getGuiSettings() {
             return this.guiSettings;
@@ -153,15 +156,19 @@ public class GuiConfig extends AbstractYamlConfig {
 
         private ConfigInterface guiSettings = new ConfigInterface(
                 "UltimatePokeBuilder", 4, "BLOCK",
-                ImmutableMap.of("one", new ConfigItem(
-                        "minecraft:black_stained_glass_pane", 1, (byte) 15, " ", Lists.newArrayList(), Maps.newHashMap()
-                ))
+                ImmutableMap.of("one", ConfigItem.builder()
+                        .type("minecraft:black_stained_glass_pane")
+                        .amount(1)
+                        .name(" ").build()
+                )
         );
 
-        private ExtendedConfigItem backButton = new ExtendedConfigItem(
-                "pixelmon:eject_button", 1, (byte) 0, "&cBack",
-                Lists.newArrayList(), 0, 0, Maps.newHashMap()
-        );
+        private ExtendedConfigItem backButton = ExtendedConfigItem.builder()
+                .type("pixelmon:eject_button")
+                .amount(1)
+                .name("&cBack")
+                .positions(Pair.of(0, 0))
+                .build();
 
         private int spritePos = 9;
 
@@ -170,7 +177,10 @@ public class GuiConfig extends AbstractYamlConfig {
                 .amount(1)
                 .name("&eEVs")
                 .positions(Pair.of(7, 2))
-                .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
+                .requiresPermission("none", ConfigItem.builder()
+                        .type("minecraft:barrier")
+                        .amount(1)
+                        .name("&c&lNo Permission").build())
                 .build();
 
         private ExtendedConfigItem ivButton = ExtendedConfigItem.builder()
@@ -178,7 +188,10 @@ public class GuiConfig extends AbstractYamlConfig {
                 .amount(1)
                 .name("&eIVs")
                 .positions(Pair.of(7, 1))
-                .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
+                .requiresPermission("none", ConfigItem.builder()
+                        .type("minecraft:barrier")
+                        .amount(1)
+                        .name("&c&lNo Permission").build())
                 .build();
 
         private ExtendedConfigItem abilityButton = ExtendedConfigItem.builder()
@@ -186,7 +199,10 @@ public class GuiConfig extends AbstractYamlConfig {
                 .amount(1)
                 .name("&eAbility")
                 .positions(Pair.of(5, 2))
-                .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
+                .requiresPermission("none", ConfigItem.builder()
+                        .type("minecraft:barrier")
+                        .amount(1)
+                        .name("&c&lNo Permission").build())
                 .build();
 
         private ExtendedConfigItem growthButton = ExtendedConfigItem.builder()
@@ -194,7 +210,10 @@ public class GuiConfig extends AbstractYamlConfig {
                 .amount(1)
                 .name("&eGrowth")
                 .positions(Pair.of(5, 1))
-                .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
+                .requiresPermission("none", ConfigItem.builder()
+                        .type("minecraft:barrier")
+                        .amount(1)
+                        .name("&c&lNo Permission").build())
                 .build();
 
         private ExtendedConfigItem natureButton = ExtendedConfigItem.builder()
@@ -202,22 +221,32 @@ public class GuiConfig extends AbstractYamlConfig {
                 .amount(1)
                 .name("&eNature")
                 .positions(Pair.of(4, 2))
-                .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
+                .requiresPermission("none", ConfigItem.builder()
+                        .type("minecraft:barrier")
+                        .amount(1)
+                        .name("&c&lNo Permission").build())
                 .build();
+
         private ExtendedConfigItem untradeableButton = ExtendedConfigItem
                 .builder()
                 .type("minecraft:barrier")
                 .amount(1)
                 .name("&eUntradeable")
                 .positions(Pair.of(3, 1))
-                .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
+                .requiresPermission("none", ConfigItem.builder()
+                        .type("minecraft:barrier")
+                        .amount(1)
+                        .name("&c&lNo Permission").build())
                 .build();
         private ExtendedConfigItem levelButton = ExtendedConfigItem.builder()
                 .type("pixelmon:rare_candy")
                 .amount(1)
                 .name("&eLevel")
                 .positions(Pair.of(4, 1))
-                .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
+                .requiresPermission("none", ConfigItem.builder()
+                        .type("minecraft:barrier")
+                        .amount(1)
+                        .name("&c&lNo Permission").build())
                 .build();
 
         private ExtendedConfigItem pokeballButton = ExtendedConfigItem.builder()
@@ -225,7 +254,10 @@ public class GuiConfig extends AbstractYamlConfig {
                 .amount(1)
                 .name("&ePokeBall")
                 .positions(Pair.of(2, 2))
-                .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
+                .requiresPermission("none", ConfigItem.builder()
+                        .type("minecraft:barrier")
+                        .amount(1)
+                        .name("&c&lNo Permission").build())
                 .build();
 
         private ExtendedConfigItem shinyButton = ExtendedConfigItem.builder()
@@ -233,7 +265,10 @@ public class GuiConfig extends AbstractYamlConfig {
                 .amount(1)
                 .name("&eShiny")
                 .positions(Pair.of(2, 1))
-                .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
+                .requiresPermission("none", ConfigItem.builder()
+                        .type("minecraft:barrier")
+                        .amount(1)
+                        .name("&c&lNo Permission").build())
                 .build();
 
         private ExtendedConfigItem genderButton = ExtendedConfigItem.builder()
@@ -241,7 +276,10 @@ public class GuiConfig extends AbstractYamlConfig {
                 .amount(1)
                 .name("&eGender")
                 .positions(Pair.of(3, 2))
-                .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
+                .requiresPermission("none", ConfigItem.builder()
+                        .type("minecraft:barrier")
+                        .amount(1)
+                        .name("&c&lNo Permission").build())
                 .build();
 
         private ExtendedConfigItem unbreedableButton = ExtendedConfigItem
@@ -250,7 +288,10 @@ public class GuiConfig extends AbstractYamlConfig {
                 .amount(1)
                 .name("&eUnbreedable")
                 .positions(Pair.of(3, 2))
-                .requiresPermission("none", new ConfigItem("minecraft:barrier", 1, "&c&lNo Permission", Lists.newArrayList()))
+                .requiresPermission("none", ConfigItem.builder()
+                        .type("minecraft:barrier")
+                        .amount(1)
+                        .name("&c&lNo Permission").build())
                 .build();
 
         private SpriteConfig spriteSettings = new SpriteConfig();
@@ -473,11 +514,13 @@ public class GuiConfig extends AbstractYamlConfig {
         private DynamicSelectionUI.DynamicSelectionConfig abilitySelection = new DynamicSelectionUI.DynamicSelectionConfig(
                 "UltimatePokeBuilder", 3,
                 "&b", Lists.newArrayList(13, 14, 15),
-                new ConfigItem("pixelmon:ability_capsule", 1, (byte) 0, "",
-                               Lists.newArrayList(
-                                       "&b&lAbility Cost: &a200 Tokens",
-                                       "&b&lHidden Ability Cost: &a400 Tokens"
-                               ), Maps.newHashMap())
+                ConfigItem.builder().type("pixelmon:ability_capsule")
+                        .amount(1).name(" ")
+                        .lore(
+                                "&b&lAbility Cost: &a200 Tokens",
+                                "&b&lHidden Ability Cost: &a400 Tokens"
+                        )
+                        .build()
         );
 
         private int pokemonPos = 9;
@@ -512,12 +555,12 @@ public class GuiConfig extends AbstractYamlConfig {
                 "UltimatePokeBuilder", 4,
                 new HashMap<String, ConfigItem>() {
                     {
-                        this.put("hp", new ConfigItem("pixelmon:power_weight", 1, (byte) 0, "&a&lHP", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("attack", new ConfigItem("pixelmon:power_bracer", 1, (byte) 0, "&c&lAttack", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("defense", new ConfigItem("pixelmon:power_belt", 1, (byte) 0, "&6&lDefence", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("special_attack", new ConfigItem("pixelmon:power_lens", 1, (byte) 0, "&d&lSp. Attack", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("special_defense", new ConfigItem("pixelmon:power_band", 1, (byte) 0, "&e&lSp. Defence", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("speed", new ConfigItem("pixelmon:power_anklet", 1, (byte) 0, "&b&lSpeed", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("hp", ConfigItem.builder().type("pixelmon:power_weight").name("&a&lHP").amount(1).build());
+                        this.put("attack", ConfigItem.builder().type("pixelmon:power_bracer").name("&c&lAttack").amount(1).build());
+                        this.put("defense", ConfigItem.builder().type("pixelmon:power_belt").name("&6&lDefence").amount(1).build());
+                        this.put("special_attack", ConfigItem.builder().type("pixelmon:power_lens").name("&d&lSp. Attack").amount(1).build());
+                        this.put("special_defense", ConfigItem.builder().type("pixelmon:power_band").name("&e&lSp. Defence").amount(1).build());
+                        this.put("speed", ConfigItem.builder().type("pixelmon:power_anklet").name("&b&lSpeed").amount(1).build());
                     }
                 }, Lists.newArrayList(12, 13, 14, 21, 22, 23)
         );
@@ -528,27 +571,16 @@ public class GuiConfig extends AbstractYamlConfig {
                 Lists.newArrayList(), 2, 1, Maps.newHashMap()),
                 new HashMap<String, NumberModificationUI.EditValueButton>() {
                     {
-                        this.put("one", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:lime_stained_glass_pane", 1,"&a&l+1",
-                                Lists.newArrayList(), 4, 1, Maps.newHashMap()
-                        ), 1));
+                        this.put("one", new NumberModificationUI.EditValueButton(ExtendedConfigItem.builder().type("minecraft:lime_stained_glass_pane").name("&a&l+1").amount(1).positions(Pair.of(4, 1)).build(), 1));
 
-                        this.put("two", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:lime_stained_glass_pane", 1,"&a&l+5",
-                                Lists.newArrayList(), 5, 1, Maps.newHashMap()
-                        ), 5));
+                        this.put("two", new NumberModificationUI.EditValueButton(ExtendedConfigItem.builder().type("minecraft:lime_stained_glass_pane").name("&a&l+5").amount(1).positions(Pair.of(5, 1)).build(), 5));
 
-                        this.put("three", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:lime_stained_glass_pane", 1,"&a&l+10",
-                                Lists.newArrayList(), 6, 1, Maps.newHashMap()
-                        ), 10));
+                        this.put("three", new NumberModificationUI.EditValueButton(ExtendedConfigItem.builder().type("minecraft:lime_stained_glass_pane").name("&a&l+10").amount(1).positions(Pair.of(6, 1)).build(), 10));
 
-                        this.put("four", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
-                                "minecraft:lime_stained_glass_pane", 1,"&a&l+15",
-                                Lists.newArrayList(), 7, 1, Maps.newHashMap()
-                        ), 15));
+                        this.put("four", new NumberModificationUI.EditValueButton(ExtendedConfigItem.builder().type("minecraft:lime_stained_glass_pane").name("&a&l+15").amount(1).positions(Pair.of(7, 1)).build(), 15));
 
-                        this.put("five", new NumberModificationUI.EditValueButton(new ExtendedConfigItem(
+                        this.put("five", new NumberModificationUI.EditValueButton(
+                                new ExtendedConfigItem(
                                 "minecraft:red_stained_glass_pane", 1, (byte) 14, "&c&l-1",
                                 Lists.newArrayList(), 4, 2, Maps.newHashMap()
                         ), -1));
@@ -612,12 +644,12 @@ public class GuiConfig extends AbstractYamlConfig {
                 "UltimatePokeBuilder", 4,
                 new HashMap<String, ConfigItem>() {
                     {
-                        this.put("hp", new ConfigItem("pixelmon:power_weight", 1, (byte) 0, "&a&lHP", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("attack", new ConfigItem("pixelmon:power_bracer", 1, (byte) 0, "&c&lAttack", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("defense", new ConfigItem("pixelmon:power_belt", 1, (byte) 0, "&6&lDefence", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("special_attack", new ConfigItem("pixelmon:power_lens", 1, (byte) 0, "&d&lSp. Attack", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("special_defense", new ConfigItem("pixelmon:power_band", 1, (byte) 0, "&e&lSp. Defence", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("speed", new ConfigItem("pixelmon:power_anklet", 1, (byte) 0, "&b&lSpeed", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("hp", ConfigItem.builder().type("pixelmon:power_weight").name("&a&lHP").amount(1).build());
+                        this.put("attack", ConfigItem.builder().type("pixelmon:power_bracer").name("&c&lAttack").amount(1).build());
+                        this.put("defense", ConfigItem.builder().type("pixelmon:power_belt").name("&6&lDefence").amount(1).build());
+                        this.put("special_attack", ConfigItem.builder().type("pixelmon:power_lens").name("&d&lSp. Attack").amount(1).build());
+                        this.put("special_defense", ConfigItem.builder().type("pixelmon:power_band").name("&e&lSp. Defence").amount(1).build());
+                        this.put("speed", ConfigItem.builder().type("pixelmon:power_anklet").name("&b&lSpeed").amount(1).build());
                     }
                 }, Lists.newArrayList(12, 13, 14, 21, 22, 23)
         );
@@ -712,34 +744,34 @@ public class GuiConfig extends AbstractYamlConfig {
                 "UltimatePokeBuilder", 6,
                 new HashMap<String, ConfigItem>() {
                     {
-                        this.put("poke_ball", new ConfigItem("pixelmon:poke_ball", 1, (byte) 0, "&aPokeball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("great_ball", new ConfigItem("pixelmon:great_ball", 1, (byte) 0, "&aGreat Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("ultra_ball", new ConfigItem("pixelmon:ultra_ball", 1, (byte) 0, "&aUltra Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("master_ball", new ConfigItem("pixelmon:master_ball", 1, (byte) 0, "&aMaster Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("level_ball", new ConfigItem("pixelmon:level_ball", 1, (byte) 0, "&aLevel Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("moon_ball", new ConfigItem("pixelmon:moon_ball", 1, (byte) 0, "&aMoon Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("friend_ball", new ConfigItem("pixelmon:friend_ball", 1, (byte) 0, "&aFriend Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("love_ball", new ConfigItem("pixelmon:love_ball", 1, (byte) 0, "&aLove Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("safari_ball", new ConfigItem("pixelmon:safari_ball", 1, (byte) 0, "&aSafari Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("heavy_ball", new ConfigItem("pixelmon:heavy_ball", 1, (byte) 0, "&aHeavy Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("fast_ball", new ConfigItem("pixelmon:fast_ball", 1, (byte) 0, "&aFast Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("repeat_ball", new ConfigItem("pixelmon:repeat_ball", 1, (byte) 0, "&aRepeat Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("timer_ball", new ConfigItem("pixelmon:timer_ball", 1, (byte) 0, "&aTimer Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("nest_ball", new ConfigItem("pixelmon:nest_ball", 1, (byte) 0, "&aNest Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("net_ball", new ConfigItem("pixelmon:net_ball", 1, (byte) 0, "&aNet Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("dive_ball", new ConfigItem("pixelmon:dive_ball", 1, (byte) 0, "&aDive Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("luxury_ball", new ConfigItem("pixelmon:luxury_ball", 1, (byte) 0, "&aLuxury Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("heal_ball", new ConfigItem("pixelmon:heal_ball", 1, (byte) 0, "&aHeal Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("dusk_ball", new ConfigItem("pixelmon:dusk_ball", 1, (byte) 0, "&aDusk Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("premier_ball", new ConfigItem("pixelmon:premier_ball", 1, (byte) 0, "&aPremier Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("sport_ball", new ConfigItem("pixelmon:sport_ball", 1, (byte) 0, "&aSport Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("quick_ball", new ConfigItem("pixelmon:quick_ball", 1, (byte) 0, "&aQuick Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("lure_ball", new ConfigItem("pixelmon:lure_ball", 1, (byte) 0, "&aLure Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("park_ball", new ConfigItem("pixelmon:park_ball", 1, (byte) 0, "&aPark Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("cherish_ball", new ConfigItem("pixelmon:cherish_ball", 1, (byte) 0, "&aCherish Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("gs_ball", new ConfigItem("pixelmon:gs_ball", 1, (byte) 0, "&aGS Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("beast_ball", new ConfigItem("pixelmon:beast_ball", 1, (byte) 0, "&aBeast Ball", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("dream_ball", new ConfigItem("pixelmon:dream_ball", 1, (byte) 0, "&aDream Ball", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("poke_ball", ConfigItem.builder().type("pixelmon:poke_ball").name("&aPokeball").amount(1).build());
+                        this.put("great_ball", ConfigItem.builder().type("pixelmon:great_ball").name("&aGreat Ball").amount(1).build());
+                        this.put("ultra_ball", ConfigItem.builder().type("pixelmon:ultra_ball").name("&aUltra Ball").amount(1).build());
+                        this.put("master_ball", ConfigItem.builder().type("pixelmon:master_ball").name("&aMaster Ball").amount(1).build());
+                        this.put("level_ball", ConfigItem.builder().type("pixelmon:level_ball").name("&aLevel Ball").amount(1).build());
+                        this.put("moon_ball", ConfigItem.builder().type("pixelmon:moon_ball").name("&aMoon Ball").amount(1).build());
+                        this.put("friend_ball", ConfigItem.builder().type("pixelmon:friend_ball").name("&aFriend Ball").amount(1).build());
+                        this.put("love_ball", ConfigItem.builder().type("pixelmon:love_ball").name("&aLove Ball").amount(1).build());
+                        this.put("safari_ball", ConfigItem.builder().type("pixelmon:safari_ball").name("&aSafari Ball").amount(1).build());
+                        this.put("heavy_ball", ConfigItem.builder().type("pixelmon:heavy_ball").name("&aHeavy Ball").amount(1).build());
+                        this.put("fast_ball", ConfigItem.builder().type("pixelmon:fast_ball").name("&aFast Ball").amount(1).build());
+                        this.put("repeat_ball", ConfigItem.builder().type("pixelmon:repeat_ball").name("&aRepeat Ball").amount(1).build());
+                        this.put("timer_ball", ConfigItem.builder().type("pixelmon:timer_ball").name("&aTimer Ball").amount(1).build());
+                        this.put("nest_ball", ConfigItem.builder().type("pixelmon:nest_ball").name("&aNest Ball").amount(1).build());
+                        this.put("net_ball", ConfigItem.builder().type("pixelmon:net_ball").name("&aNet Ball").amount(1).build());
+                        this.put("dive_ball", ConfigItem.builder().type("pixelmon:dive_ball").name("&aDive Ball").amount(1).build());
+                        this.put("luxury_ball", ConfigItem.builder().type("pixelmon:luxury_ball").name("&aLuxury Ball").amount(1).build());
+                        this.put("heal_ball", ConfigItem.builder().type("pixelmon:heal_ball").name("&aHeal Ball").amount(1).build());
+                        this.put("dusk_ball", ConfigItem.builder().type("pixelmon:dusk_ball").name("&aDusk Ball").amount(1).build());
+                        this.put("premier_ball", ConfigItem.builder().type("pixelmon:premier_ball").name("&aPremier Ball").amount(1).build());
+                        this.put("sport_ball", ConfigItem.builder().type("pixelmon:sport_ball").name("&aSport Ball").amount(1).build());
+                        this.put("quick_ball", ConfigItem.builder().type("pixelmon:quick_ball").name("&aQuick Ball").amount(1).build());
+                        this.put("lure_ball", ConfigItem.builder().type("pixelmon:lure_ball").name("&aLure Ball").amount(1).build());
+                        this.put("park_ball", ConfigItem.builder().type("pixelmon:park_ball").name("&aPark Ball").amount(1).build());
+                        this.put("cherish_ball", ConfigItem.builder().type("pixelmon:cherish_ball").name("&aCherish Ball").amount(1).build());
+                        this.put("gs_ball", ConfigItem.builder().type("pixelmon:gs_ball").name("&aGS Ball").amount(1).build());
+                        this.put("beast_ball", ConfigItem.builder().type("pixelmon:beast_ball").name("&aBeast Ball").amount(1).build());
+                        this.put("dream_ball", ConfigItem.builder().type("pixelmon:dream_ball").name("&aDream Ball").amount(1).build());
                     }
                 }, Lists.newArrayList(12, 13, 14, 15, 16,
                 21, 22, 23, 24, 25,
@@ -857,15 +889,15 @@ public class GuiConfig extends AbstractYamlConfig {
                 "UltimatePokeBuilder", 6,
                 new HashMap<String, ConfigItem>() {
                     {
-                        this.put("microscopic", new ConfigItem("pixelmon:normal_gem", 1, (byte) 0, "&dMicroscopic", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("pygmy", new ConfigItem("pixelmon:psychic_gem", 1, (byte) 0, "&dPygmy", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("runt", new ConfigItem("pixelmon:fairy_gem", 1, (byte) 0, "&dRunt", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("small", new ConfigItem("pixelmon:poison_gem", 1, (byte) 0, "&dSmall", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("ordinary", new ConfigItem("pixelmon:ghost_gem", 1, (byte) 0, "&dOrdinary", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("huge", new ConfigItem("pixelmon:ice_gem", 1, (byte) 0, "&dHuge", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("giant", new ConfigItem("pixelmon:ice_gem", 1, (byte) 0, "&dGiant", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("enormous", new ConfigItem("pixelmon:fighting_gem", 1, (byte) 0, "&dEnormous", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("ginormous", new ConfigItem("pixelmon:dark_gem", 1, (byte) 0, "&dGinormous", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("microscopic", ConfigItem.builder().type("pixelmon:normal_gem").name("&dMicroscopic").amount(1).build());
+                        this.put("pygmy", ConfigItem.builder().type("pixelmon:psychic_gem").name("&dPygmy").amount(1).build());
+                        this.put("runt", ConfigItem.builder().type("pixelmon:fairy_gem").name("&dRunt").amount(1).build());
+                        this.put("small", ConfigItem.builder().type("pixelmon:poison_gem").name("&dSmall").amount(1).build());
+                        this.put("ordinary", ConfigItem.builder().type("pixelmon:ghost_gem").name("&dOrdinary").amount(1).build());
+                        this.put("huge", ConfigItem.builder().type("pixelmon:ice_gem").name("&dHuge").amount(1).build());
+                        this.put("giant", ConfigItem.builder().type("pixelmon:ice_gem").name("&dGiant").amount(1).build());
+                        this.put("enormous", ConfigItem.builder().type("pixelmon:fighting_gem").name("&dEnormous").amount(1).build());
+                        this.put("ginormous", ConfigItem.builder().type("pixelmon:dark_gem").name("&dGinormous").amount(1).build());
                     }
                 }, Lists.newArrayList(12, 13, 14, 15, 16,
                                       21, 22, 23, 24, 25,
@@ -905,30 +937,30 @@ public class GuiConfig extends AbstractYamlConfig {
                 "UltimatePokeBuilder", 6,
                 new HashMap<String, ConfigItem>() {
                     {
-                        this.put("hardy", new ConfigItem("pixelmon:assault_vest", 1, (byte) 0, "&b&lHardy", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("serious", new ConfigItem("pixelmon:focus_band", 1, (byte) 0, "&b&lSerious", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("docile", new ConfigItem("pixelmon:iron_ball", 1, (byte) 0, "&b&lDocile", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("bashful", new ConfigItem("pixelmon:smoke_ball", 1, (byte) 0, "&b&lBashful", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("quirky", new ConfigItem("pixelmon:zoom_lens", 1, (byte) 0, "&b&lQuirky", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("lonely", new ConfigItem("pixelmon:reaper_cloth", 1, (byte) 0, "&b&lLonely", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("brave", new ConfigItem("pixelmon:focus_sash", 1, (byte) 0, "&b&lBrave", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("adamant", new ConfigItem("pixelmon:metal_coat", 1, (byte) 0, "&b&lAdamant", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("naughty", new ConfigItem("pixelmon:lucky_punch", 1, (byte) 0, "&b&lNaughty", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("bold", new ConfigItem("pixelmon:life_orb", 1, (byte) 0, "&b&lBold", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("relaxed", new ConfigItem("pixelmon:soothe_bell", 1, (byte) 0, "&b&lRelaxed", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("impish", new ConfigItem("pixelmon:thick_club", 1, (byte) 0, "&b&lImpish", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("lax", new ConfigItem("pixelmon:shell_bell", 1, (byte) 0, "&b&lLax", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("timid", new ConfigItem("pixelmon:eject_button", 1, (byte) 0, "&b&lTimid", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("hasty", new ConfigItem("pixelmon:white_herb", 1, (byte) 0, "&b&lHasty", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("jolly", new ConfigItem("pixelmon:air_balloon", 1, (byte) 0, "&b&lJolly", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("naive", new ConfigItem("pixelmon:weakness_policy", 1, (byte) 0, "&b&lNaive", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("modest", new ConfigItem("pixelmon:hard_stone", 1, (byte) 0, "&b&lModest", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("mild", new ConfigItem("pixelmon:oval_stone", 1, (byte) 0, "&b&lMild", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("quiet", new ConfigItem("pixelmon:destiny_knot", 1, (byte) 0, "&b&lQuiet", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("rash", new ConfigItem("pixelmon:red_card", 1, (byte) 0, "&b&lRash", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("calm", new ConfigItem("pixelmon:mental_herb", 1, (byte) 0, "&b&lCalm", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("gentle", new ConfigItem("pixelmon:soft_sand", 1, (byte) 0, "&b&lGentle", Lists.newArrayList(), Maps.newHashMap()));
-                        this.put("sassy", new ConfigItem("pixelmon:quick_claw", 1, (byte) 0, "&b&lSassy", Lists.newArrayList(), Maps.newHashMap()));
+                        this.put("hardy", ConfigItem.builder().type("pixelmon:assault_vest").name("&b&lHardy").amount(1).build());
+                        this.put("serious", ConfigItem.builder().type("pixelmon:focus_band").name("&b&lSerious").amount(1).build());
+                        this.put("docile", ConfigItem.builder().type("pixelmon:iron_ball").name("&b&lDocile").amount(1).build());
+                        this.put("bashful", ConfigItem.builder().type("pixelmon:smoke_ball").name("&b&lBashful").amount(1).build());
+                        this.put("quirky", ConfigItem.builder().type("pixelmon:zoom_lens").name("&b&lQuirky").amount(1).build());
+                        this.put("lonely", ConfigItem.builder().type("pixelmon:reaper_cloth").name("&b&lLonely").amount(1).build());
+                        this.put("brave", ConfigItem.builder().type("pixelmon:focus_sash").name("&b&lBrave").amount(1).build());
+                        this.put("adamant", ConfigItem.builder().type("pixelmon:metal_coat").name("&b&lAdamant").amount(1).build());
+                        this.put("naughty", ConfigItem.builder().type("pixelmon:lucky_punch").name("&b&lNaughty").amount(1).build());
+                        this.put("bold", ConfigItem.builder().type("pixelmon:life_orb").name("&b&lBold").amount(1).build());
+                        this.put("relaxed", ConfigItem.builder().type("pixelmon:soothe_bell").name("&b&lRelaxed").amount(1).build());
+                        this.put("impish", ConfigItem.builder().type("pixelmon:thick_club").name("&b&lImpish").amount(1).build());
+                        this.put("lax", ConfigItem.builder().type("pixelmon:shell_bell").name("&b&lLax").amount(1).build());
+                        this.put("timid", ConfigItem.builder().type("pixelmon:eject_button").name("&b&lTimid").amount(1).build());
+                        this.put("hasty", ConfigItem.builder().type("pixelmon:white_herb").name("&b&lHasty").amount(1).build());
+                        this.put("jolly", ConfigItem.builder().type("pixelmon:air_balloon").name("&b&lJolly").amount(1).build());
+                        this.put("naive", ConfigItem.builder().type("pixelmon:weakness_policy").name("&b&lNaive").amount(1).build());
+                        this.put("modest", ConfigItem.builder().type("pixelmon:hard_stone").name("&b&lModest").amount(1).build());
+                        this.put("mild", ConfigItem.builder().type("pixelmon:oval_stone").name("&b&lMild").amount(1).build());
+                        this.put("quiet", ConfigItem.builder().type("pixelmon:destiny_knot").name("&b&lQuiet").amount(1).build());
+                        this.put("rash", ConfigItem.builder().type("pixelmon:red_card").name("&b&lRash").amount(1).build());
+                        this.put("calm", ConfigItem.builder().type("pixelmon:mental_herb").name("&b&lCalm").amount(1).build());
+                        this.put("gentle", ConfigItem.builder().type("pixelmon:soft_sand").name("&b&lGentle").amount(1).build());
+                        this.put("sassy", ConfigItem.builder().type("pixelmon:quick_claw").name("&b&lSassy").amount(1).build());
                     }
                 }, Lists.newArrayList(12, 13, 14, 15, 16,
                                       21, 22, 23, 24, 25,

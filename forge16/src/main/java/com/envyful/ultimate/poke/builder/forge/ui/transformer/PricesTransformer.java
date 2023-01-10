@@ -1,11 +1,11 @@
 package com.envyful.ultimate.poke.builder.forge.ui.transformer;
 
-import com.envyful.api.gui.Transformer;
+import com.envyful.api.text.parse.SimplePlaceholder;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 
 import java.util.Map;
 
-public class PricesTransformer implements Transformer {
+public class PricesTransformer implements SimplePlaceholder {
 
     public static PricesTransformer of() {
         return new PricesTransformer();
@@ -14,7 +14,7 @@ public class PricesTransformer implements Transformer {
     protected PricesTransformer() {}
 
     @Override
-    public String transformName(String name) {
+    public String replace(String name) {
         name = name.replace(
                         "%unbreedable_cost%", String.format("%,.2f", UltimatePokeBuilderForge.getConfig().getUnbreedableCost()))
                 .replace(

@@ -59,7 +59,7 @@ public class UltimatePokeBuilderForge {
         this.loadConfig();
 
         if (this.config.getSaveMode() == SaveMode.JSON) {
-            this.playerManager.setSaveManager(new JsonSaveManager<>());
+            this.playerManager.setSaveManager(new JsonSaveManager<>(this.playerManager));
         }
 
         EcoFactory.init(this.config);

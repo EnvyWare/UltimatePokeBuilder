@@ -1,8 +1,7 @@
 package com.envyful.ultimate.poke.builder.forge.eco.player;
 
-import com.envyful.api.forge.player.ForgeEnvyPlayer;
+import com.envyful.api.forge.player.ForgePlayerManager;
 import com.envyful.api.forge.player.attribute.AbstractForgeAttribute;
-import com.envyful.api.player.EnvyPlayer;
 import com.envyful.api.player.save.attribute.DataDirectory;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderQueries;
@@ -11,19 +10,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.UUID;
 
 @DataDirectory("config/players/UltimatePokeBuilder/")
 public class PokeBuilderAttribute extends AbstractForgeAttribute<UltimatePokeBuilderForge> {
 
     private double tokens = 0;
 
-    public PokeBuilderAttribute(UltimatePokeBuilderForge manager, EnvyPlayer<?> parent) {
-        super(manager, (ForgeEnvyPlayer) parent);
-    }
-
-    public PokeBuilderAttribute(UUID uuid) {
-        super(uuid);
+    public PokeBuilderAttribute(UltimatePokeBuilderForge manager, ForgePlayerManager playerManager) {
+        super(manager, playerManager);
     }
 
     public double getTokens() {

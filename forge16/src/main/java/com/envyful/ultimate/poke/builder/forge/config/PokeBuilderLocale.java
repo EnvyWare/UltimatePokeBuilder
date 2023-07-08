@@ -38,7 +38,7 @@ public class PokeBuilderLocale extends AbstractYamlConfig {
         private String insufficientFundsPay = "&c&l(!) &cYou do not have enough tokens";
         private String evsMax = "&c&l(!) &cYou cannot have an EV total of greater than 510!";
 
-        private String pokemonNowShiny = "&e&l(!) &e%pokemon% is now &6&lSHINY";
+        private String pokemonNowShiny = "&e&l(!) &e%pokemon% is now &6&lSHINY for %cost%";
         private String pokemonNowNonShiny = "&e&l(!) &e%pokemon% is now &f&lNON SHINY&e for %cost%";
         private String abilityChanged = "&e&l(!) &e%pokemon%'s new ability is %ability% for %cost%";
         private String evChanged = "&e&l(!) &e%pokemon%'s %ev% is now %value% for %cost%";

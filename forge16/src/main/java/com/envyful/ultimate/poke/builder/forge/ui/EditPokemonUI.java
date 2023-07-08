@@ -530,7 +530,7 @@ public class EditPokemonUI {
             return;
         }
 
-        int genderCost = (int)UtilPokemonPrice.getMinPrice(pokemon,
+        int genderCost = (int) UtilPokemonPrice.getMinPrice(pokemon,
                 UltimatePokeBuilderForge.getConfig().getGenderCost(),
                 UltimatePokeBuilderForge.getConfig().getPricingModifiers());
 

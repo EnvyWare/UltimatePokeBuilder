@@ -16,3 +16,4 @@ plugins {
 
 rootProject.name = 'UltimatePokeBuilder'
 include 'forge16'
+include 'forge20'

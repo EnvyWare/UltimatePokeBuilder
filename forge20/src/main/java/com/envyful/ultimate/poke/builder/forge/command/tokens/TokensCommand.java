@@ -1,10 +1,10 @@
 package com.envyful.ultimate.poke.builder.forge.command.tokens;
 
 import com.envyful.api.command.annotate.Command;
-import com.envyful.api.command.annotate.Permissible;
 import com.envyful.api.command.annotate.SubCommands;
 import com.envyful.api.command.annotate.executor.CommandProcessor;
 import com.envyful.api.command.annotate.executor.Sender;
+import com.envyful.api.command.annotate.permission.Permissible;
 import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.player.EnvyPlayer;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
@@ -12,9 +12,8 @@ import com.envyful.ultimate.poke.builder.forge.eco.player.PokeBuilderAttribute;
 import net.minecraft.server.level.ServerPlayer;
 
 @Command(
-        value = "tokens",
-        description = "Tokens main command",
-        aliases = {
+        value = {
+                "tokens",
                 "token"
         }
 )
@@ -25,7 +24,7 @@ public class TokensCommand {
     @CommandProcessor
     public void onCommand(@Sender ServerPlayer player, String[] args) {
         EnvyPlayer<?> sender = UltimatePokeBuilderForge.getInstance().getPlayerManager().getPlayer(player);
-        PokeBuilderAttribute attribute = sender.getAttribute(UltimatePokeBuilderForge.class);
+        PokeBuilderAttribute attribute = sender.getAttribute(PokeBuilderAttribute.class);
 
         sender.message(UtilChatColour.colour(
                         UltimatePokeBuilderForge.getInstance()

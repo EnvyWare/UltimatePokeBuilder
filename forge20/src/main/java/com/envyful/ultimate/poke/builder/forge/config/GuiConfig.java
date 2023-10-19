@@ -258,6 +258,7 @@ public class GuiConfig extends AbstractYamlConfig {
                         .type("minecraft:barrier")
                         .amount(1)
                         .name("&c&lNo Permission").build())
+                .nbt("PokeBallID", new ConfigItem.NBTValue("string", "poke_ball"))
                 .build();
 
         private ExtendedConfigItem shinyButton = ExtendedConfigItem.builder()

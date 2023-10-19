@@ -28,7 +28,7 @@ public class SelectPokemonUI {
         UtilConfigInterface.fillBackground(pane, config.getGuiSettings());
         UtilConfigItem.builder().extendedConfigItem(player, pane, config.getInfoItem());
 
-        Pokemon[] all = StorageProxy.getParty(player.getParent()).getAll();
+        Pokemon[] all = StorageProxy.getPartyNow(player.getParent()).getAll();
 
         for (int i = 0; i < 6; i++) {
             if (config.getPartyPositions().size() <= i) {

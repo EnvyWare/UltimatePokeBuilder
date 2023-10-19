@@ -6,6 +6,7 @@ import com.envyful.api.config.yaml.YamlConfigFactory;
 import com.envyful.api.database.Database;
 import com.envyful.api.database.impl.SimpleHikariDatabase;
 import com.envyful.api.forge.command.ForgeCommandFactory;
+import com.envyful.api.forge.command.parser.ForgeAnnotationCommandParser;
 import com.envyful.api.forge.gui.factory.ForgeGuiFactory;
 import com.envyful.api.forge.player.ForgePlayerManager;
 import com.envyful.api.forge.player.UsernameFactory;
@@ -40,7 +41,7 @@ public class UltimatePokeBuilderForge {
     private static UltimatePokeBuilderForge instance;
 
     private ForgePlayerManager playerManager = new ForgePlayerManager();
-    private ForgeCommandFactory commandFactory = new ForgeCommandFactory();
+    private ForgeCommandFactory commandFactory = new ForgeCommandFactory(ForgeAnnotationCommandParser::new, playerManager);
 
     private PokeBuilderConfig config;
     private PokeBuilderLocale locale;
@@ -94,11 +95,11 @@ public class UltimatePokeBuilderForge {
 
     @SubscribeEvent
     public void onServerStarting(RegisterCommandsEvent event) {
-        this.playerManager.registerAttribute(this, PokeBuilderAttribute.class);
-        this.commandFactory.registerCommand(event.getDispatcher(), new PokeBuilderCommand());
+        this.playerManager.registerAttribute(PokeBuilderAttribute.class);
+        this.commandFactory.registerCommand(event.getDispatcher(), this.commandFactory.parseCommand(new PokeBuilderCommand()));
 
         if (this.config.getEconomyHandler().equalsIgnoreCase("tokens")) {
-            this.commandFactory.registerCommand(event.getDispatcher(), new TokensCommand());
+            this.commandFactory.registerCommand(event.getDispatcher(), this.commandFactory.parseCommand(new TokensCommand()));
         }
     }
 

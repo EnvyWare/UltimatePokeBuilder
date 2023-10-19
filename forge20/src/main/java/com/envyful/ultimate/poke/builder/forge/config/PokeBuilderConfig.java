@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 import com.pixelmonmod.api.pokemon.PokemonSpecification;
 import com.pixelmonmod.api.pokemon.PokemonSpecificationProxy;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
+import org.spongepowered.configurate.objectmapping.meta.Comment;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,21 +20,71 @@ import java.util.Map;
 @ConfigSerializable
 public class PokeBuilderConfig extends AbstractYamlConfig {
 
+
+    @Comment("""
+            The MySQL database details.
+            This will only be used if the save mode is set to MYSQL
+            
+            NOTE: DO NOT SHARE THESE WITH ANYONE YOU DO NOT TRUST
+            """)
     private SQLDatabaseDetails sqlDatabaseDetails = new SQLDatabaseDetails("UltimatePokeBuilder", "0.0.0.0", 3306,
                                                                            "username", "password",
                                                                            "database");
 
+    @Comment("""
+            The setting to tell the mod how to save the player data.
+            The options are:
+            - JSON
+            - MYSQL
+            """)
     private SaveMode saveMode = SaveMode.JSON;
+
+    @Comment("""
+            If the pokebuilder should use a custom tokens economy.
+            Alternatively you can use "pokedollars"
+            """)
     private String economyHandler = "tokens";
+
+    @Comment("""
+            Default number of tokens to give the player if tokens economy is selected
+            """)
     private double defaultTokens = 500;
+
+    @Comment("""
+            The base cost to change a pokemon to shiny
+            """)
     private double shinyCost = 200;
+
+    @Comment("""
+            The base cost to change a pokemon to untradeable
+            """)
     private double untradeableCost = 600;
+
+    @Comment("""
+            The base cost to change a pokemon to unbreedable
+            """)
     private double unbreedableCost = 600;
+
+    @Comment("""
+            The base cost to change a pokemons gender
+            """)
     private double genderCost = 600;
+
+    @Comment("""
+            The base cost to change a pokemon's ability
+            """)
     private double abilityCost = 500;
+
+    @Comment("""
+            The base cost to change a pokemons ability to their hidden ability
+            """)
     private double hiddenAbilityCost = 1000;
+
+    @Comment("""
+            The base cost to increase the pokemon's level
+            """)
     private double costPerLevel = 200;
-    private Map<String, Integer> evIncrementCosts = new HashMap<String, Integer>() {
+    private Map<String, Integer> evIncrementCosts = new HashMap<>() {
         {
             this.put("hp", 100);
             this.put("attack", 100);
@@ -137,8 +188,11 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
 
     private transient List<PokemonSpecification> blacklistSpecsCache = null;
 
+    @Comment("""
+            These will modify the price if the pokemon matches the spec
+            """)
     private Map<String, PokeSpecPricing> minPriceModifiers = ImmutableMap.of(
-            "example", new PokeSpecPricing("shiny:1", new PokeSpecPricing.MathHandler("*", 2.0))
+            "example", new PokeSpecPricing("shiny", new PokeSpecPricing.MathHandler("*", 2.0))
     );
 
     public PokeBuilderConfig() {
@@ -214,7 +268,7 @@ public class PokeBuilderConfig extends AbstractYamlConfig {
             List<PokemonSpecification> specs = Lists.newArrayList();
 
             for (String blacklistSpec : this.blacklistSpecs) {
-                specs.add(PokemonSpecificationProxy.create(blacklistSpec));
+                specs.add(PokemonSpecificationProxy.create(blacklistSpec).get());
             }
 
             this.blacklistSpecsCache = specs;

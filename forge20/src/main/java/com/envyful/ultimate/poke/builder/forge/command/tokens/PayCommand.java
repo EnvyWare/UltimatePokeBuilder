@@ -1,12 +1,11 @@
 package com.envyful.ultimate.poke.builder.forge.command.tokens;
 
-import com.envyful.api.command.annotate.Child;
 import com.envyful.api.command.annotate.Command;
-import com.envyful.api.command.annotate.Permissible;
 import com.envyful.api.command.annotate.executor.Argument;
 import com.envyful.api.command.annotate.executor.CommandProcessor;
 import com.envyful.api.command.annotate.executor.Completable;
 import com.envyful.api.command.annotate.executor.Sender;
+import com.envyful.api.command.annotate.permission.Permissible;
 import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.forge.command.completion.player.PlayerTabCompleter;
 import com.envyful.api.player.EnvyPlayer;
@@ -17,14 +16,12 @@ import net.minecraft.server.level.ServerPlayer;
 import java.util.Objects;
 
 @Command(
-        value = "pay",
-        description = "§7/tokens pay <player> <amount>",
-        aliases = {
+        value = {
+                "pay",
                 "p"
         }
 )
 @Permissible("ultimate.poke.builder.command.tokens.pay")
-@Child
 public class PayCommand {
 
 
@@ -40,7 +37,7 @@ public class PayCommand {
         }
 
         EnvyPlayer<?> senderPlayer = UltimatePokeBuilderForge.getInstance().getPlayerManager().getPlayer(sender);
-        PokeBuilderAttribute senderAttribute = senderPlayer.getAttribute(UltimatePokeBuilderForge.class);
+        PokeBuilderAttribute senderAttribute = senderPlayer.getAttribute(PokeBuilderAttribute.class);
 
         if (senderAttribute == null) {
             return;
@@ -62,7 +59,7 @@ public class PayCommand {
             return;
         }
 
-        PokeBuilderAttribute targetAttribute = targetPlayer.getAttribute(UltimatePokeBuilderForge.class);
+        PokeBuilderAttribute targetAttribute = targetPlayer.getAttribute(PokeBuilderAttribute.class);
 
         if (targetAttribute == null) {
             return;

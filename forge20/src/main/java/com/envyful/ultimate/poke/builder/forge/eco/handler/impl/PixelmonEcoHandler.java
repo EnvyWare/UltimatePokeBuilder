@@ -21,7 +21,7 @@ public class PixelmonEcoHandler implements EcoHandler {
 
     @Override
     public double getBalance(ForgeEnvyPlayer player) {
-        BankAccount bank = BankAccountProxy.getBankAccountUnsafe(player.getParent());
+        BankAccount bank = BankAccountProxy.getBankAccountNow(player.getParent());
 
         if (bank == null) {
             return 0;
@@ -32,7 +32,7 @@ public class PixelmonEcoHandler implements EcoHandler {
 
     @Override
     public void setBalance(ForgeEnvyPlayer player, double balance) {
-        BankAccount bank = BankAccountProxy.getBankAccountUnsafe(player.getParent());
+        BankAccount bank = BankAccountProxy.getBankAccountNow(player.getParent());
 
         if (bank == null) {
             return;
@@ -43,7 +43,7 @@ public class PixelmonEcoHandler implements EcoHandler {
 
     @Override
     public void addBalance(ForgeEnvyPlayer player, double balance) {
-        BankAccount bank = BankAccountProxy.getBankAccountUnsafe(player.getParent());
+        BankAccount bank = BankAccountProxy.getBankAccountNow(player.getParent());
 
         if (bank == null) {
             return;
@@ -54,7 +54,7 @@ public class PixelmonEcoHandler implements EcoHandler {
 
     @Override
     public void takeBalance(ForgeEnvyPlayer player, double balance) {
-        BankAccount bank = BankAccountProxy.getBankAccountUnsafe(player.getParent());
+        BankAccount bank = BankAccountProxy.getBankAccountNow(player.getParent());
 
         if (bank == null) {
             return;

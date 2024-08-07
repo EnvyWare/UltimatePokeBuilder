@@ -24,7 +24,7 @@ public class TokensCommand {
     @CommandProcessor
     public void onCommand(@Sender ServerPlayer player, String[] args) {
         EnvyPlayer<?> sender = UltimatePokeBuilderForge.getInstance().getPlayerManager().getPlayer(player);
-        PokeBuilderAttribute attribute = sender.getAttribute(PokeBuilderAttribute.class);
+        PokeBuilderAttribute attribute = sender.getAttributeNow(PokeBuilderAttribute.class);
 
         sender.message(UtilChatColour.colour(
                         UltimatePokeBuilderForge.getInstance()

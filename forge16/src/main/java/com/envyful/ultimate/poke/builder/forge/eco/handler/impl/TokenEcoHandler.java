@@ -1,7 +1,6 @@
 package com.envyful.ultimate.poke.builder.forge.eco.handler.impl;
 
 import com.envyful.api.forge.player.ForgeEnvyPlayer;
-import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoHandler;
 import com.envyful.ultimate.poke.builder.forge.eco.player.PokeBuilderAttribute;
 
@@ -21,7 +20,7 @@ public class TokenEcoHandler implements EcoHandler {
 
     @Override
     public double getBalance(ForgeEnvyPlayer player) {
-        PokeBuilderAttribute attribute = player.getAttribute(UltimatePokeBuilderForge.class);
+        PokeBuilderAttribute attribute = player.getAttributeNow(PokeBuilderAttribute.class);
 
         if (attribute == null) {
             return 0;
@@ -32,7 +31,7 @@ public class TokenEcoHandler implements EcoHandler {
 
     @Override
     public void setBalance(ForgeEnvyPlayer player, double balance) {
-        PokeBuilderAttribute attribute = player.getAttribute(UltimatePokeBuilderForge.class);
+        PokeBuilderAttribute attribute = player.getAttributeNow(PokeBuilderAttribute.class);
 
         if (attribute == null) {
             return;

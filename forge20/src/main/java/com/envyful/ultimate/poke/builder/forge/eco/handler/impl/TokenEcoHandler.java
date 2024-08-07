@@ -20,7 +20,7 @@ public class TokenEcoHandler implements EcoHandler {
 
     @Override
     public double getBalance(ForgeEnvyPlayer player) {
-        PokeBuilderAttribute attribute = player.getAttribute(PokeBuilderAttribute.class);
+        PokeBuilderAttribute attribute = player.getAttributeNow(PokeBuilderAttribute.class);
 
         if (attribute == null) {
             return 0;
@@ -31,7 +31,7 @@ public class TokenEcoHandler implements EcoHandler {
 
     @Override
     public void setBalance(ForgeEnvyPlayer player, double balance) {
-        PokeBuilderAttribute attribute = player.getAttribute(PokeBuilderAttribute.class);
+        PokeBuilderAttribute attribute = player.getAttributeNow(PokeBuilderAttribute.class);
 
         if (attribute == null) {
             return;

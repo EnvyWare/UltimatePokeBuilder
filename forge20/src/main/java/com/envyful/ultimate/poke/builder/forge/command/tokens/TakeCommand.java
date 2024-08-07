@@ -36,7 +36,7 @@ public class TakeCommand {
         }
 
         EnvyPlayer<?> targetPlayer = UltimatePokeBuilderForge.getInstance().getPlayerManager().getPlayer(target);
-        PokeBuilderAttribute attribute = targetPlayer.getAttribute(PokeBuilderAttribute.class);
+        PokeBuilderAttribute attribute = targetPlayer.getAttributeNow(PokeBuilderAttribute.class);
 
         if ((attribute.getTokens() - amount) < 0) {
             player.sendSystemMessage(UtilChatColour.colour(

@@ -9,7 +9,6 @@ import com.envyful.api.command.annotate.permission.Permissible;
 import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.forge.command.completion.player.PlayerTabCompleter;
 import com.envyful.api.forge.player.util.UtilPlayer;
-import com.envyful.api.player.EnvyPlayer;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 import com.envyful.ultimate.poke.builder.forge.eco.player.PokeBuilderAttribute;
 import net.minecraft.commands.CommandSource;
@@ -35,8 +34,8 @@ public class GiveCommand {
             return;
         }
 
-        EnvyPlayer<?> targetPlayer = UltimatePokeBuilderForge.getInstance().getPlayerManager().getPlayer(target);
-        PokeBuilderAttribute attribute = targetPlayer.getAttribute(PokeBuilderAttribute.class);
+        var targetPlayer = UltimatePokeBuilderForge.getInstance().getPlayerManager().getPlayer(target);
+        var attribute = targetPlayer.getAttributeNow(PokeBuilderAttribute.class);
 
         attribute.setTokens(attribute.getTokens() + amount);
         player.sendSystemMessage(UtilChatColour.colour(

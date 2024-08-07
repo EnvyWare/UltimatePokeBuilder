@@ -95,7 +95,7 @@ public class UltimatePokeBuilderForge {
 
     @SubscribeEvent
     public void onServerStarting(RegisterCommandsEvent event) {
-        this.playerManager.registerAttribute(PokeBuilderAttribute.class);
+        this.playerManager.registerAttribute(PokeBuilderAttribute.class, PokeBuilderAttribute::new);
         this.commandFactory.registerCommand(event.getDispatcher(), this.commandFactory.parseCommand(new PokeBuilderCommand()));
 
         if (this.config.getEconomyHandler().equalsIgnoreCase("tokens")) {

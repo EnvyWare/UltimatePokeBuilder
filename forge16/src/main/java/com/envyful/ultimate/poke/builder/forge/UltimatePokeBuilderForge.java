@@ -94,11 +94,11 @@ public class UltimatePokeBuilderForge {
 
     @SubscribeEvent
     public void onServerStarting(RegisterCommandsEvent event) {
-        this.playerManager.registerAttribute(this, PokeBuilderAttribute.class);
-        this.commandFactory.registerCommand(event.getDispatcher(), new PokeBuilderCommand());
+        this.playerManager.registerAttribute(PokeBuilderAttribute.class, PokeBuilderAttribute::new);
+        this.commandFactory.registerCommand(event.getDispatcher(), this.commandFactory.parseCommand(new PokeBuilderCommand()));
 
         if (this.config.getEconomyHandler().equalsIgnoreCase("tokens")) {
-            this.commandFactory.registerCommand(event.getDispatcher(), new TokensCommand());
+            this.commandFactory.registerCommand(event.getDispatcher(), this.commandFactory.parseCommand(new TokensCommand()));
         }
     }
 

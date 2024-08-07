@@ -1,12 +1,11 @@
 package com.envyful.ultimate.poke.builder.forge.command.tokens;
 
-import com.envyful.api.command.annotate.Child;
 import com.envyful.api.command.annotate.Command;
-import com.envyful.api.command.annotate.Permissible;
 import com.envyful.api.command.annotate.executor.Argument;
 import com.envyful.api.command.annotate.executor.CommandProcessor;
 import com.envyful.api.command.annotate.executor.Completable;
 import com.envyful.api.command.annotate.executor.Sender;
+import com.envyful.api.command.annotate.permission.Permissible;
 import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.forge.command.completion.player.PlayerTabCompleter;
 import com.envyful.api.forge.player.util.UtilPlayer;
@@ -18,14 +17,12 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.Util;
 
 @Command(
-        value = "take",
-        description = "§7/tokens take <player> <amount>",
-        aliases = {
+        value = {
+                "take",
                 "t"
         }
 )
 @Permissible("ultimate.poke.builder.command.tokens.take")
-@Child
 public class TakeCommand {
 
     @CommandProcessor
@@ -40,7 +37,7 @@ public class TakeCommand {
         }
 
         EnvyPlayer<?> targetPlayer = UltimatePokeBuilderForge.getInstance().getPlayerManager().getPlayer(target);
-        PokeBuilderAttribute attribute = targetPlayer.getAttribute(UltimatePokeBuilderForge.class);
+        var attribute = targetPlayer.getAttributeNow(PokeBuilderAttribute.class);
 
         if ((attribute.getTokens() - amount) < 0) {
             player.sendMessage(UtilChatColour.colour(

@@ -3,8 +3,6 @@ package com.envyful.ultimate.poke.builder.forge.config;
 import com.envyful.api.config.type.ConfigInterface;
 import com.envyful.api.config.type.ConfigItem;
 import com.envyful.api.config.type.ExtendedConfigItem;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
 import java.util.Map;
@@ -14,10 +12,12 @@ public class SelectionUI {
 
     private ConfigInterface guiSettings;
 
-    private ExtendedConfigItem backButton = new ExtendedConfigItem(
-            "pixelmon:eject_button", 1, (byte) 0, "&cBack",
-            Lists.newArrayList(), 0, 0, Maps.newHashMap()
-    );
+    private ExtendedConfigItem backButton = ExtendedConfigItem.builder()
+            .type("pixelmon:eject_button")
+            .amount(1)
+            .name("&cBack")
+            .positions(0, 0)
+            .build();
 
     private int spritePos = 9;
 

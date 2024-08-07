@@ -37,7 +37,7 @@ public class PayCommand {
         }
 
         EnvyPlayer<?> senderPlayer = UltimatePokeBuilderForge.getInstance().getPlayerManager().getPlayer(sender);
-        PokeBuilderAttribute senderAttribute = senderPlayer.getAttribute(PokeBuilderAttribute.class);
+        PokeBuilderAttribute senderAttribute = senderPlayer.getAttributeNow(PokeBuilderAttribute.class);
 
         if (senderAttribute == null) {
             return;
@@ -52,14 +52,14 @@ public class PayCommand {
 
         EnvyPlayer<?> targetPlayer = UltimatePokeBuilderForge.getInstance().getPlayerManager().getPlayer(target);
 
-        if (Objects.equals(senderPlayer.getUuid(), targetPlayer.getUuid())) {
+        if (Objects.equals(senderPlayer.getUniqueId(), targetPlayer.getUniqueId())) {
             sender.sendSystemMessage(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getCannotPaySelf()
             ));
             return;
         }
 
-        PokeBuilderAttribute targetAttribute = targetPlayer.getAttribute(PokeBuilderAttribute.class);
+        PokeBuilderAttribute targetAttribute = targetPlayer.getAttributeNow(PokeBuilderAttribute.class);
 
         if (targetAttribute == null) {
             return;

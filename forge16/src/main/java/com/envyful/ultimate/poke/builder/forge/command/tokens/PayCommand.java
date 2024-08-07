@@ -1,12 +1,11 @@
 package com.envyful.ultimate.poke.builder.forge.command.tokens;
 
-import com.envyful.api.command.annotate.Child;
 import com.envyful.api.command.annotate.Command;
-import com.envyful.api.command.annotate.Permissible;
 import com.envyful.api.command.annotate.executor.Argument;
 import com.envyful.api.command.annotate.executor.CommandProcessor;
 import com.envyful.api.command.annotate.executor.Completable;
 import com.envyful.api.command.annotate.executor.Sender;
+import com.envyful.api.command.annotate.permission.Permissible;
 import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.forge.command.completion.player.PlayerTabCompleter;
 import com.envyful.api.player.EnvyPlayer;
@@ -18,14 +17,12 @@ import net.minecraft.util.Util;
 import java.util.Objects;
 
 @Command(
-        value = "pay",
-        description = "§7/tokens pay <player> <amount>",
-        aliases = {
+        value = {
+                "pay",
                 "p"
         }
 )
 @Permissible("ultimate.poke.builder.command.tokens.pay")
-@Child
 public class PayCommand {
 
 
@@ -41,7 +38,7 @@ public class PayCommand {
         }
 
         EnvyPlayer<?> senderPlayer = UltimatePokeBuilderForge.getInstance().getPlayerManager().getPlayer(sender);
-        PokeBuilderAttribute senderAttribute = senderPlayer.getAttribute(UltimatePokeBuilderForge.class);
+        var senderAttribute = senderPlayer.getAttributeNow(PokeBuilderAttribute.class);
 
         if (senderAttribute == null) {
             return;
@@ -56,14 +53,14 @@ public class PayCommand {
 
         EnvyPlayer<?> targetPlayer = UltimatePokeBuilderForge.getInstance().getPlayerManager().getPlayer(target);
 
-        if (Objects.equals(senderPlayer.getUuid(), targetPlayer.getUuid())) {
+        if (Objects.equals(senderPlayer.getUniqueId(), targetPlayer.getUniqueId())) {
             sender.sendMessage(UtilChatColour.colour(
                     UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getCannotPaySelf()
             ), Util.NIL_UUID);
             return;
         }
 
-        PokeBuilderAttribute targetAttribute = targetPlayer.getAttribute(UltimatePokeBuilderForge.class);
+        var targetAttribute = targetPlayer.getAttributeNow(PokeBuilderAttribute.class);
 
         if (targetAttribute == null) {
             return;

@@ -8,10 +8,12 @@ import com.envyful.api.database.impl.SimpleHikariDatabase;
 import com.envyful.api.forge.command.ForgeCommandFactory;
 import com.envyful.api.forge.command.parser.ForgeAnnotationCommandParser;
 import com.envyful.api.forge.gui.factory.ForgeGuiFactory;
+import com.envyful.api.forge.platform.ForgePlatformHandler;
 import com.envyful.api.forge.player.ForgePlayerManager;
 import com.envyful.api.forge.player.UsernameFactory;
 import com.envyful.api.gui.factory.GuiFactory;
 import com.envyful.api.json.JsonUsernameCache;
+import com.envyful.api.platform.PlatformProxy;
 import com.envyful.api.player.SaveMode;
 import com.envyful.api.player.save.impl.JsonSaveManager;
 import com.envyful.ultimate.poke.builder.forge.command.PokeBuilderCommand;
@@ -55,7 +57,10 @@ public class UltimatePokeBuilderForge {
         UsernameFactory.setUsernameCache(new JsonUsernameCache(new File("config/UltimatePokeBuilder/usernames.json")));
         MinecraftForge.EVENT_BUS.register(this);
         instance = this;
+        PlatformProxy.setHandler(ForgePlatformHandler.getInstance());
         GuiFactory.setPlatformFactory(new ForgeGuiFactory());
+        GuiFactory.setPlayerManager(this.playerManager);
+        PlatformProxy.setPlayerManager(this.playerManager);
 
         this.loadConfig();
 

@@ -94,7 +94,7 @@ public class UltimatePokeBuilderForge {
             this.locale = YamlConfigFactory.getInstance(PokeBuilderLocale.class);
             this.guiConfig = YamlConfigFactory.getInstance(GuiConfig.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            this.logger.error("Error loading UltimatePokeBuilder configs", e);
         }
     }
 

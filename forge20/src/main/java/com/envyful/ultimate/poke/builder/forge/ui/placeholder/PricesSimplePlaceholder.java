@@ -3,8 +3,6 @@ package com.envyful.ultimate.poke.builder.forge.ui.placeholder;
 import com.envyful.api.text.parse.SimplePlaceholder;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
 
-import java.util.Map;
-
 public class PricesSimplePlaceholder implements SimplePlaceholder {
 
     public static PricesSimplePlaceholder of() {
@@ -30,29 +28,29 @@ public class PricesSimplePlaceholder implements SimplePlaceholder {
                 .replace(
                         "%per_level_cost%", String.format("%,.2f", UltimatePokeBuilderForge.getConfig().getGenderCost()));
 
-        for (Map.Entry<String, Integer> stringIntegerEntry : UltimatePokeBuilderForge.getConfig().getBallCosts().entrySet()) {
+        for (var entry : UltimatePokeBuilderForge.getConfig().getBallCosts().entrySet()) {
             name = name.replace(
-                    "%" + stringIntegerEntry.getKey() + "_cost%", String.format("%,.2f", UltimatePokeBuilderForge.getConfig().getGenderCost()));
+                    "%" + entry.getKey() + "_cost%", String.valueOf(entry.getValue()));
         }
 
-        for (Map.Entry<String, Integer> stringIntegerEntry : UltimatePokeBuilderForge.getConfig().getEvIncrementCosts().entrySet()) {
+        for (var entry : UltimatePokeBuilderForge.getConfig().getEvIncrementCosts().entrySet()) {
             name = name.replace(
-                    "%" + stringIntegerEntry.getKey() + "_cost%", String.format("%,.2f", UltimatePokeBuilderForge.getConfig().getGenderCost()));
+                    "%ev_" + entry.getKey() + "_cost%", String.valueOf(entry.getValue()));
         }
 
-        for (Map.Entry<String, Integer> stringIntegerEntry : UltimatePokeBuilderForge.getConfig().getGrowthCosts().entrySet()) {
+        for (var entry : UltimatePokeBuilderForge.getConfig().getGrowthCosts().entrySet()) {
             name = name.replace(
-                    "%" + stringIntegerEntry.getKey() + "_cost%", String.format("%,.2f", UltimatePokeBuilderForge.getConfig().getGenderCost()));
+                    "%" + entry.getKey() + "_cost%", String.valueOf(entry.getValue()));
         }
 
-        for (Map.Entry<String, Integer> stringIntegerEntry : UltimatePokeBuilderForge.getConfig().getNatureCosts().entrySet()) {
+        for (var entry : UltimatePokeBuilderForge.getConfig().getNatureCosts().entrySet()) {
             name = name.replace(
-                    "%" + stringIntegerEntry.getKey() + "_cost%", String.format("%,.2f", UltimatePokeBuilderForge.getConfig().getGenderCost()));
+                    "%" + entry.getKey() + "_cost%", String.valueOf(entry.getValue()));
         }
 
-        for (Map.Entry<String, Integer> stringIntegerEntry : UltimatePokeBuilderForge.getConfig().getIvIncrementCosts().entrySet()) {
+        for (var entry : UltimatePokeBuilderForge.getConfig().getIvIncrementCosts().entrySet()) {
             name = name.replace(
-                    "%" + stringIntegerEntry.getKey() + "_cost%", String.format("%,.2f", UltimatePokeBuilderForge.getConfig().getGenderCost()));
+                    "%iv_" + entry.getKey() + "_cost%", String.valueOf(entry.getValue()));
         }
 
         return name;

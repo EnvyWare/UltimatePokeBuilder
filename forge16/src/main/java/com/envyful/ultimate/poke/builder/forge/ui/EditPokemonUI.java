@@ -4,7 +4,10 @@ import com.envyful.api.forge.chat.UtilChatColour;
 import com.envyful.api.forge.config.UtilConfigInterface;
 import com.envyful.api.forge.config.UtilConfigItem;
 import com.envyful.api.forge.gui.item.PositionableItem;
-import com.envyful.api.forge.gui.type.*;
+import com.envyful.api.forge.gui.type.ConfirmationUI;
+import com.envyful.api.forge.gui.type.DynamicSelectionUI;
+import com.envyful.api.forge.gui.type.MultiSelectionUI;
+import com.envyful.api.forge.gui.type.TrueFalseSelectionUI;
 import com.envyful.api.forge.player.ForgeEnvyPlayer;
 import com.envyful.api.gui.factory.GuiFactory;
 import com.envyful.api.gui.pane.Pane;
@@ -13,6 +16,7 @@ import com.envyful.api.reforged.pixelmon.config.UtilPokemonPrice;
 import com.envyful.api.reforged.pixelmon.sprite.UtilSprite;
 import com.envyful.api.text.parse.SimplePlaceholder;
 import com.envyful.ultimate.poke.builder.forge.UltimatePokeBuilderForge;
+import com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI;
 import com.envyful.ultimate.poke.builder.forge.config.GuiConfig;
 import com.envyful.ultimate.poke.builder.forge.config.PokeBuilderConfig;
 import com.envyful.ultimate.poke.builder.forge.eco.handler.EcoFactory;
@@ -372,7 +376,7 @@ public class EditPokemonUI {
                 .combinedClickHandler(config.getLevelButton(), (envyPlayer, clickType) -> {
                     GuiConfig.LevelUI levelUI = UltimatePokeBuilderForge.getInstance().getGuiConfig().getLevelUI();
 
-                    NumberModificationUI.builder()
+                    var numConfig = NumberModificationUI.builder()
                             .player(player)
                             .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
                             .config(levelUI.getLevelEditAmount())
@@ -384,14 +388,14 @@ public class EditPokemonUI {
                                     UtilSprite.getPokemonElement(pokemon, levelUI.getSpriteConfig()),
                                     levelUI.getPokemonPos()
                             ))
-                            .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
-                                    pokemon,
-                                    UltimatePokeBuilderForge.getConfig().getCostPerLevel(),
-                                    pricingModifiers
-                            )))
                             .transformer(new BalancePlaceholder(player))
-                            .transformer(PricesSimplePlaceholder.of())
-                            .open();
+                            .transformer(PricesSimplePlaceholder.of());
+
+                    numConfig.transformer(PriceSimplePlaceholder.of(() -> UtilPokemonPrice.getMinPrice(
+                            pokemon,
+                            UltimatePokeBuilderForge.getConfig().getCostPerLevel() * Math.abs(pokemon.getPokemonLevel() - numConfig.currentValue()),
+                            pricingModifiers
+                    ))).open();
                 })
                 .extendedConfigItem(player, pane, config.getLevelButton());
 
@@ -650,7 +654,7 @@ public class EditPokemonUI {
             return;
         }
 
-        NumberModificationUI.builder()
+        var config = NumberModificationUI.builder()
                 .player(player)
                 .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
                 .config(evUI.getEvEditAmount())
@@ -675,10 +679,10 @@ public class EditPokemonUI {
                         return;
                     }
 
-                    PokeBuilderConfig config = UltimatePokeBuilderForge.getConfig();
+                    PokeBuilderConfig upbConfig = UltimatePokeBuilderForge.getConfig();
                     int cost = (int)UtilPokemonPrice.getMinPrice(pokemon,
-                            config.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().getStat(statsType) - value),
-                            config.getPricingModifiers());
+                            upbConfig.getEvIncrementCosts().get(s) * Math.abs(pokemon.getEVs().getStat(statsType) - value),
+                            upbConfig.getPricingModifiers());
 
                     if (!EcoFactory.hasBalance(player, cost)) {
                         open(player, pokemon);
@@ -701,11 +705,6 @@ public class EditPokemonUI {
                 .key(s)
                 .confirm(ConfirmationUI.builder().config(evUI.getConfirmConfig()))
                 .currentValue(pokemon.getEVs().getStat(statsType))
-                .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
-                        pokemon,
-                        UltimatePokeBuilderForge.getConfig().getEvIncrementCosts().values().toArray(new Integer[0])[0],
-                        UltimatePokeBuilderForge.getConfig().getPricingModifiers()
-                )))
                 .transformer((SimplePlaceholder) name -> name.replace("%current%", String.valueOf(pokemon.getEVs().getStat(statsType))))
                 .transformer(PricesSimplePlaceholder.of())
                 .displayItem(new PositionableItem(
@@ -715,8 +714,13 @@ public class EditPokemonUI {
                 .displayItem(new PositionableItem(
                         UtilConfigItem.fromConfigItem(evUI.getEvSelection().getOptions().get(s)),
                         evUI.getEditDisplayPos()
-                ))
-                .open();
+                ));
+
+        config.transformer(PriceSimplePlaceholder.of(() -> UtilPokemonPrice.getMinPrice(
+                pokemon,
+                UltimatePokeBuilderForge.getConfig().getIvIncrementCosts().get(s) * Math.abs(config.currentValue() - pokemon.getEVs().getStat(statsType)),
+                UltimatePokeBuilderForge.getConfig().getPricingModifiers()
+        ))).open();
     }
 
     private static void openIVSelect(String s, ForgeEnvyPlayer player, Pokemon pokemon) {
@@ -728,7 +732,7 @@ public class EditPokemonUI {
             return;
         }
 
-        NumberModificationUI.builder()
+        var config = NumberModificationUI.builder()
                 .player(player)
                 .playerManager(UltimatePokeBuilderForge.getInstance().getPlayerManager())
                 .config(ivUI.getIvEditAmount())
@@ -746,10 +750,10 @@ public class EditPokemonUI {
                         return;
                     }
 
-                    PokeBuilderConfig config = UltimatePokeBuilderForge.getConfig();
-                    int cost = (int)UtilPokemonPrice.getMinPrice(pokemon,
-                            config.getIvIncrementCosts().get(s) * Math.abs(pokemon.getIVs().getStat(statsType) - value),
-                            config.getPricingModifiers());
+                    var upbConfig = UltimatePokeBuilderForge.getConfig();
+                    int cost = (int) UtilPokemonPrice.getMinPrice(pokemon,
+                            upbConfig.getIvIncrementCosts().get(s) * Math.abs(pokemon.getIVs().getStat(statsType) - value),
+                            upbConfig.getPricingModifiers());
 
                     if (!EcoFactory.hasBalance(player, cost)) {
                         open(player, pokemon);
@@ -772,23 +776,21 @@ public class EditPokemonUI {
                 })
                 .key(s)
                 .confirm(ConfirmationUI.builder().config(ivUI.getConfirmConfig()))
-                .currentValue(pokemon.getIVs().getStat(statsType))
-                .transformer(PricesSimplePlaceholder.of())
-                .transformer(PriceSimplePlaceholder.of(UtilPokemonPrice.getMinPrice(
-                        pokemon,
-                        UltimatePokeBuilderForge.getConfig().getIvIncrementCosts().values().toArray(new Integer[0])[0],
-                        UltimatePokeBuilderForge.getConfig().getPricingModifiers()
-                )))
-                .transformer((SimplePlaceholder) name -> name.replace("%current%", String.valueOf(pokemon.getIVs().getStat(statsType))))
-                .displayItem(new PositionableItem(
+                .currentValue(pokemon.getIVs().getStat(statsType));
+
+        config.transformers(PricesSimplePlaceholder.of(),
+                        PriceSimplePlaceholder.of(() -> UtilPokemonPrice.getMinPrice(
+                                pokemon,
+                                UltimatePokeBuilderForge.getConfig().getIvIncrementCosts().get(s) * Math.abs(config.currentValue() - pokemon.getIVs().getStat(statsType)),
+                                UltimatePokeBuilderForge.getConfig().getPricingModifiers()
+                        )), (SimplePlaceholder) name -> name.replace("%current%", String.valueOf(pokemon.getIVs().getStat(statsType))))
+                .displayItems(new PositionableItem(
                         UtilSprite.getPokemonElement(pokemon, ivUI.getSpriteConfig()),
                         ivUI.getPokemonPos()
-                ))
-                .displayItem(new PositionableItem(
+                ), new PositionableItem(
                         UtilConfigItem.fromConfigItem(ivUI.getIvSelection().getOptions().get(s)),
                         ivUI.getEditDisplayPos()
-                ))
-                .open();
+                )).open();
     }
 
     private static BattleStatsType findStatsType(String s) {

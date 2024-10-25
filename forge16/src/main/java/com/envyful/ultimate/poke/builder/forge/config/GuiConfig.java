@@ -5,7 +5,10 @@ import com.envyful.api.config.type.ConfigInterface;
 import com.envyful.api.config.type.ConfigItem;
 import com.envyful.api.config.type.ExtendedConfigItem;
 import com.envyful.api.config.yaml.AbstractYamlConfig;
-import com.envyful.api.forge.gui.type.*;
+import com.envyful.api.forge.gui.type.ConfirmationUI;
+import com.envyful.api.forge.gui.type.DynamicSelectionUI;
+import com.envyful.api.forge.gui.type.MultiSelectionUI;
+import com.envyful.api.forge.gui.type.TrueFalseSelectionUI;
 import com.envyful.api.reforged.pixelmon.config.SpriteConfig;
 import com.envyful.api.type.Pair;
 import com.google.common.collect.Lists;
@@ -592,7 +595,7 @@ public class GuiConfig extends AbstractYamlConfig {
                 }, Lists.newArrayList(12, 13, 14, 21, 22, 23)
         );
 
-        private NumberModificationUI.NumberModificationConfig evEditAmount = new NumberModificationUI.NumberModificationConfig(
+        private com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.NumberModificationConfig evEditAmount = new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.NumberModificationConfig(
                 "UPB", 4, 252, 0,
                 ExtendedConfigItem.builder()
                         .type("minecraft:chest")
@@ -602,15 +605,15 @@ public class GuiConfig extends AbstractYamlConfig {
                         .build(),
                 new HashMap<>() {
                     {
-                        this.put("one", new NumberModificationUI.EditValueButton(ExtendedConfigItem.builder().type("minecraft:lime_stained_glass_pane").name("&a&l+1").amount(1).positions(Pair.of(4, 1)).build(), 1));
+                        this.put("one", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(ExtendedConfigItem.builder().type("minecraft:lime_stained_glass_pane").name("&a&l+1").amount(1).positions(Pair.of(4, 1)).build(), 1));
 
-                        this.put("two", new NumberModificationUI.EditValueButton(ExtendedConfigItem.builder().type("minecraft:lime_stained_glass_pane").name("&a&l+5").amount(1).positions(Pair.of(5, 1)).build(), 5));
+                        this.put("two", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(ExtendedConfigItem.builder().type("minecraft:lime_stained_glass_pane").name("&a&l+5").amount(1).positions(Pair.of(5, 1)).build(), 5));
 
-                        this.put("three", new NumberModificationUI.EditValueButton(ExtendedConfigItem.builder().type("minecraft:lime_stained_glass_pane").name("&a&l+10").amount(1).positions(Pair.of(6, 1)).build(), 10));
+                        this.put("three", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(ExtendedConfigItem.builder().type("minecraft:lime_stained_glass_pane").name("&a&l+10").amount(1).positions(Pair.of(6, 1)).build(), 10));
 
-                        this.put("four", new NumberModificationUI.EditValueButton(ExtendedConfigItem.builder().type("minecraft:lime_stained_glass_pane").name("&a&l+15").amount(1).positions(Pair.of(7, 1)).build(), 15));
+                        this.put("four", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(ExtendedConfigItem.builder().type("minecraft:lime_stained_glass_pane").name("&a&l+15").amount(1).positions(Pair.of(7, 1)).build(), 15));
 
-                        this.put("five", new NumberModificationUI.EditValueButton(
+                        this.put("five", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:red_stained_glass_pane")
                                         .name("&c&l-1")
@@ -618,7 +621,7 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(4, 2)
                                         .build(), -1));
 
-                        this.put("six", new NumberModificationUI.EditValueButton(
+                        this.put("six", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:red_stained_glass_pane")
                                         .name("&c&l-5")
@@ -626,7 +629,7 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(5, 2)
                                         .build(), -5));
 
-                        this.put("seven", new NumberModificationUI.EditValueButton(
+                        this.put("seven", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:red_stained_glass_pane")
                                         .name("&c&l-10")
@@ -634,7 +637,7 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(6, 2)
                                         .build(), -10));
 
-                        this.put("eight", new NumberModificationUI.EditValueButton(
+                        this.put("eight", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:red_stained_glass_pane")
                                         .name("&c&l-15")
@@ -668,7 +671,7 @@ public class GuiConfig extends AbstractYamlConfig {
             return this.confirmConfig;
         }
 
-        public NumberModificationUI.NumberModificationConfig getEvEditAmount() {
+        public com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.NumberModificationConfig getEvEditAmount() {
             return this.evEditAmount;
         }
 
@@ -684,7 +687,7 @@ public class GuiConfig extends AbstractYamlConfig {
 
         private MultiSelectionUI.MultiSelectionConfig ivSelection = new MultiSelectionUI.MultiSelectionConfig(
                 "UltimatePokeBuilder", 4,
-                new HashMap<String, ConfigItem>() {
+                new HashMap<>() {
                     {
                         this.put("hp", ConfigItem.builder().type("pixelmon:power_weight").name("&a&lHP").amount(1).build());
                         this.put("attack", ConfigItem.builder().type("pixelmon:power_bracer").name("&c&lAttack").amount(1).build());
@@ -696,7 +699,7 @@ public class GuiConfig extends AbstractYamlConfig {
                 }, Lists.newArrayList(12, 13, 14, 21, 22, 23)
         );
 
-        private NumberModificationUI.NumberModificationConfig ivEditAmount = new NumberModificationUI.NumberModificationConfig(
+        private com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.NumberModificationConfig ivEditAmount = new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.NumberModificationConfig(
                 "UPB", 4, 31, 0,
                 ExtendedConfigItem.builder()
                         .type("minecraft:chest")
@@ -706,7 +709,7 @@ public class GuiConfig extends AbstractYamlConfig {
                         .build(),
                 new HashMap<>() {
                     {
-                        this.put("one", new NumberModificationUI.EditValueButton(
+                        this.put("one", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:lime_stained_glass_pane")
                                         .name("&a&l+1")
@@ -714,7 +717,7 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(4, 1)
                                         .build(), 1));
 
-                        this.put("two", new NumberModificationUI.EditValueButton(
+                        this.put("two", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:lime_stained_glass_pane")
                                         .name("&a&l+5")
@@ -722,7 +725,7 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(5, 1)
                                         .build(), 5));
 
-                        this.put("three", new NumberModificationUI.EditValueButton(
+                        this.put("three", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:lime_stained_glass_pane")
                                         .name("&a&l+10")
@@ -730,7 +733,7 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(6, 1)
                                         .build(), 10));
 
-                        this.put("four", new NumberModificationUI.EditValueButton(
+                        this.put("four", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:lime_stained_glass_pane")
                                         .name("&a&l+15")
@@ -738,7 +741,7 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(7, 1)
                                         .build(), 15));
 
-                        this.put("five", new NumberModificationUI.EditValueButton(
+                        this.put("five", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:red_stained_glass_pane")
                                         .name("&c&l-1")
@@ -746,14 +749,14 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(4, 2)
                                         .build(), -1));
 
-                        this.put("six", new NumberModificationUI.EditValueButton(
+                        this.put("six", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:red_stained_glass_pane")
                                         .name("&c&l-5")
                                         .amount(1)
                                         .positions(5, 2)
                                         .build(), -5));
-                        this.put("seven", new NumberModificationUI.EditValueButton(
+                        this.put("seven", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:red_stained_glass_pane")
                                         .name("&c&l-10")
@@ -761,7 +764,7 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(6, 2)
                                         .build(), -10));
 
-                        this.put("eight", new NumberModificationUI.EditValueButton(
+                        this.put("eight", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:red_stained_glass_pane")
                                         .name("&c&l-15")
@@ -795,7 +798,7 @@ public class GuiConfig extends AbstractYamlConfig {
             return this.confirmConfig;
         }
 
-        public NumberModificationUI.NumberModificationConfig getIvEditAmount() {
+        public com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.NumberModificationConfig getIvEditAmount() {
             return this.ivEditAmount;
         }
 
@@ -876,7 +879,7 @@ public class GuiConfig extends AbstractYamlConfig {
 
         private ConfirmationUI.ConfirmConfig confirmConfig = new ConfirmationUI.ConfirmConfig();
 
-        private NumberModificationUI.NumberModificationConfig levelEditAmount = new NumberModificationUI.NumberModificationConfig(
+        private com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.NumberModificationConfig levelEditAmount = new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.NumberModificationConfig(
                 "UPB", 4, 100, 1,
                 ExtendedConfigItem.builder()
                         .type("minecraft:chest")
@@ -886,7 +889,7 @@ public class GuiConfig extends AbstractYamlConfig {
                         .build(),
                 new HashMap<>() {
                     {
-                        this.put("one", new NumberModificationUI.EditValueButton(
+                        this.put("one", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:lime_stained_glass_pane")
                                         .name("&a&l+1")
@@ -894,7 +897,7 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(4, 1)
                                         .build(), 1));
 
-                        this.put("two", new NumberModificationUI.EditValueButton(
+                        this.put("two", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:lime_stained_glass_pane")
                                         .name("&a&l+5")
@@ -902,7 +905,7 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(5, 1)
                                         .build(), 5));
 
-                        this.put("three", new NumberModificationUI.EditValueButton(
+                        this.put("three", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:lime_stained_glass_pane")
                                         .name("&a&l+10")
@@ -910,7 +913,7 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(6, 1)
                                         .build(), 10));
 
-                        this.put("four", new NumberModificationUI.EditValueButton(
+                        this.put("four", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:lime_stained_glass_pane")
                                         .name("&a&l+25")
@@ -918,7 +921,7 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(7, 1)
                                         .build(), 25));
 
-                        this.put("five", new NumberModificationUI.EditValueButton(
+                        this.put("five", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:red_stained_glass_pane")
                                         .name("&c&l-1")
@@ -926,7 +929,7 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(4, 2)
                                         .build(), -1));
 
-                        this.put("six", new NumberModificationUI.EditValueButton(
+                        this.put("six", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:red_stained_glass_pane")
                                         .name("&c&l-5")
@@ -934,14 +937,14 @@ public class GuiConfig extends AbstractYamlConfig {
                                         .positions(5, 2)
                                         .build(), -5));
 
-                        this.put("seven", new NumberModificationUI.EditValueButton(
+                        this.put("seven", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:red_stained_glass_pane")
                                         .name("&c&l-10")
                                         .amount(1)
                                         .positions(6, 2)
                                         .build(), -10));
-                        this.put("eight", new NumberModificationUI.EditValueButton(
+                        this.put("eight", new com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.EditValueButton(
                                 ExtendedConfigItem.builder()
                                         .type("minecraft:red_stained_glass_pane")
                                         .name("&c&l-25")
@@ -970,7 +973,7 @@ public class GuiConfig extends AbstractYamlConfig {
             return this.confirmConfig;
         }
 
-        public NumberModificationUI.NumberModificationConfig getLevelEditAmount() {
+        public com.envyful.ultimate.poke.builder.forge.api.NumberModificationUI.NumberModificationConfig getLevelEditAmount() {
             return this.levelEditAmount;
         }
 

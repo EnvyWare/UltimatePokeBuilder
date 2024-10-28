@@ -718,7 +718,7 @@ public class EditPokemonUI {
 
         config.transformer(PriceSimplePlaceholder.of(() -> UtilPokemonPrice.getMinPrice(
                 pokemon,
-                UltimatePokeBuilderForge.getConfig().getIvIncrementCosts().get(s) * Math.abs(config.currentValue() - pokemon.getEVs().getStat(statsType)),
+                UltimatePokeBuilderForge.getConfig().getEvIncrementCosts().get(s) * Math.abs(config.currentValue() - pokemon.getEVs().getStat(statsType)),
                 UltimatePokeBuilderForge.getConfig().getPricingModifiers()
         ))).open();
     }

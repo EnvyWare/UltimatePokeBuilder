@@ -2,7 +2,7 @@ subprojects {
     apply plugin: 'java'
 
     group = 'com.envyful.ultimate.poke.builder'
-    version = '2.4.5'
+    version = '2.4.6'
 
     ext {
         forgeVersion = "none"

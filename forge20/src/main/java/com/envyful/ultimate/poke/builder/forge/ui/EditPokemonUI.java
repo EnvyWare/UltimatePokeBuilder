@@ -632,6 +632,7 @@ public class EditPokemonUI {
 
         EcoFactory.takeBalance(player, cost);
         pokemon.setAbility(ability);
+        pokemon.overrideAbilitySlot();
         player.message(UtilChatColour.colour(
                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getAbilityChanged()
                         .replace("%cost%", cost + "")

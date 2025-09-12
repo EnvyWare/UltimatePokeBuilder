@@ -669,7 +669,7 @@ public class EditPokemonUI {
                         return;
                     }
 
-                    if (value > 0 && (pokemon.getEVs().getTotal() + value) > 510) {
+                    if (value > 0 && (pokemon.getEVs().getTotal() - pokemon.getEVs().getStat(statsType) + value) > 510) {
                         open(player, pokemon);
                         player.message(UtilChatColour.colour(
                                 UltimatePokeBuilderForge.getInstance().getLocale().getMessages().getEvsMax()));
